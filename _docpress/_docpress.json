@@ -2,13 +2,13 @@
   "toc": {
     "sections": [
       {
-        "title": "Node.js ESM",
+        "title": "Migration node.js project to ESM",
         "sections": [
           {
-            "title": "--experimental-specifier-resolution",
-            "source": "docs/experimental-specifier-resolution.md",
-            "url": "experimental-specifier-resolution.html",
-            "slug": "experimental-specifier-resolution",
+            "title": "Part 1: --experimental-specifier-resolution",
+            "source": "docs/node-migration-esm-01.md",
+            "url": "node-migration-esm-01.html",
+            "slug": "node-migration-esm-01",
             "headings": [
               {
                 "title": "Motivation",
@@ -16,19 +16,26 @@
                 "id": "motivation"
               },
               {
-                "title": "Surprice",
+                "title": "Problem",
                 "depth": 2,
-                "id": "surprice"
+                "id": "problem"
               },
               {
-                "title": "CLI parameter to the rescue",
+                "title": "Solution",
                 "depth": 2,
-                "id": "cli-parameter-to-the-rescue"
-              },
-              {
-                "title": "POC",
-                "depth": 2,
-                "id": "poc"
+                "id": "solution",
+                "headings": [
+                  {
+                    "title": "CLI parameter to the rescue!",
+                    "depth": 3,
+                    "id": "cli-parameter-to-the-rescue!"
+                  },
+                  {
+                    "title": "POC",
+                    "depth": 3,
+                    "id": "poc"
+                  }
+                ]
               },
               {
                 "title": "Conclusion",
@@ -42,11 +49,11 @@
     ]
   },
   "index": {
-    "experimental-specifier-resolution.html": {
-      "source": "docs/experimental-specifier-resolution.md",
-      "title": "--experimental-specifier-resolution - Node.js ESM",
-      "pageTitle": "--experimental-specifier-resolution",
-      "slug": "experimental-specifier-resolution",
+    "node-migration-esm-01.html": {
+      "source": "docs/node-migration-esm-01.md",
+      "title": "Part 1: --experimental-specifier-resolution - Migration node.js project to ESM",
+      "pageTitle": "Part 1: --experimental-specifier-resolution",
+      "slug": "node-migration-esm-01",
       "headings": [
         {
           "title": "Motivation",
@@ -54,19 +61,26 @@
           "id": "motivation"
         },
         {
-          "title": "Surprice",
+          "title": "Problem",
           "depth": 2,
-          "id": "surprice"
+          "id": "problem"
         },
         {
-          "title": "CLI parameter to the rescue",
+          "title": "Solution",
           "depth": 2,
-          "id": "cli-parameter-to-the-rescue"
-        },
-        {
-          "title": "POC",
-          "depth": 2,
-          "id": "poc"
+          "id": "solution",
+          "headings": [
+            {
+              "title": "CLI parameter to the rescue!",
+              "depth": 3,
+              "id": "cli-parameter-to-the-rescue!"
+            },
+            {
+              "title": "POC",
+              "depth": 3,
+              "id": "poc"
+            }
+          ]
         },
         {
           "title": "Conclusion",
@@ -77,7 +91,7 @@
     }
   },
   "sources": {
-    "docs/experimental-specifier-resolution.md": "experimental-specifier-resolution.html",
-    "docs/experimental-specifier-resolution.md.backup": "experimental-specifier-resolution.md.backup"
+    "docs/node-migration-esm-01.md": "node-migration-esm-01.html",
+    "docs/node-migration-esm-01.md.backup": "node-migration-esm-01.md.backup"
   }
 }
