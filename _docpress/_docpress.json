@@ -1,0 +1,83 @@
+{
+  "toc": {
+    "sections": [
+      {
+        "title": "Node.js ESM",
+        "sections": [
+          {
+            "title": "--experimental-specifier-resolution",
+            "source": "docs/experimental-specifier-resolution.md",
+            "url": "experimental-specifier-resolution.html",
+            "slug": "experimental-specifier-resolution",
+            "headings": [
+              {
+                "title": "Motivation",
+                "depth": 2,
+                "id": "motivation"
+              },
+              {
+                "title": "Surprice",
+                "depth": 2,
+                "id": "surprice"
+              },
+              {
+                "title": "CLI parameter to the rescue",
+                "depth": 2,
+                "id": "cli-parameter-to-the-rescue"
+              },
+              {
+                "title": "POC",
+                "depth": 2,
+                "id": "poc"
+              },
+              {
+                "title": "Conclusion",
+                "depth": 2,
+                "id": "conclusion"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "index": {
+    "experimental-specifier-resolution.html": {
+      "source": "docs/experimental-specifier-resolution.md",
+      "title": "--experimental-specifier-resolution - Node.js ESM",
+      "pageTitle": "--experimental-specifier-resolution",
+      "slug": "experimental-specifier-resolution",
+      "headings": [
+        {
+          "title": "Motivation",
+          "depth": 2,
+          "id": "motivation"
+        },
+        {
+          "title": "Surprice",
+          "depth": 2,
+          "id": "surprice"
+        },
+        {
+          "title": "CLI parameter to the rescue",
+          "depth": 2,
+          "id": "cli-parameter-to-the-rescue"
+        },
+        {
+          "title": "POC",
+          "depth": 2,
+          "id": "poc"
+        },
+        {
+          "title": "Conclusion",
+          "depth": 2,
+          "id": "conclusion"
+        }
+      ]
+    }
+  },
+  "sources": {
+    "docs/experimental-specifier-resolution.md": "experimental-specifier-resolution.html",
+    "docs/experimental-specifier-resolution.md.backup": "experimental-specifier-resolution.md.backup"
+  }
+}
