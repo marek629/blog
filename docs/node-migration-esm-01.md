@@ -1,3 +1,7 @@
+![](img/header-es-module.png)
+
+*Written on 2021-05-22*
+
 # Migration node.js project to ESM - part 1
 
 ESM - ECMAScript Modules are a modern way to manage the binding of JavaScript code written in separated files, so-called modules.
@@ -62,13 +66,13 @@ Next, let's create a directory `foo` and two files included:
 And finally, let's run:
 
 ```sh
-$ node --experimental-specifier-resolution app.js
+$ node --experimental-specifier-resolution=node app.js
 ```
 
 I can also skip file extension at node CLI. It's funny for me.
 
 ```sh
-$ node --experimental-specifier-resolution app
+$ node --experimental-specifier-resolution=node app
 ```
 
 In both cases node will print to stdout:

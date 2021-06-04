@@ -1955,6 +1955,11 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
+highlight.js@^10.7.2:
+  version "10.7.2"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-10.7.2.tgz#89319b861edc66c48854ed1e6da21ea89f847360"
+  integrity sha512-oFLl873u4usRM9K63j4ME9u3etNF0PLiJhSQ8rdfuL51Wn3zkD6drf9ZW0dOzjnZI22YYG24z30JcmfCZjMgYg==
+
 highlight.js@^9.13.1:
   version "9.18.5"
   resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.18.5.tgz#d18a359867f378c138d6819edfc2a8acd5f29825"
@@ -2745,7 +2750,7 @@ meow@^5.0.0:
     trim-newlines "^2.0.0"
     yargs-parser "^10.0.0"
 
-"metalsmith-start@github:rstacruz/metalsmith-start#e88a7cdbb20aac1db176c121b429008073d8e9eb":
+metalsmith-start@rstacruz/metalsmith-start#e88a7cdbb20aac1db176c121b429008073d8e9eb:
   version "2.0.1"
   resolved "https://codeload.github.com/rstacruz/metalsmith-start/tar.gz/e88a7cdbb20aac1db176c121b429008073d8e9eb"
   dependencies:

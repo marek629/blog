@@ -92,6 +92,7 @@
   },
   "sources": {
     "docs/node-migration-esm-01.md": "node-migration-esm-01.html",
-    "docs/node-migration-esm-01.md.backup": "node-migration-esm-01.md.backup"
+    "docs/node-migration-esm-01.md.backup": "node-migration-esm-01.md.backup",
+    "docs/img/header-es-module.png": "img/header-es-module.png"
   }
 }

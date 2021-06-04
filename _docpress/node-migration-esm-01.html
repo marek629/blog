@@ -45,7 +45,9 @@
           <div class="right">
           </div>
         </div>
-        <div class="markdown-body"><h1 id="migration-node.js-project-to-esm-part-1">Migration node.js project to ESM - part 1</h1>
+        <div class="markdown-body"><p><img src="img/header-es-module.png" alt></p>
+<p><em>Written on 2021-05-22</em></p>
+<h1 id="migration-node.js-project-to-esm-part-1">Migration node.js project to ESM - part 1</h1>
 <p>ESM - ECMAScript Modules are a modern way to manage the binding of JavaScript code written in separated files, so-called modules.</p>
 <h2 id="motivation">Motivation</h2>
 <p>After working on modern frontend applications for a while I started to write backend application in node.js using CommonJS (and of course require function calls). A few projects later I want to write code in a similar way to frontend code style, so I need to move to ESM (import and export statements).</p>
@@ -87,10 +89,10 @@
 </li>
 </ul>
 <p>And finally, let&apos;s run:</p>
-<pre><code class="lang-sh">$ node --experimental-specifier-resolution app.js
+<pre><code class="lang-sh">$ node --experimental-specifier-resolution=node app.js
 </code></pre>
 <p>I can also skip file extension at node CLI. It&apos;s funny for me.</p>
-<pre><code class="lang-sh">$ node --experimental-specifier-resolution app
+<pre><code class="lang-sh">$ node --experimental-specifier-resolution=node app
 </code></pre>
 <p>In both cases node will print to stdout:</p>
 <pre><code class="lang-sh">{ bar: { name: <span class="pl-s">&apos;bar&apos;</span>, <span class="pl-c1">type</span>: <span class="pl-s">&apos;exported constant&apos;</span> } }
