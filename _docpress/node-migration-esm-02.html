@@ -54,17 +54,17 @@
 <h2 id="motivation">Motivation</h2>
 <p>My motivation was described in <a href="node-migration-esm-01.html">part 1</a> of the series.</p>
 <h2 id="problem">Problem</h2>
-<p>The second thing that surprised me while migrating to ESM my node.js project was a inability to usage of <code>__dirname</code> and <code>__filename</code> build-in globals by node&apos;s runtime.</p>
+<p>The second thing that surprised me while migrating to ESM my node.js project was the inability to the usage of <code>__dirname</code> and <code>__filename</code> build-in globals by node&apos;s runtime.</p>
 <h2 id="solution">Solution</h2>
 <h3 id="own-implementation">Own implementation</h3>
-<p>There is a way to implement behaviour of <code>__dirname</code> and <code>__filename</code> globals.
+<p>There is a way to implement the behavior of <code>__dirname</code> and <code>__filename</code> globals.
 It&apos;s based on <code>import.meta</code> object that exposes context-specific metadata of ES module.
-The metadata object contains one field - URL contains the module file path as a string.
+The metadata object contains one field - <code>url</code> contains the module file path as a string.
 The <code>url</code> field could be transformed to <code>URL</code> object as you can see on example:</p>
 <pre><code class="lang-JS"><span class="pl-c1">console</span>.log(<span class="pl-s">&apos;meta&apos;</span>, <span class="pl-k">import</span>.meta)
 <span class="pl-c1">console</span>.log(<span class="pl-s">&apos;URL&apos;</span>, <span class="pl-k">new</span> URL(<span class="pl-k">import</span>.meta.url))
 </code></pre>
-<p>What will produce output:</p>
+<p>What will produce the output:</p>
 <pre><code>meta [Object: null prototype] {
   url: &apos;file:///home/marek/demo/esm.js&apos;
 }
@@ -83,7 +83,7 @@ URL URL {
   hash: &apos;&apos;
 }
 </code></pre>
-<p>This kind of solution was described in good way by David Herron in <a href="https://techsparx.com/nodejs/esnext/dirname-es-modules.html">him blog post</a>.</p>
+<p>This kind of solution was described in a good way by David Herron in <a href="https://techsparx.com/nodejs/esnext/dirname-es-modules.html">his blog post</a>.</p>
 <p>In general, this situation is caused by no node&apos;s module wrapper in ESM mode.</p>
 <p>References:</p>
 <ul>
@@ -92,14 +92,14 @@ URL URL {
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import.meta">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import.meta</a></li>
 <li><a href="https://nodejs.org/api/modules.html#modules_the_module_wrapper">https://nodejs.org/api/modules.html#modules_the_module_wrapper</a></li>
 </ul>
-<h3 id="third-party-solution">Third party solution</h3>
-<p>But before we will start own implementation, let&apos;s check third party solutions published on NPM registry!
+<h3 id="third-party-solution">Third-party solution</h3>
+<p>But before we will start our implementation, let&apos;s check third-party solutions published on the NPM registry!
 And there is our perfect solution: <code>dirname-filename-esm</code>.</p>
 <p>Why it is the perfect solution?
-It&apos;s simple - it&apos;s written as open source and well tested by the community.
+It&apos;s simple - it&apos;s written as open-source and well tested by the community.
 So that means it&apos;s tested in some weird and rare edge cases.
 And you get TypeScript support out of the box.
-This is my first choose before writing code by myself.</p>
+This is my first choice before writing code by myself.</p>
 <p>Usage example:</p>
 <pre><code class="lang-JS"><span class="pl-k">import</span> { dirname, filename } <span class="pl-k">from</span> <span class="pl-s">&apos;dirname-filename-esm&apos;</span>
 
@@ -113,17 +113,17 @@ This is my first choose before writing code by myself.</p>
 <li><a href="https://www.npmjs.com/package/dirname-filename-esm">https://www.npmjs.com/package/dirname-filename-esm</a></li>
 </ul>
 <h2 id="conclusion">Conclusion</h2>
-<p>The example of this small library follow to simple conclusion.
-Always as you have the possibility to use third party software - use it!</p>
-<p>If you think that risk of missing third party dependencies is urgent for your project, please consider some trade-off. For example you can track <code>node_modules</code> directory by your VCS, probably <code>git</code>.</p>
-<p>Of course it would much harder to learn to use of a big, complicated software as your 3rd party dependency.
-And it requires much bigger time to consider.
-Maybe you should choose a another solution from the market?
-May be not?
+<p>The example of this small library follows a simple conclusion.
+Always as you can use third party software - use it!</p>
+<p>If you think that the risk of missing third-party dependencies is urgent for your project, please consider some trade-offs. For example, you can track <code>node_modules</code> directory by your VCS, probably <code>git</code>.</p>
+<p>Of course, it would much harder to learn to use a big, complicated software as your 3rd party dependency.
+And it requires a much bigger time to consider.
+Maybe you should choose another solution from the market?
+Maybe not?
 Who knows?
-It&apos;s theme for many another articles.</p>
-<p>Anyway, probably always time needed to learn a finished software would be smaller than time needed to write and test dedicated software.
-At least as long as the ready software fulfil your all requirements.</p>
+It&apos;s a theme for many other articles.</p>
+<p>Anyway, probably always time needed to learn a finished software would be smaller than the time needed to write and test dedicated software.
+At least as long as the ready software fulfills your all requirements.</p>
 
         </div>
         <div class="footer-nav">
