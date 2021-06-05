@@ -43,6 +43,46 @@
                 "id": "conclusion"
               }
             ]
+          },
+          {
+            "title": "Part 2: __dirname and __filename",
+            "source": "docs/node-migration-esm-02.md",
+            "url": "node-migration-esm-02.html",
+            "slug": "node-migration-esm-02",
+            "headings": [
+              {
+                "title": "Motivation",
+                "depth": 2,
+                "id": "motivation"
+              },
+              {
+                "title": "Problem",
+                "depth": 2,
+                "id": "problem"
+              },
+              {
+                "title": "Solution",
+                "depth": 2,
+                "id": "solution",
+                "headings": [
+                  {
+                    "title": "Own implementation",
+                    "depth": 3,
+                    "id": "own-implementation"
+                  },
+                  {
+                    "title": "Third party solution",
+                    "depth": 3,
+                    "id": "third-party-solution"
+                  }
+                ]
+              },
+              {
+                "title": "Conclusion",
+                "depth": 2,
+                "id": "conclusion"
+              }
+            ]
           }
         ]
       }
@@ -88,11 +128,53 @@
           "id": "conclusion"
         }
       ]
+    },
+    "node-migration-esm-02.html": {
+      "source": "docs/node-migration-esm-02.md",
+      "title": "Part 2: __dirname and __filename - Migration node.js project to ESM",
+      "pageTitle": "Part 2: __dirname and __filename",
+      "slug": "node-migration-esm-02",
+      "headings": [
+        {
+          "title": "Motivation",
+          "depth": 2,
+          "id": "motivation"
+        },
+        {
+          "title": "Problem",
+          "depth": 2,
+          "id": "problem"
+        },
+        {
+          "title": "Solution",
+          "depth": 2,
+          "id": "solution",
+          "headings": [
+            {
+              "title": "Own implementation",
+              "depth": 3,
+              "id": "own-implementation"
+            },
+            {
+              "title": "Third party solution",
+              "depth": 3,
+              "id": "third-party-solution"
+            }
+          ]
+        },
+        {
+          "title": "Conclusion",
+          "depth": 2,
+          "id": "conclusion"
+        }
+      ]
     }
   },
   "sources": {
     "docs/node-migration-esm-01.md": "node-migration-esm-01.html",
+    "docs/node-migration-esm-02.md": "node-migration-esm-02.html",
     "docs/node-migration-esm-01.md.backup": "node-migration-esm-01.md.backup",
+    "docs/node-migration-esm-02.md.backup": "node-migration-esm-02.md.backup",
     "docs/img/header-es-module.png": "img/header-es-module.png"
   }
 }

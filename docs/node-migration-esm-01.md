@@ -8,9 +8,12 @@ ESM - ECMAScript Modules are a modern way to manage the binding of JavaScript co
 
 ## Motivation
 
-After working on modern frontend applications for a while I started to write backend application in node.js using CommonJS (and of course require function calls). A few projects later I want to write code in a similar way to frontend code style, so I need to move to ESM (import and export statements).
+After working on modern frontend applications for a while I started to write backend application in node.js using CommonJS (and of course require function calls).
+A few projects later I want to write code in a similar way to frontend code style, so I need to move to ESM (import and export statements).
 
-Node.js can read ESM by default since version 12, so any building tools (i.e. babel) is not required. One thing I must do was change (or rather add) property in `package.json` of my project:
+Node.js can read ESM by default since version 12, so any building tools (i.e. babel) is not required.
+One thing I must do was change (or rather add) property in `package.json` of my project:
+
 ```JSON
 {
   "type": "module"
@@ -19,7 +22,8 @@ Node.js can read ESM by default since version 12, so any building tools (i.e. ba
 
 ## Problem
 
-The first thing that surprised me while migrating to ESM my node.js project was a need of adding file extension after replacement `require` function call to import statement. However, it would be nonsense to add a `.js` file extension at each import occurrence.
+The first thing that surprised me while migrating to ESM my node.js project was a need of adding file extension after replacement `require` function call to import statement.
+However, it would be nonsense to add a `.js` file extension at each import occurrence.
 
 ## Solution
 
@@ -31,7 +35,8 @@ Since node version 13.4.0, 12.16.0 we can use:
 --es-module-specifier-resolution=[mode], --experimental-specifier-resolution=[mode]
 ```
 
-Value of mode could be one of two options: *explicit* (default) or *node*. For our case node value is a perfect choice.
+Value of mode could be one of two options: *explicit* (default) or *node*.
+For our case node value is a perfect choice.
 
 References:
 
@@ -87,4 +92,5 @@ Described --experimental-specifier-resolution CLI switch works for directories a
 
 It's still flagged as experimental but hopefully, it will be changed in future releases of node.
 
-So is it production-ready? It depends on risk analytics at your organization and other politics. When your position is careful you should consider build-time transformations (JavaScript transpiler like babel or migrate to TypeScript) instead of node runtime adjustments.
+So is it production-ready? It depends on risk analytics at your organization and other politics.
+When your position is careful you should consider build-time transformations (JavaScript transpiler like babel or migrate to TypeScript) instead of node runtime adjustments.

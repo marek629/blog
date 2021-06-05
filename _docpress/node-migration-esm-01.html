@@ -34,6 +34,8 @@
                       </li>
                     </ul>
                   </li>
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-02" href="node-migration-esm-02.html">Part 2: __dirname and __filename</a>
+                  </li>
                 </ul>
               </li>
             </ul>
@@ -50,20 +52,24 @@
 <h1 id="migration-node.js-project-to-esm-part-1">Migration node.js project to ESM - part 1</h1>
 <p>ESM - ECMAScript Modules are a modern way to manage the binding of JavaScript code written in separated files, so-called modules.</p>
 <h2 id="motivation">Motivation</h2>
-<p>After working on modern frontend applications for a while I started to write backend application in node.js using CommonJS (and of course require function calls). A few projects later I want to write code in a similar way to frontend code style, so I need to move to ESM (import and export statements).</p>
-<p>Node.js can read ESM by default since version 12, so any building tools (i.e. babel) is not required. One thing I must do was change (or rather add) property in <code>package.json</code> of my project:</p>
+<p>After working on modern frontend applications for a while I started to write backend application in node.js using CommonJS (and of course require function calls).
+A few projects later I want to write code in a similar way to frontend code style, so I need to move to ESM (import and export statements).</p>
+<p>Node.js can read ESM by default since version 12, so any building tools (i.e. babel) is not required.
+One thing I must do was change (or rather add) property in <code>package.json</code> of my project:</p>
 <pre><code class="lang-JSON">{
   <span class="hljs-attr">&quot;type&quot;</span>: <span class="pl-s">&quot;module&quot;</span>
 }
 </code></pre>
 <h2 id="problem">Problem</h2>
-<p>The first thing that surprised me while migrating to ESM my node.js project was a need of adding file extension after replacement <code>require</code> function call to import statement. However, it would be nonsense to add a <code>.js</code> file extension at each import occurrence.</p>
+<p>The first thing that surprised me while migrating to ESM my node.js project was a need of adding file extension after replacement <code>require</code> function call to import statement.
+However, it would be nonsense to add a <code>.js</code> file extension at each import occurrence.</p>
 <h2 id="solution">Solution</h2>
 <h3 id="cli-parameter-to-the-rescue!">CLI parameter to the rescue!</h3>
 <p>Since node version 13.4.0, 12.16.0 we can use:</p>
 <pre><code>--es-module-specifier-resolution=[mode], --experimental-specifier-resolution=[mode]
 </code></pre>
-<p>Value of mode could be one of two options: <em>explicit</em> (default) or <em>node</em>. For our case node value is a perfect choice.</p>
+<p>Value of mode could be one of two options: <em>explicit</em> (default) or <em>node</em>.
+For our case node value is a perfect choice.</p>
 <p>References:</p>
 <ul>
 <li><a href="https://nodejs.org/dist/latest-v16.x/docs/api/cli.html#cli_experimental_specifier_resolution_mode">https://nodejs.org/dist/latest-v16.x/docs/api/cli.html#cli_experimental_specifier_resolution_mode</a></li>
@@ -100,8 +106,12 @@
 <h2 id="conclusion">Conclusion</h2>
 <p>Described --experimental-specifier-resolution CLI switch works for directories as well as both file extensions (<code>js</code> and <code>mjs</code>).</p>
 <p>It&apos;s still flagged as experimental but hopefully, it will be changed in future releases of node.</p>
-<p>So is it production-ready? It depends on risk analytics at your organization and other politics. When your position is careful you should consider build-time transformations (JavaScript transpiler like babel or migrate to TypeScript) instead of node runtime adjustments.</p>
+<p>So is it production-ready? It depends on risk analytics at your organization and other politics.
+When your position is careful you should consider build-time transformations (JavaScript transpiler like babel or migrate to TypeScript) instead of node runtime adjustments.</p>
 
+        </div>
+        <div class="footer-nav">
+          <div class="right"><a href="node-migration-esm-02.html"><span class="label">Next: </span><span class="title">Part 2: __dirname and __filename</span></a></div>
         </div>
       </div>
     </div>
