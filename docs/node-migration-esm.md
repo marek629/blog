@@ -8,8 +8,8 @@ ESM - ECMAScript Modules are a modern way to manage the binding of JavaScript co
 
 ## Articles
 
-This is a small artile series about migration a node.js project from CommonJS type into module type.
-Following articles is available now:
+This is a small article series about the migration of a node.js project from CommonJS type into module type.
+The following articles is available now:
 
 * [Part 1: --experimental-specifier-resolution](node-migration-esm-01.md)
 * [Part 2: __dirname and __filename](node-migration-esm-02.md)
