@@ -26,6 +26,16 @@
       },
       {
         "title": "Migration node.js project to ESM",
+        "source": "docs/node-migration-esm.md",
+        "url": "node-migration-esm.html",
+        "slug": "node-migration-esm",
+        "headings": [
+          {
+            "title": "Articles",
+            "depth": 2,
+            "id": "articles"
+          }
+        ],
         "sections": [
           {
             "title": "Part 1: --experimental-specifier-resolution",
@@ -135,6 +145,19 @@
         }
       ]
     },
+    "node-migration-esm.html": {
+      "source": "docs/node-migration-esm.md",
+      "title": "Migration node.js project to ESM - About",
+      "pageTitle": "Migration node.js project to ESM",
+      "slug": "node-migration-esm",
+      "headings": [
+        {
+          "title": "Articles",
+          "depth": 2,
+          "id": "articles"
+        }
+      ]
+    },
     "node-migration-esm-01.html": {
       "source": "docs/node-migration-esm-01.md",
       "title": "Part 1: --experimental-specifier-resolution - About",
@@ -218,6 +241,7 @@
   },
   "sources": {
     "docs/index.md": "index.html",
+    "docs/node-migration-esm.md": "node-migration-esm.html",
     "docs/node-migration-esm-01.md": "node-migration-esm-01.html",
     "docs/node-migration-esm-02.md": "node-migration-esm-02.html",
     "docs/node-migration-esm-01.md.backup": "node-migration-esm-01.md.backup",
