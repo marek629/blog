@@ -2,6 +2,29 @@
   "toc": {
     "sections": [
       {
+        "title": "About",
+        "source": "docs/index.md",
+        "url": "index.html",
+        "slug": "index",
+        "headings": [
+          {
+            "title": "About me",
+            "depth": 2,
+            "id": "about-me"
+          },
+          {
+            "title": "My motivation",
+            "depth": 2,
+            "id": "my-motivation"
+          },
+          {
+            "title": "What are you doing here?",
+            "depth": 2,
+            "id": "what-are-you-doing-here"
+          }
+        ]
+      },
+      {
         "title": "Migration node.js project to ESM",
         "sections": [
           {
@@ -71,7 +94,7 @@
                     "id": "own-implementation"
                   },
                   {
-                    "title": "Third party solution",
+                    "title": "Third-party solution",
                     "depth": 3,
                     "id": "third-party-solution"
                   }
@@ -89,9 +112,32 @@
     ]
   },
   "index": {
+    "index.html": {
+      "source": "docs/index.md",
+      "title": "About",
+      "pageTitle": "About",
+      "slug": "index",
+      "headings": [
+        {
+          "title": "About me",
+          "depth": 2,
+          "id": "about-me"
+        },
+        {
+          "title": "My motivation",
+          "depth": 2,
+          "id": "my-motivation"
+        },
+        {
+          "title": "What are you doing here?",
+          "depth": 2,
+          "id": "what-are-you-doing-here"
+        }
+      ]
+    },
     "node-migration-esm-01.html": {
       "source": "docs/node-migration-esm-01.md",
-      "title": "Part 1: --experimental-specifier-resolution - Migration node.js project to ESM",
+      "title": "Part 1: --experimental-specifier-resolution - About",
       "pageTitle": "Part 1: --experimental-specifier-resolution",
       "slug": "node-migration-esm-01",
       "headings": [
@@ -131,7 +177,7 @@
     },
     "node-migration-esm-02.html": {
       "source": "docs/node-migration-esm-02.md",
-      "title": "Part 2: __dirname and __filename - Migration node.js project to ESM",
+      "title": "Part 2: __dirname and __filename - About",
       "pageTitle": "Part 2: __dirname and __filename",
       "slug": "node-migration-esm-02",
       "headings": [
@@ -156,7 +202,7 @@
               "id": "own-implementation"
             },
             {
-              "title": "Third party solution",
+              "title": "Third-party solution",
               "depth": 3,
               "id": "third-party-solution"
             }
@@ -171,6 +217,7 @@
     }
   },
   "sources": {
+    "docs/index.md": "index.html",
     "docs/node-migration-esm-01.md": "node-migration-esm-01.html",
     "docs/node-migration-esm-02.md": "node-migration-esm-02.html",
     "docs/node-migration-esm-01.md.backup": "node-migration-esm-01.md.backup",

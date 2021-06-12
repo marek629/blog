@@ -1,6 +1,6 @@
 ![](img/header-es-module.png)
 
-*Written on 2021-06-05*
+*Written on 2021-06-05 by Marek Jędryka*
 
 # Migration node.js project to ESM - part 2
 
