@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/style.css?t=90051322">
+    <script src="assets/script.js?t=93f1a66c"></script>
+    <title>Part 1: --experimental-specifier-resolution - About</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="index.html">About</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-node-migration-esm" href="node-migration-esm.html">Migration node.js project to ESM</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title -active link-node-migration-esm-01" href="node-migration-esm-01.html">Part 1: --experimental-specifier-resolution</a>
+                    <ul class="headings heading-list">
+                      <li class="heading-item -depth-2"><a class="hlink link-motivation" href="#motivation">Motivation</a>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-problem" href="#problem">Problem</a>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-solution" href="#solution">Solution</a>
+                        <ul class="heading-list -depth-2">
+                          <li class="heading-item -depth-3"><a class="hlink link-cli-parameter-to-the-rescue!" href="#cli-parameter-to-the-rescue!">CLI parameter to the rescue!</a>
+                          </li>
+                          <li class="heading-item -depth-3"><a class="hlink link-poc" href="#poc">POC</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-conclusion" href="#conclusion">Conclusion</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-02" href="node-migration-esm-02.html">Part 2: __dirname and __filename</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-node-migration-esm-01">
+        <div class="header-nav">
+          <div class="right">
+          </div>
+        </div>
+        <div class="markdown-body"><p><img src="img/header-es-module.png" alt></p>
+<p><em>Written on 2021-05-22 by Marek J&#x119;dryka</em></p>
+<h1 id="migration-node.js-project-to-esm-part-1">Migration node.js project to ESM - part 1</h1>
+<p>ESM - ECMAScript Modules are a modern way to manage the binding of JavaScript code written in separated files, so-called modules.</p>
+<h2 id="motivation">Motivation</h2>
+<p>After working on modern frontend applications for a while I started to write backend application in node.js using CommonJS (and of course require function calls).
+A few projects later I want to write code in a similar way to frontend code style, so I need to move to ESM (import and export statements).</p>
+<p>Node.js can read ESM by default since version 12, so any building tools (i.e. babel) is not required.
+One thing I must do was change (or rather add) property in <code>package.json</code> of my project:</p>
+<pre><code class="lang-JSON">{
+  <span class="hljs-attr">&quot;type&quot;</span>: <span class="pl-s">&quot;module&quot;</span>
+}
+</code></pre>
+<h2 id="problem">Problem</h2>
+<p>The first thing that surprised me while migrating to ESM my node.js project was a need of adding file extension after replacement <code>require</code> function call to import statement.
+However, it would be nonsense to add a <code>.js</code> file extension at each import occurrence.</p>
+<h2 id="solution">Solution</h2>
+<h3 id="cli-parameter-to-the-rescue!">CLI parameter to the rescue!</h3>
+<p>Since node version 13.4.0, 12.16.0 we can use:</p>
+<pre><code>--es-module-specifier-resolution=[mode], --experimental-specifier-resolution=[mode]
+</code></pre>
+<p>Value of mode could be one of two options: <em>explicit</em> (default) or <em>node</em>.
+For our case node value is a perfect choice.</p>
+<p>References:</p>
+<ul>
+<li><a href="https://nodejs.org/dist/latest-v16.x/docs/api/cli.html#cli_experimental_specifier_resolution_mode">https://nodejs.org/dist/latest-v16.x/docs/api/cli.html#cli_experimental_specifier_resolution_mode</a></li>
+<li><a href="https://nodejs.org/dist/latest-v16.x/docs/api/esm.html#esm_customizing_esm_specifier_resolution_algorithm">https://nodejs.org/dist/latest-v16.x/docs/api/esm.html#esm_customizing_esm_specifier_resolution_algorithm</a></li>
+</ul>
+<h3 id="poc">POC</h3>
+<p>A working proof of concept is started by <code>app.js</code> file:</p>
+<pre><code class="lang-JS"><span class="pl-k">import</span> { bar } <span class="pl-k">from</span> <span class="pl-s">&apos;./foo&apos;</span>
+
+
+<span class="pl-c1">console</span>.log({ bar })
+</code></pre>
+<p>Next, let&apos;s create a directory <code>foo</code> and two files included:</p>
+<ul>
+<li><code>bar.mjs</code>:<pre><code class="lang-JS"><span class="pl-k">export</span> <span class="pl-k">const</span> bar = {
+  <span class="hljs-attr">name</span>: <span class="pl-s">&apos;bar&apos;</span>,
+  <span class="hljs-attr">type</span>: <span class="pl-s">&apos;exported constant&apos;</span>,
+}
+</code></pre>
+</li>
+<li><code>index.js</code>:<pre><code class="lang-JS"><span class="pl-k">export</span> * <span class="pl-k">from</span> <span class="pl-s">&apos;./bar.mjs&apos;</span>
+</code></pre>
+</li>
+</ul>
+<p>And finally, let&apos;s run:</p>
+<pre><code class="lang-sh">$ node --experimental-specifier-resolution=node app.js
+</code></pre>
+<p>I can also skip file extension at node CLI. It&apos;s funny for me.</p>
+<pre><code class="lang-sh">$ node --experimental-specifier-resolution=node app
+</code></pre>
+<p>In both cases node will print to stdout:</p>
+<pre><code class="lang-sh">{ bar: { name: <span class="pl-s">&apos;bar&apos;</span>, <span class="pl-c1">type</span>: <span class="pl-s">&apos;exported constant&apos;</span> } }
+</code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>Described --experimental-specifier-resolution CLI switch works for directories as well as both file extensions (<code>js</code> and <code>mjs</code>).</p>
+<p>It&apos;s still flagged as experimental but hopefully, it will be changed in future releases of node.</p>
+<p>So is it production-ready? It depends on risk analytics at your organization and other politics.
+When your position is careful you should consider build-time transformations (JavaScript transpiler like babel or migrate to TypeScript) instead of node runtime adjustments.</p>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="node-migration-esm.html"><span class="title">Migration node.js project to ESM</span></a></div>
+          <div class="right"><a href="node-migration-esm-02.html"><span class="label">Next: </span><span class="title">Part 2: __dirname and __filename</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

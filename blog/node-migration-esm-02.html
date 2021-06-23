@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/style.css?t=90051322">
+    <script src="assets/script.js?t=93f1a66c"></script>
+    <title>Part 2: __dirname and __filename - About</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="index.html">About</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-node-migration-esm" href="node-migration-esm.html">Migration node.js project to ESM</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-01" href="node-migration-esm-01.html">Part 1: --experimental-specifier-resolution</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title -active link-node-migration-esm-02" href="node-migration-esm-02.html">Part 2: __dirname and __filename</a>
+                    <ul class="headings heading-list">
+                      <li class="heading-item -depth-2"><a class="hlink link-motivation" href="#motivation">Motivation</a>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-problem" href="#problem">Problem</a>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-solution" href="#solution">Solution</a>
+                        <ul class="heading-list -depth-2">
+                          <li class="heading-item -depth-3"><a class="hlink link-own-implementation" href="#own-implementation">Own implementation</a>
+                          </li>
+                          <li class="heading-item -depth-3"><a class="hlink link-third-party-solution" href="#third-party-solution">Third-party solution</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-conclusion" href="#conclusion">Conclusion</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-node-migration-esm-02">
+        <div class="header-nav">
+          <div class="right">
+          </div>
+        </div>
+        <div class="markdown-body"><p><img src="img/header-es-module.png" alt></p>
+<p><em>Written on 2021-06-05 by Marek J&#x119;dryka</em></p>
+<h1 id="migration-node.js-project-to-esm-part-2">Migration node.js project to ESM - part 2</h1>
+<p>ESM - ECMAScript Modules are a modern way to manage the binding of JavaScript code written in separated files, so-called modules.</p>
+<h2 id="motivation">Motivation</h2>
+<p>My motivation was described in <a href="node-migration-esm-01.html">part 1</a> of the series.</p>
+<h2 id="problem">Problem</h2>
+<p>The second thing that surprised me while migrating to ESM my node.js project was the inability to the usage of <code>__dirname</code> and <code>__filename</code> build-in globals by node&apos;s runtime.</p>
+<h2 id="solution">Solution</h2>
+<h3 id="own-implementation">Own implementation</h3>
+<p>There is a way to implement the behavior of <code>__dirname</code> and <code>__filename</code> globals.
+It&apos;s based on <code>import.meta</code> object that exposes context-specific metadata of ES module.
+The metadata object contains one field - <code>url</code> contains the module file path as a string.
+The <code>url</code> field could be transformed to <code>URL</code> object as you can see on example:</p>
+<pre><code class="lang-JS"><span class="pl-c1">console</span>.log(<span class="pl-s">&apos;meta&apos;</span>, <span class="pl-k">import</span>.meta)
+<span class="pl-c1">console</span>.log(<span class="pl-s">&apos;URL&apos;</span>, <span class="pl-k">new</span> URL(<span class="pl-k">import</span>.meta.url))
+</code></pre>
+<p>What will produce the output:</p>
+<pre><code>meta [Object: null prototype] {
+  url: &apos;file:///home/marek/demo/esm.js&apos;
+}
+URL URL {
+  href: &apos;file:///home/marek/demo/esm.js&apos;,
+  origin: &apos;null&apos;,
+  protocol: &apos;file:&apos;,
+  username: &apos;&apos;,
+  password: &apos;&apos;,
+  host: &apos;&apos;,
+  hostname: &apos;&apos;,
+  port: &apos;&apos;,
+  pathname: &apos;/home/marek/demo/esm.js&apos;,
+  search: &apos;&apos;,
+  searchParams: URLSearchParams {},
+  hash: &apos;&apos;
+}
+</code></pre>
+<p>This kind of solution was described in a good way by David Herron in <a href="https://techsparx.com/nodejs/esnext/dirname-es-modules.html">his blog post</a>.</p>
+<p>In general, this situation is caused by no node&apos;s module wrapper in ESM mode.</p>
+<p>References:</p>
+<ul>
+<li><a href="https://nodejs.org/api/modules.html#modules_dirname">https://nodejs.org/api/modules.html#modules_dirname</a></li>
+<li><a href="https://nodejs.org/api/modules.html#modules_filename">https://nodejs.org/api/modules.html#modules_filename</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import.meta">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import.meta</a></li>
+<li><a href="https://nodejs.org/api/modules.html#modules_the_module_wrapper">https://nodejs.org/api/modules.html#modules_the_module_wrapper</a></li>
+</ul>
+<h3 id="third-party-solution">Third-party solution</h3>
+<p>But before we will start our implementation, let&apos;s check third-party solutions published on the NPM registry!
+And there is our perfect solution: <code>dirname-filename-esm</code>.</p>
+<p>Why it is the perfect solution?
+It&apos;s simple - it&apos;s written as open-source and well tested by the community.
+So that means it&apos;s tested in some weird and rare edge cases.
+And you get TypeScript support out of the box.
+This is my first choice before writing code by myself.</p>
+<p>Usage example:</p>
+<pre><code class="lang-JS"><span class="pl-k">import</span> { dirname, filename } <span class="pl-k">from</span> <span class="pl-s">&apos;dirname-filename-esm&apos;</span>
+
+<span class="pl-k">const</span> __dirname = dirname(<span class="pl-k">import</span>.meta)
+<span class="pl-k">const</span> __filename = filename(<span class="pl-k">import</span>.meta)
+</code></pre>
+<p>As you can see, this tiny library is using <code>import.meta</code> object as their input.</p>
+<p>References:</p>
+<ul>
+<li><a href="https://github.com/rhysd/dirname-filename-esm">https://github.com/rhysd/dirname-filename-esm</a></li>
+<li><a href="https://www.npmjs.com/package/dirname-filename-esm">https://www.npmjs.com/package/dirname-filename-esm</a></li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>The example of this small library follows a simple conclusion.
+Always as you can use third party software - use it!</p>
+<p>If you think that the risk of missing third-party dependencies is urgent for your project, please consider some trade-offs. For example, you can track <code>node_modules</code> directory by your VCS, probably <code>git</code>.</p>
+<p>Of course, it would much harder to learn to use a big, complicated software as your 3rd party dependency.
+And it requires a much bigger time to consider.
+Maybe you should choose another solution from the market?
+Maybe not?
+Who knows?
+It&apos;s a theme for many other articles.</p>
+<p>Anyway, probably always time needed to learn a finished software would be smaller than the time needed to write and test dedicated software.
+At least as long as the ready software fulfills your all requirements.</p>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="node-migration-esm-01.html"><span class="title">Part 1: --experimental-specifier-resolution</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
