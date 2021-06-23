@@ -244,6 +244,7 @@
     "src/node-migration-esm.md": "node-migration-esm.html",
     "src/node-migration-esm-01.md": "node-migration-esm-01.html",
     "src/node-migration-esm-02.md": "node-migration-esm-02.html",
+    "src/ackee.js": "ackee.js",
     "src/node-migration-esm-01.md.backup": "node-migration-esm-01.md.backup",
     "src/node-migration-esm-02.md.backup": "node-migration-esm-02.md.backup",
     "src/audio/nyan-ogg-decoded.ogg": "audio/nyan-ogg-decoded.ogg",

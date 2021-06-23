@@ -5,6 +5,9 @@
   },
   "docpress": {
     "dist": "docs",
-    "docs": "src"
+    "docs": "src",
+    "scripts": [
+      "ackee.js"
+    ]
   }
 }
