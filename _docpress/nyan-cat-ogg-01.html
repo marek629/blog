@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/style.css?t=90051322">
+    <script src="assets/script.js?t=93f1a66c"></script>
+    <title>Part 1: Playing OGG file - About</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="index.html">About</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-node-migration-esm" href="node-migration-esm.html">Migration node.js project to ESM</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-01" href="node-migration-esm-01.html">Part 1: --experimental-specifier-resolution</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-02" href="node-migration-esm-02.html">Part 2: __dirname and __filename</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1 -parent"><span class="title">Tap nyan playing sound</span>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title -active link-nyan-cat-ogg-01" href="nyan-cat-ogg-01.html">Part 1: Playing OGG file</a>
+                    <ul class="headings heading-list">
+                      <li class="heading-item -depth-2"><a class="hlink link-streams-in-the-action" href="#streams-in-the-action">Streams in the action</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-nyan-cat-ogg-01">
+        <div class="header-nav">
+          <div class="right">
+          </div>
+        </div>
+        <div class="markdown-body"><h1 id="part-1:-playing-ogg-file">Part 1: Playing OGG file</h1>
+<p>If sound playing is needed, you should think about some way to play the sound.
+It&apos;s obvious.
+Not trivial thought.</p>
+<p>Let&apos;s take a look at the available solutions.</p>
+<p>I can use any music player having CLI support.
+It should support OGG format because of my assumptions.
+It could be for example <code>play</code> command from <code>sox</code> software package.
+But just running a subprocess using <code>child_process</code> node package in this case is boring and modest for me.</p>
+<h2 id="streams-in-the-action">Streams in the action</h2>
+<h5 id="ogg-decoded-but-still-vorbis-encoded-samples">OGG decoded but still Vorbis encoded samples</h5>
+<!-- ![OGG decoded but still Vorbis encoded samples](audio/nyan-ogg-decoded.ogg) -->
+<audio controls src="audio/nyan-ogg-decoded.ogg">
+  Your browser does not support the audio tag or OGG files.
+</audio>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="node-migration-esm-02.html"><span class="title">Part 2: __dirname and __filename</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -3,7 +3,7 @@
     "sections": [
       {
         "title": "About",
-        "source": "docs/index.md",
+        "source": "src/index.md",
         "url": "index.html",
         "slug": "index",
         "headings": [
@@ -26,7 +26,7 @@
       },
       {
         "title": "Migration node.js project to ESM",
-        "source": "docs/node-migration-esm.md",
+        "source": "src/node-migration-esm.md",
         "url": "node-migration-esm.html",
         "slug": "node-migration-esm",
         "headings": [
@@ -39,7 +39,7 @@
         "sections": [
           {
             "title": "Part 1: --experimental-specifier-resolution",
-            "source": "docs/node-migration-esm-01.md",
+            "source": "src/node-migration-esm-01.md",
             "url": "node-migration-esm-01.html",
             "slug": "node-migration-esm-01",
             "headings": [
@@ -79,7 +79,7 @@
           },
           {
             "title": "Part 2: __dirname and __filename",
-            "source": "docs/node-migration-esm-02.md",
+            "source": "src/node-migration-esm-02.md",
             "url": "node-migration-esm-02.html",
             "slug": "node-migration-esm-02",
             "headings": [
@@ -123,7 +123,7 @@
   },
   "index": {
     "index.html": {
-      "source": "docs/index.md",
+      "source": "src/index.md",
       "title": "About",
       "pageTitle": "About",
       "slug": "index",
@@ -146,7 +146,7 @@
       ]
     },
     "node-migration-esm.html": {
-      "source": "docs/node-migration-esm.md",
+      "source": "src/node-migration-esm.md",
       "title": "Migration node.js project to ESM - About",
       "pageTitle": "Migration node.js project to ESM",
       "slug": "node-migration-esm",
@@ -159,7 +159,7 @@
       ]
     },
     "node-migration-esm-01.html": {
-      "source": "docs/node-migration-esm-01.md",
+      "source": "src/node-migration-esm-01.md",
       "title": "Part 1: --experimental-specifier-resolution - About",
       "pageTitle": "Part 1: --experimental-specifier-resolution",
       "slug": "node-migration-esm-01",
@@ -199,7 +199,7 @@
       ]
     },
     "node-migration-esm-02.html": {
-      "source": "docs/node-migration-esm-02.md",
+      "source": "src/node-migration-esm-02.md",
       "title": "Part 2: __dirname and __filename - About",
       "pageTitle": "Part 2: __dirname and __filename",
       "slug": "node-migration-esm-02",
@@ -240,13 +240,13 @@
     }
   },
   "sources": {
-    "docs/index.md": "index.html",
-    "docs/node-migration-esm.md": "node-migration-esm.html",
-    "docs/node-migration-esm-01.md": "node-migration-esm-01.html",
-    "docs/node-migration-esm-02.md": "node-migration-esm-02.html",
-    "docs/node-migration-esm-01.md.backup": "node-migration-esm-01.md.backup",
-    "docs/node-migration-esm-02.md.backup": "node-migration-esm-02.md.backup",
-    "docs/audio/nyan-ogg-decoded.ogg": "audio/nyan-ogg-decoded.ogg",
-    "docs/img/header-es-module.png": "img/header-es-module.png"
+    "src/index.md": "index.html",
+    "src/node-migration-esm.md": "node-migration-esm.html",
+    "src/node-migration-esm-01.md": "node-migration-esm-01.html",
+    "src/node-migration-esm-02.md": "node-migration-esm-02.html",
+    "src/node-migration-esm-01.md.backup": "node-migration-esm-01.md.backup",
+    "src/node-migration-esm-02.md.backup": "node-migration-esm-02.md.backup",
+    "src/audio/nyan-ogg-decoded.ogg": "audio/nyan-ogg-decoded.ogg",
+    "src/img/header-es-module.png": "img/header-es-module.png"
   }
 }

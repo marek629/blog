@@ -4,6 +4,7 @@
     "highlight.js": "^10.7.2"
   },
   "docpress": {
-    "dist": "blog"
+    "dist": "docs",
+    "docs": "src"
   }
 }
