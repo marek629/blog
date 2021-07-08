@@ -1,12 +1,15 @@
 {
   "dependencies": {
+    "ackee-tracker": "^5.1.0",
     "docpress": "^0.8.2",
-    "highlight.js": "^10.7.2"
+    "highlight.js": "^10.7.2",
+    "markdown-it-html5-media": "0.7.0"
   },
   "docpress": {
     "dist": "docs",
     "docs": "src",
     "scripts": [
+      "ackee-tracker.min.js",
       "ackee.js"
     ]
   }
