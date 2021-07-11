@@ -147,6 +147,21 @@
                     "title": "Decode OGG data",
                     "depth": 3,
                     "id": "decode-ogg-data"
+                  },
+                  {
+                    "title": "Decode Vorbis samples",
+                    "depth": 3,
+                    "id": "decode-vorbis-samples"
+                  },
+                  {
+                    "title": "Send audio samples to speakers",
+                    "depth": 3,
+                    "id": "send-audio-samples-to-speakers"
+                  },
+                  {
+                    "title": "Final code",
+                    "depth": 3,
+                    "id": "final-code"
                   }
                 ]
               }
@@ -298,6 +313,21 @@
               "title": "Decode OGG data",
               "depth": 3,
               "id": "decode-ogg-data"
+            },
+            {
+              "title": "Decode Vorbis samples",
+              "depth": 3,
+              "id": "decode-vorbis-samples"
+            },
+            {
+              "title": "Send audio samples to speakers",
+              "depth": 3,
+              "id": "send-audio-samples-to-speakers"
+            },
+            {
+              "title": "Final code",
+              "depth": 3,
+              "id": "final-code"
             }
           ]
         }
@@ -312,10 +342,10 @@
     "src/nyan-cat-ogg-01.md": "nyan-cat-ogg-01.html",
     "src/ackee-tracker.min.js": "ackee-tracker.min.js",
     "src/ackee.js": "ackee.js",
-    "src/favicon.ico": "favicon.ico",
     "src/node-migration-esm-01.md.backup": "node-migration-esm-01.md.backup",
     "src/node-migration-esm-02.md.backup": "node-migration-esm-02.md.backup",
     "src/audio/nyan-ogg-decoded.ogg": "audio/nyan-ogg-decoded.ogg",
+    "src/audio/nyan.ogg": "audio/nyan.ogg",
     "src/img/header-es-module.png": "img/header-es-module.png"
   }
 }

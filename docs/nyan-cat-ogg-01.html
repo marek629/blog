@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/style.css?t=90051322">
+    <script src="assets/script.js?t=93f1a66c"></script>
+    <script src="ackee-tracker.min.js?t=406d2b6f"></script>
+    <script src="ackee.js?t=c064c78c"></script>
+    <title>Part 1: Playing OGG file - About</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="index.html">About</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-node-migration-esm" href="node-migration-esm.html">Migration node.js project to ESM</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-01" href="node-migration-esm-01.html">Part 1: --experimental-specifier-resolution</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-02" href="node-migration-esm-02.html">Part 2: __dirname and __filename</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1 -parent"><span class="title">Tap nyan playing sound</span>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title -active link-nyan-cat-ogg-01" href="nyan-cat-ogg-01.html">Part 1: Playing OGG file</a>
+                    <ul class="headings heading-list">
+                      <li class="heading-item -depth-2"><a class="hlink link-streams-introduction" href="#streams-introduction">Streams introduction</a>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-streams-in-the-action" href="#streams-in-the-action">Streams in the action</a>
+                        <ul class="heading-list -depth-2">
+                          <li class="heading-item -depth-3"><a class="hlink link-read-file" href="#read-file">Read file</a>
+                          </li>
+                          <li class="heading-item -depth-3"><a class="hlink link-decode-ogg-data" href="#decode-ogg-data">Decode OGG data</a>
+                          </li>
+                          <li class="heading-item -depth-3"><a class="hlink link-decode-vorbis-samples" href="#decode-vorbis-samples">Decode Vorbis samples</a>
+                          </li>
+                          <li class="heading-item -depth-3"><a class="hlink link-send-audio-samples-to-speakers" href="#send-audio-samples-to-speakers">Send audio samples to speakers</a>
+                          </li>
+                          <li class="heading-item -depth-3"><a class="hlink link-final-code" href="#final-code">Final code</a>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-nyan-cat-ogg-01">
+        <div class="header-nav">
+          <div class="right">
+          </div>
+        </div>
+        <div class="markdown-body"><h1 id="part-1:-playing-ogg-file">Part 1: Playing OGG file</h1>
+<p>If sound playing is needed, you should think about some way to play the sound.
+It&apos;s obvious.
+Not trivial thought.</p>
+<p>Let&apos;s take a look at the available solutions.</p>
+<p>I can use any music player having CLI support.
+It should support OGG format because of my assumptions.
+It could be for example <code>play</code> command from <code>sox</code> software package.
+But just running a subprocess using <code>child_process</code> node package in this case is boring and modest for me.</p>
+<h2 id="streams-introduction">Streams introduction</h2>
+<p>Streams are efficient way of data processing where they operate on small pieces of information called chunks.
+They are productive in two aspects:</p>
+<ol>
+<li>Memory usage because you operate on small chunks so you don&apos;t need allocate big datasets for processing.</li>
+<li>Time of processing because the processing could be started as soon as first chunks are available so you don&apos;t have to wait for whole dataset would be ready for processing, ie. be read from filesystem or another resource.</li>
+</ol>
+<p>Streams in node.js have a nice event driven API, implemented in the spirit of functional programming.
+The most important function of Stream API during working on streams is <code>pipe</code>.
+It allows you to pass data from the current steam to the next stream, given as its parameter.
+It&apos;s especially usefull when you have 2 or at most 3 streams in your processing flow.
+For more amount of streams I recommend you <code>pipeline</code> function to use.
+Let&apos;s see to the differences in example:</p>
+<pre><code class="lang-JS"><span class="pl-k">import</span> { createReadStream, createWriteStream } <span class="pl-k">from</span> <span class="pl-s">&apos;fs&apos;</span>
+<span class="pl-k">import</span> { pipeline } <span class="pl-k">from</span> <span class="pl-s">&apos;stream&apos;</span>
+<span class="pl-k">import</span> { createGzip } <span class="pl-k">from</span> <span class="pl-s">&apos;zlib&apos;</span>
+
+
+<span class="pl-c">// pipe method notation</span>
+createReadStream(<span class="pl-s">&apos;file.txt&apos;</span>)
+  .pipe(createGzip())
+  .pipe(createWriteStream(<span class="pl-s">&apos;file.txt.gz&apos;</span>))
+
+<span class="pl-c">// or pipeline notation as alternative</span>
+pipeline(
+  createReadStream(<span class="pl-s">&apos;file.txt&apos;</span>),
+  createGzip(),
+  createWriteStream(<span class="pl-s">&apos;file.txt.gz&apos;</span>),
+  (err) =&gt; {
+    <span class="pl-k">if</span> (err) {
+      <span class="pl-c1">console</span>.error(<span class="pl-s">&apos;Pipeline failed.&apos;</span>, err)
+    } <span class="pl-k">else</span> {
+      <span class="pl-c1">console</span>.log(<span class="pl-s">&apos;Pipeline succeeded.&apos;</span>)
+    }
+  },
+)
+</code></pre>
+<p>As you can see, in <code>pipeline</code> function additional callback function parameter is required.
+This is not always convenient.
+So I don&apos;t recommend using it for short stream sequences unless you want to keep your coding standards coherent.
+All in all it&apos;s up to you.</p>
+<p>References:</p>
+<ul>
+<li><a href="https://nodejs.dev/learn/nodejs-streams#why-streams">https://nodejs.dev/learn/nodejs-streams#why-streams</a></li>
+<li><a href="https://nodejs.org/api/stream.html">https://nodejs.org/api/stream.html</a></li>
+</ul>
+<h2 id="streams-in-the-action">Streams in the action</h2>
+<p>Then go back to the concept of playing OGG file.
+I need to do a few operations:</p>
+<ol>
+<li>Read OGG file data from filesystem using <code>createReadStream</code> function from <code>fs</code> node.js module.</li>
+<li>Decode OGG data using <code>Decode</code> function from <code>ogg</code> module.</li>
+<li>Decode audio PCM data using <code>Decode</code> from <code>vorbis</code> module (in my case).</li>
+<li>Send decoded PCM data to speakers using <code>speaker</code> module.</li>
+</ol>
+<h3 id="read-file">Read file</h3>
+<p>Reading file from filesystem is the most common, and easiest part of our streams flow.
+Just take a look!</p>
+<pre><code class="lang-JS"><span class="pl-k">import</span> { createReadStream } <span class="pl-k">from</span> <span class="pl-s">&apos;fs&apos;</span>
+<span class="pl-k">import</span> path <span class="pl-k">from</span> <span class="pl-s">&apos;path&apos;</span>
+
+
+<span class="pl-k">const</span> file = path.resolve(
+  dirname(<span class="pl-k">import</span>.meta),
+  <span class="pl-s">&apos;../nyan.ogg&apos;</span>,
+)
+
+createReadStream(file)
+</code></pre>
+<h3 id="decode-ogg-data">Decode OGG data</h3>
+<p>Decoding OGG file is easy thanks <code>node-ogg</code> library.
+On node.js 12 and later I must to use <code>@suldashi/ogg</code> package because it has updates for modern node releases.</p>
+<p>One thing what it was needed is add event listener for <code>stream</code> event.
+Next I had to pipe given stream to speakers, ie. audio output in general.
+I added also <code>error</code> event listener for error catching and easer debugging.</p>
+<pre><code class="lang-JS"><span class="pl-k">import</span> ogg <span class="pl-k">from</span> <span class="pl-s">&apos;@suldashi/ogg&apos;</span>
+<span class="pl-k">import</span> Speaker <span class="pl-k">from</span> <span class="pl-s">&apos;speaker&apos;</span>
+
+
+<span class="pl-k">const</span> decoder = <span class="pl-k">new</span> ogg.Decoder()
+decoder.on(<span class="pl-s">&apos;stream&apos;</span>, stream =&gt; {
+
+  stream.pipe(<span class="pl-k">new</span> Speaker({
+    
+  }))
+  stream.on(<span class="pl-s">&apos;end&apos;</span>, () =&gt; {
+    play()
+  })
+})
+decoder.on(<span class="pl-s">&apos;error&apos;</span>, err =&gt; {
+  <span class="pl-c1">console</span>.log({err})
+})
+
+createReadStream(file).pipe(decoder)
+</code></pre>
+<p>Great!
+I was happy until I played my OGG file.
+I heard only big noise.
+It was unpleasant experience.</p>
+<p>But why?
+What wrong happen in my code?
+So... it was my lack of knowledge about OGG file.</p>
+<p>OGG is only container for audio data.
+It can store audio data and some metadata, like autor name, song and album titles etc.
+In OGG file header is written type of used audio data compression.
+They could be encoded using Vorbis or Opus codec.
+It means I need decode twice.</p>
+<p>But I don&apos;t know what codec to use.
+Vorbis or Opus?
+Of course it depends on my OGG file encoding.
+Let&apos;s check this information using <code>music-metadata</code> package.
+Just see and execute folowing code:</p>
+<pre><code class="lang-JS"><span class="pl-k">import</span> { parseFile } <span class="pl-k">from</span> <span class="pl-s">&apos;music-metadata&apos;</span>
+
+
+<span class="pl-k">const</span> metadata = <span class="pl-k">await</span> parseFile(file)
+<span class="pl-c1">console</span>.log({ metadata })
+</code></pre>
+<p>The code produces output:</p>
+<pre><code class="lang-JS">{
+  <span class="hljs-attr">metadata</span>: {
+    <span class="hljs-attr">format</span>: {
+      <span class="hljs-attr">tagTypes</span>: [<span class="pl-c1">Array</span>],
+      <span class="hljs-attr">trackInfo</span>: [],
+      <span class="hljs-attr">container</span>: <span class="pl-s">&apos;Ogg&apos;</span>,
+      <span class="hljs-attr">codec</span>: <span class="pl-s">&apos;Vorbis I&apos;</span>,
+      <span class="hljs-attr">sampleRate</span>: <span class="hljs-number">44100</span>,
+      <span class="hljs-attr">bitrate</span>: <span class="hljs-number">96000</span>,
+      <span class="hljs-attr">numberOfChannels</span>: <span class="hljs-number">2</span>,
+      <span class="hljs-attr">numberOfSamples</span>: <span class="hljs-number">9559296</span>,
+      <span class="hljs-attr">duration</span>: <span class="hljs-number">216.76408163265307</span>
+    },
+    <span class="hljs-attr">native</span>: { <span class="hljs-attr">vorbis</span>: [<span class="pl-c1">Array</span>] },
+    <span class="hljs-attr">quality</span>: { <span class="hljs-attr">warnings</span>: [] },
+    <span class="hljs-attr">common</span>: {
+      <span class="hljs-attr">track</span>: [<span class="pl-c1">Object</span>],
+      <span class="hljs-attr">disk</span>: [<span class="pl-c1">Object</span>],
+      <span class="hljs-attr">movementIndex</span>: {},
+      <span class="hljs-attr">title</span>: <span class="pl-s">&apos;Nyan Cat [original]&apos;</span>,
+      <span class="hljs-attr">comment</span>: [<span class="pl-c1">Array</span>]
+    }
+  }
+}
+</code></pre>
+<p>In my case I found out that I need to use a Vorbis decoder.
+I will describe this process in the next section.</p>
+<p>If you are interested, you can listen to encoded Vorbis data.
+Just turn your speakers down a bit, play sound below and enjoy!</p>
+<h5 id="ogg-decoded-but-still-vorbis-encoded-samples">OGG decoded but still Vorbis encoded samples</h5>
+<!-- ![OGG decoded but still Vorbis encoded samples](audio/nyan-ogg-decoded.ogg) -->
+<audio controls src="audio/nyan-ogg-decoded.ogg">
+  Your browser does not support the audio tag or OGG files.
+</audio>
+<h3 id="decode-vorbis-samples">Decode Vorbis samples</h3>
+<p>So let&apos;s decode Vorbis encoded samples!
+To do this we need to import <code>vorbis</code> npm package and modify <code>stream</code> event handler.</p>
+<pre><code class="lang-JS"><span class="pl-k">import</span> vorbis <span class="pl-k">from</span> <span class="pl-s">&apos;vorbis&apos;</span>
+
+
+decoder.on(<span class="pl-s">&apos;stream&apos;</span>, stream =&gt; {
+  <span class="pl-k">const</span> vd = <span class="pl-k">new</span> vorbis.Decoder()
+  vd.on(<span class="pl-s">&apos;format&apos;</span>, format =&gt; {
+    vd.pipe(<span class="pl-k">new</span> Speaker(format))
+  })
+  stream.pipe(vd)
+
+  stream.on(<span class="pl-s">&apos;end&apos;</span>, () =&gt; {
+    play()
+  })
+})
+</code></pre>
+<p>Stream <code>stream</code> is piped to Vorbis decoder <code>vd</code> object output and the samples are piped to <code>Speaker</code> object now.</p>
+<h3 id="send-audio-samples-to-speakers">Send audio samples to speakers</h3>
+<p>Code sending audio samples to spreakers is showed in above code listing in previous section.
+But let me explain <code>format</code> object given to <code>Speaker</code> constructor as a parameter.
+The <code>format</code> object in my case has following shape:</p>
+<pre><code class="lang-JS">{
+  <span class="hljs-attr">channels</span>: <span class="hljs-number">2</span>,
+  <span class="hljs-attr">sampleRate</span>: <span class="hljs-number">44100</span>,
+  <span class="hljs-attr">bitDepth</span>: <span class="hljs-number">32</span>,
+  <span class="hljs-attr">float</span>: <span class="pl-c1">true</span>,
+  <span class="hljs-attr">signed</span>: <span class="pl-c1">true</span>,
+  <span class="hljs-attr">version</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">bitrateUpper</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">bitrateNominal</span>: <span class="hljs-number">96000</span>,
+  <span class="hljs-attr">bitrateLower</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">bitrateWindow</span>: <span class="hljs-number">0</span>
+}
+</code></pre>
+<p>As we can read in <code>speaker</code> package documentation, Speaker supports following options in their constructor:</p>
+<ul>
+<li><code>channels</code></li>
+<li><code>bitDepth</code></li>
+<li><code>sampleRate</code></li>
+<li><code>signed</code></li>
+<li><code>float</code></li>
+<li><code>samplesPerFrame</code></li>
+<li><code>device</code></li>
+</ul>
+<p>These all options are delivered in <code>format</code> object excluding <code>samplesPerFrame</code> and <code>device</code>.
+But in these 2 options case we don&apos;t need to change default values, so we can go forward.
+In <code>format</code> object are a few addidional data like <code>version</code> and fields connected to bitrate, but we can ignore this data in this moment as <code>Speaker</code> constructor do.</p>
+<p>References:</p>
+<ul>
+<li><a href="https://www.npmjs.com/package/speaker">https://www.npmjs.com/package/speaker</a></li>
+</ul>
+<h2 id="final-code">Final code</h2>
+<p>Final version of playing OGG file code is here:</p>
+<pre><code class="lang-JS"><span class="pl-k">import</span> { createReadStream } <span class="pl-k">from</span> <span class="pl-s">&apos;fs&apos;</span>
+<span class="pl-k">import</span> path <span class="pl-k">from</span> <span class="pl-s">&apos;path&apos;</span>
+
+<span class="pl-k">import</span> ogg <span class="pl-k">from</span> <span class="pl-s">&apos;@suldashi/ogg&apos;</span>
+<span class="pl-k">import</span> { dirname } <span class="pl-k">from</span> <span class="pl-s">&apos;dirname-filename-esm&apos;</span>
+<span class="pl-k">import</span> { parseFile } <span class="pl-k">from</span> <span class="pl-s">&apos;music-metadata&apos;</span>
+<span class="pl-k">import</span> Speaker <span class="pl-k">from</span> <span class="pl-s">&apos;speaker&apos;</span>
+<span class="pl-k">import</span> vorbis <span class="pl-k">from</span> <span class="pl-s">&apos;vorbis&apos;</span>
+
+
+
+<span class="pl-k">const</span> file = path.resolve(
+  dirname(<span class="pl-k">import</span>.meta),
+  <span class="pl-s">&apos;../nyan.ogg&apos;</span>,
+)
+
+<span class="pl-k">const</span> metadata = <span class="pl-k">await</span> parseFile(file)
+<span class="pl-c1">console</span>.log({ metadata })
+
+<span class="hljs-function"><span class="pl-k">function</span> <span class="pl-ent">play</span> (<span class="hljs-params"></span>) </span>{
+  <span class="pl-k">const</span> decoder = <span class="pl-k">new</span> ogg.Decoder()
+  decoder.on(<span class="pl-s">&apos;stream&apos;</span>, stream =&gt; {
+    <span class="pl-k">const</span> vd = <span class="pl-k">new</span> vorbis.Decoder()
+    vd.on(<span class="pl-s">&apos;format&apos;</span>, format =&gt; {
+      <span class="pl-c1">console</span>.log({ format })
+      vd.pipe(<span class="pl-k">new</span> Speaker(format))
+    })
+    stream.pipe(vd)
+  
+    stream.on(<span class="pl-s">&apos;end&apos;</span>, () =&gt; {
+      play()
+    })
+  })
+  decoder.on(<span class="pl-s">&apos;error&apos;</span>, err =&gt; {
+    <span class="pl-c1">console</span>.log({err})
+  })
+
+  createReadStream(file).pipe(decoder)
+}
+play()
+</code></pre>
+<p>You can now listen to the OGG file. It&apos;s your prize!</p>
+<h5 id="ogg-file-is-playing">OGG file is playing</h5>
+<!-- ![OGG file is playing](audio/nyan.ogg) -->
+<audio controls src="audio/nyan.ogg">
+  Your browser does not support the audio tag or OGG files.
+</audio>
+<p>References:</p>
+<ul>
+<li><a href="https://archive.org/details/nyannyannyan">https://archive.org/details/nyannyannyan</a></li>
+</ul>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="node-migration-esm-02.html"><span class="title">Part 2: __dirname and __filename</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
