@@ -7,22 +7,22 @@ Not trivial thought.
 Let's take a look at the available solutions.
 
 I can use any music player having CLI support.
-It should support OGG format because of my assumptions.
+It should support the OGG format because of my assumptions.
 It could be for example `play` command from `sox` software package.
-But just running a subprocess using `child_process` node package in this case is boring and modest for me.
+But just running a subprocess using `child_process` node package, in this case, is boring and modest for me.
 
 ## Streams introduction
 
-Streams are efficient way of data processing where they operate on small pieces of information called chunks.
+Streams are an efficient way of data processing where they operate on small pieces of information called chunks.
 They are productive in two aspects:
 
-1. Memory usage because you operate on small chunks so you don't need allocate big datasets for processing.
+1. Memory usage because you operate on small chunks so you don't need to allocate big datasets for processing.
 2. Time of processing because the processing could be started as soon as first chunks are available so you don't have to wait for whole dataset would be ready for processing, ie. be read from filesystem or another resource.
 
 Streams in node.js have a nice event driven API, implemented in the spirit of functional programming.
 The most important function of Stream API during working on streams is `pipe`.
-It allows you to pass data from the current steam to the next stream, given as its parameter.
-It's especially usefull when you have 2 or at most 3 streams in your processing flow.
+It allows you to pass data from the current stream to the next stream, given as its parameter.
+It's especially useful when you have 2 or at most 3 streams in your processing flow.
 For more amount of streams I recommend you `pipeline` function to use.
 Let's see to the differences in example:
 
@@ -55,7 +55,7 @@ pipeline(
 As you can see, in `pipeline` function additional callback function parameter is required.
 This is not always convenient.
 So I don't recommend using it for short stream sequences unless you want to keep your coding standards coherent.
-All in all it's up to you.
+All in all, it's up to you.
 
 References:
 
@@ -64,7 +64,7 @@ References:
 
 ## Streams in the action
 
-Then go back to the concept of playing OGG file.
+Then go back to the concept of playing OGG files.
 I need to do a few operations:
 
 1. Read OGG file data from filesystem using `createReadStream` function from `fs` node.js module.
@@ -72,9 +72,9 @@ I need to do a few operations:
 3. Decode audio PCM data using `Decode` from `vorbis` module (in my case).
 4. Send decoded PCM data to speakers using `speaker` module.
 
-### Read file
+### Read files
 
-Reading file from filesystem is the most common, and easiest part of our streams flow.
+Reading files from filesystem is the most common, and easiest part of our streams flow.
 Just take a look!
 
 ```JS
@@ -92,12 +92,12 @@ createReadStream(file)
 
 ### Decode OGG data
 
-Decoding OGG file is easy thanks `node-ogg` library.
-On node.js 12 and later I must to use `@suldashi/ogg` package because it has updates for modern node releases.
+Decoding OGG files is easy thanks `node-ogg` library.
+On node.js 12 and later I must use `@suldashi/ogg` package because it has updates for modern node releases.
 
-One thing what it was needed is add event listener for `stream` event.
-Next I had to pipe given stream to speakers, ie. audio output in general.
-I added also `error` event listener for error catching and easer debugging.
+One thing that was needed is to add event listener for `stream` event.
+Next, I had to pipe given stream to speakers, ie. audio output in general.
+I added also `error` event listener for error catching and easier debugging.
 
 
 ```JS
@@ -124,24 +124,24 @@ createReadStream(file).pipe(decoder)
 
 Great!
 I was happy until I played my OGG file.
-I heard only big noise.
+I heard big noise only.
 It was unpleasant experience.
 
 But why?
-What wrong happen in my code?
+What wrong happen with my code?
 So... it was my lack of knowledge about OGG file.
 
-OGG is only container for audio data.
-It can store audio data and some metadata, like autor name, song and album titles etc.
+OGG is a container for audio data only.
+It can store audio data and some metadata, like author name, song and album titles, etc.
 In OGG file header is written type of used audio data compression.
 They could be encoded using Vorbis or Opus codec.
-It means I need decode twice.
+It means I need to decode twice.
 
 But I don't know what codec to use.
 Vorbis or Opus?
-Of course it depends on my OGG file encoding.
+Of course, it depends on my OGG file encoding.
 Let's check this information using `music-metadata` package.
-Just see and execute folowing code:
+Just see and execute following code:
 
 ```JS
 import { parseFile } from 'music-metadata'
@@ -180,7 +180,7 @@ The code produces output:
 }
 ```
 
-In my case I found out that I need to use a Vorbis decoder.
+In my case, I found out that I need to use a Vorbis decoder.
 I will describe this process in the next section.
 
 If you are interested, you can listen to encoded Vorbis data.
@@ -220,7 +220,7 @@ Stream `stream` is piped to Vorbis decoder `vd` object output and the samples ar
 
 ### Send audio samples to speakers
 
-Code sending audio samples to spreakers is showed in above code listing in previous section.
+Code sending audio samples to speakers is showed in above code listing in the previous section.
 But let me explain `format` object given to `Speaker` constructor as a parameter.
 The `format` object in my case has following shape:
 
@@ -250,8 +250,8 @@ As we can read in `speaker` package documentation, Speaker supports following op
 * `device`
 
 These all options are delivered in `format` object excluding `samplesPerFrame` and `device`.
-But in these 2 options case we don't need to change default values, so we can go forward.
-In `format` object are a few addidional data like `version` and fields connected to bitrate, but we can ignore this data in this moment as `Speaker` constructor do.
+But in these 2 options case, we don't need to change default values, so we can go forward.
+In `format` object are a few additional data like `version` and fields connected to bitrate, but we can ignore this data at this moment as `Speaker` constructor does.
 
 References:
 

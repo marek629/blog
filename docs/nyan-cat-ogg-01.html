@@ -42,9 +42,9 @@
                           </li>
                           <li class="heading-item -depth-3"><a class="hlink link-send-audio-samples-to-speakers" href="#send-audio-samples-to-speakers">Send audio samples to speakers</a>
                           </li>
-                          <li class="heading-item -depth-3"><a class="hlink link-final-code" href="#final-code">Final code</a>
-                          </li>
                         </ul>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-final-code" href="#final-code">Final code</a>
                       </li>
                     </ul>
                   </li>
@@ -65,20 +65,20 @@ It&apos;s obvious.
 Not trivial thought.</p>
 <p>Let&apos;s take a look at the available solutions.</p>
 <p>I can use any music player having CLI support.
-It should support OGG format because of my assumptions.
+It should support the OGG format because of my assumptions.
 It could be for example <code>play</code> command from <code>sox</code> software package.
-But just running a subprocess using <code>child_process</code> node package in this case is boring and modest for me.</p>
+But just running a subprocess using <code>child_process</code> node package, in this case, is boring and modest for me.</p>
 <h2 id="streams-introduction">Streams introduction</h2>
-<p>Streams are efficient way of data processing where they operate on small pieces of information called chunks.
+<p>Streams are an efficient way of data processing where they operate on small pieces of information called chunks.
 They are productive in two aspects:</p>
 <ol>
-<li>Memory usage because you operate on small chunks so you don&apos;t need allocate big datasets for processing.</li>
+<li>Memory usage because you operate on small chunks so you don&apos;t need to allocate big datasets for processing.</li>
 <li>Time of processing because the processing could be started as soon as first chunks are available so you don&apos;t have to wait for whole dataset would be ready for processing, ie. be read from filesystem or another resource.</li>
 </ol>
 <p>Streams in node.js have a nice event driven API, implemented in the spirit of functional programming.
 The most important function of Stream API during working on streams is <code>pipe</code>.
-It allows you to pass data from the current steam to the next stream, given as its parameter.
-It&apos;s especially usefull when you have 2 or at most 3 streams in your processing flow.
+It allows you to pass data from the current stream to the next stream, given as its parameter.
+It&apos;s especially useful when you have 2 or at most 3 streams in your processing flow.
 For more amount of streams I recommend you <code>pipeline</code> function to use.
 Let&apos;s see to the differences in example:</p>
 <pre><code class="lang-JS"><span class="pl-k">import</span> { createReadStream, createWriteStream } <span class="pl-k">from</span> <span class="pl-s">&apos;fs&apos;</span>
@@ -108,14 +108,14 @@ pipeline(
 <p>As you can see, in <code>pipeline</code> function additional callback function parameter is required.
 This is not always convenient.
 So I don&apos;t recommend using it for short stream sequences unless you want to keep your coding standards coherent.
-All in all it&apos;s up to you.</p>
+All in all, it&apos;s up to you.</p>
 <p>References:</p>
 <ul>
 <li><a href="https://nodejs.dev/learn/nodejs-streams#why-streams">https://nodejs.dev/learn/nodejs-streams#why-streams</a></li>
 <li><a href="https://nodejs.org/api/stream.html">https://nodejs.org/api/stream.html</a></li>
 </ul>
 <h2 id="streams-in-the-action">Streams in the action</h2>
-<p>Then go back to the concept of playing OGG file.
+<p>Then go back to the concept of playing OGG files.
 I need to do a few operations:</p>
 <ol>
 <li>Read OGG file data from filesystem using <code>createReadStream</code> function from <code>fs</code> node.js module.</li>
@@ -123,8 +123,8 @@ I need to do a few operations:</p>
 <li>Decode audio PCM data using <code>Decode</code> from <code>vorbis</code> module (in my case).</li>
 <li>Send decoded PCM data to speakers using <code>speaker</code> module.</li>
 </ol>
-<h3 id="read-file">Read file</h3>
-<p>Reading file from filesystem is the most common, and easiest part of our streams flow.
+<h3 id="read-files">Read files</h3>
+<p>Reading files from filesystem is the most common, and easiest part of our streams flow.
 Just take a look!</p>
 <pre><code class="lang-JS"><span class="pl-k">import</span> { createReadStream } <span class="pl-k">from</span> <span class="pl-s">&apos;fs&apos;</span>
 <span class="pl-k">import</span> path <span class="pl-k">from</span> <span class="pl-s">&apos;path&apos;</span>
@@ -138,11 +138,11 @@ Just take a look!</p>
 createReadStream(file)
 </code></pre>
 <h3 id="decode-ogg-data">Decode OGG data</h3>
-<p>Decoding OGG file is easy thanks <code>node-ogg</code> library.
-On node.js 12 and later I must to use <code>@suldashi/ogg</code> package because it has updates for modern node releases.</p>
-<p>One thing what it was needed is add event listener for <code>stream</code> event.
-Next I had to pipe given stream to speakers, ie. audio output in general.
-I added also <code>error</code> event listener for error catching and easer debugging.</p>
+<p>Decoding OGG files is easy thanks <code>node-ogg</code> library.
+On node.js 12 and later I must use <code>@suldashi/ogg</code> package because it has updates for modern node releases.</p>
+<p>One thing that was needed is to add event listener for <code>stream</code> event.
+Next, I had to pipe given stream to speakers, ie. audio output in general.
+I added also <code>error</code> event listener for error catching and easier debugging.</p>
 <pre><code class="lang-JS"><span class="pl-k">import</span> ogg <span class="pl-k">from</span> <span class="pl-s">&apos;@suldashi/ogg&apos;</span>
 <span class="pl-k">import</span> Speaker <span class="pl-k">from</span> <span class="pl-s">&apos;speaker&apos;</span>
 
@@ -165,21 +165,21 @@ createReadStream(file).pipe(decoder)
 </code></pre>
 <p>Great!
 I was happy until I played my OGG file.
-I heard only big noise.
+I heard big noise only.
 It was unpleasant experience.</p>
 <p>But why?
-What wrong happen in my code?
+What wrong happen with my code?
 So... it was my lack of knowledge about OGG file.</p>
-<p>OGG is only container for audio data.
-It can store audio data and some metadata, like autor name, song and album titles etc.
+<p>OGG is a container for audio data only.
+It can store audio data and some metadata, like author name, song and album titles, etc.
 In OGG file header is written type of used audio data compression.
 They could be encoded using Vorbis or Opus codec.
-It means I need decode twice.</p>
+It means I need to decode twice.</p>
 <p>But I don&apos;t know what codec to use.
 Vorbis or Opus?
-Of course it depends on my OGG file encoding.
+Of course, it depends on my OGG file encoding.
 Let&apos;s check this information using <code>music-metadata</code> package.
-Just see and execute folowing code:</p>
+Just see and execute following code:</p>
 <pre><code class="lang-JS"><span class="pl-k">import</span> { parseFile } <span class="pl-k">from</span> <span class="pl-s">&apos;music-metadata&apos;</span>
 
 
@@ -212,7 +212,7 @@ Just see and execute folowing code:</p>
   }
 }
 </code></pre>
-<p>In my case I found out that I need to use a Vorbis decoder.
+<p>In my case, I found out that I need to use a Vorbis decoder.
 I will describe this process in the next section.</p>
 <p>If you are interested, you can listen to encoded Vorbis data.
 Just turn your speakers down a bit, play sound below and enjoy!</p>
@@ -241,7 +241,7 @@ decoder.on(<span class="pl-s">&apos;stream&apos;</span>, stream =&gt; {
 </code></pre>
 <p>Stream <code>stream</code> is piped to Vorbis decoder <code>vd</code> object output and the samples are piped to <code>Speaker</code> object now.</p>
 <h3 id="send-audio-samples-to-speakers">Send audio samples to speakers</h3>
-<p>Code sending audio samples to spreakers is showed in above code listing in previous section.
+<p>Code sending audio samples to speakers is showed in above code listing in the previous section.
 But let me explain <code>format</code> object given to <code>Speaker</code> constructor as a parameter.
 The <code>format</code> object in my case has following shape:</p>
 <pre><code class="lang-JS">{
@@ -268,8 +268,8 @@ The <code>format</code> object in my case has following shape:</p>
 <li><code>device</code></li>
 </ul>
 <p>These all options are delivered in <code>format</code> object excluding <code>samplesPerFrame</code> and <code>device</code>.
-But in these 2 options case we don&apos;t need to change default values, so we can go forward.
-In <code>format</code> object are a few addidional data like <code>version</code> and fields connected to bitrate, but we can ignore this data in this moment as <code>Speaker</code> constructor do.</p>
+But in these 2 options case, we don&apos;t need to change default values, so we can go forward.
+In <code>format</code> object are a few additional data like <code>version</code> and fields connected to bitrate, but we can ignore this data at this moment as <code>Speaker</code> constructor does.</p>
 <p>References:</p>
 <ul>
 <li><a href="https://www.npmjs.com/package/speaker">https://www.npmjs.com/package/speaker</a></li>

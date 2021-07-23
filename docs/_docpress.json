@@ -157,13 +157,13 @@
                     "title": "Send audio samples to speakers",
                     "depth": 3,
                     "id": "send-audio-samples-to-speakers"
-                  },
-                  {
-                    "title": "Final code",
-                    "depth": 3,
-                    "id": "final-code"
                   }
                 ]
+              },
+              {
+                "title": "Final code",
+                "depth": 2,
+                "id": "final-code"
               }
             ]
           }
@@ -323,13 +323,13 @@
               "title": "Send audio samples to speakers",
               "depth": 3,
               "id": "send-audio-samples-to-speakers"
-            },
-            {
-              "title": "Final code",
-              "depth": 3,
-              "id": "final-code"
             }
           ]
+        },
+        {
+          "title": "Final code",
+          "depth": 2,
+          "id": "final-code"
         }
       ]
     }
