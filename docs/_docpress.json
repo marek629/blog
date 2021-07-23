@@ -139,9 +139,9 @@
                 "id": "streams-in-the-action",
                 "headings": [
                   {
-                    "title": "Read file",
+                    "title": "Read files",
                     "depth": 3,
-                    "id": "read-file"
+                    "id": "read-files"
                   },
                   {
                     "title": "Decode OGG data",
@@ -305,9 +305,9 @@
           "id": "streams-in-the-action",
           "headings": [
             {
-              "title": "Read file",
+              "title": "Read files",
               "depth": 3,
-              "id": "read-file"
+              "id": "read-files"
             },
             {
               "title": "Decode OGG data",
