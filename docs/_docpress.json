@@ -346,6 +346,7 @@
     "src/node-migration-esm-02.md.backup": "node-migration-esm-02.md.backup",
     "src/audio/nyan-ogg-decoded.ogg": "audio/nyan-ogg-decoded.ogg",
     "src/audio/nyan.ogg": "audio/nyan.ogg",
-    "src/img/header-es-module.png": "img/header-es-module.png"
+    "src/img/header-es-module.png": "img/header-es-module.png",
+    "src/img/header-tap-nyan-module.png": "img/header-tap-nyan-module.png"
   }
 }

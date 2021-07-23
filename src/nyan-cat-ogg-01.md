@@ -1,3 +1,7 @@
+![](img/header-tap-nyan-module.png)
+
+*Written on 2021-07-23 by Marek Jędryka*
+
 # Part 1: Playing OGG file
 
 If sound playing is needed, you should think about some way to play the sound.
