@@ -121,6 +121,16 @@
       },
       {
         "title": "Tap nyan playing sound",
+        "source": "src/nyan-cat-ogg.md",
+        "url": "nyan-cat-ogg.html",
+        "slug": "nyan-cat-ogg",
+        "headings": [
+          {
+            "title": "Articles",
+            "depth": 2,
+            "id": "articles"
+          }
+        ],
         "sections": [
           {
             "title": "Part 1: Playing OGG file",
@@ -164,6 +174,36 @@
                 "title": "Final code",
                 "depth": 2,
                 "id": "final-code"
+              }
+            ]
+          },
+          {
+            "title": "Part 2: Running tests",
+            "source": "src/nyan-cat-ogg-02.md",
+            "url": "nyan-cat-ogg-02.html",
+            "slug": "nyan-cat-ogg-02",
+            "headings": [
+              {
+                "title": "The picture",
+                "depth": 2,
+                "id": "the-picture"
+              },
+              {
+                "title": "To add sound to the picture",
+                "depth": 2,
+                "id": "to-add-sound-to-the-picture",
+                "headings": [
+                  {
+                    "title": "Command improvements",
+                    "depth": 3,
+                    "id": "command-improvements"
+                  }
+                ]
+              },
+              {
+                "title": "Result",
+                "depth": 2,
+                "id": "result"
               }
             ]
           }
@@ -288,6 +328,19 @@
         }
       ]
     },
+    "nyan-cat-ogg.html": {
+      "source": "src/nyan-cat-ogg.md",
+      "title": "Tap nyan playing sound - About",
+      "pageTitle": "Tap nyan playing sound",
+      "slug": "nyan-cat-ogg",
+      "headings": [
+        {
+          "title": "Articles",
+          "depth": 2,
+          "id": "articles"
+        }
+      ]
+    },
     "nyan-cat-ogg-01.html": {
       "source": "src/nyan-cat-ogg-01.md",
       "title": "Part 1: Playing OGG file - About",
@@ -332,6 +385,36 @@
           "id": "final-code"
         }
       ]
+    },
+    "nyan-cat-ogg-02.html": {
+      "source": "src/nyan-cat-ogg-02.md",
+      "title": "Part 2: Running tests - About",
+      "pageTitle": "Part 2: Running tests",
+      "slug": "nyan-cat-ogg-02",
+      "headings": [
+        {
+          "title": "The picture",
+          "depth": 2,
+          "id": "the-picture"
+        },
+        {
+          "title": "To add sound to the picture",
+          "depth": 2,
+          "id": "to-add-sound-to-the-picture",
+          "headings": [
+            {
+              "title": "Command improvements",
+              "depth": 3,
+              "id": "command-improvements"
+            }
+          ]
+        },
+        {
+          "title": "Result",
+          "depth": 2,
+          "id": "result"
+        }
+      ]
     }
   },
   "sources": {
@@ -339,14 +422,20 @@
     "src/node-migration-esm.md": "node-migration-esm.html",
     "src/node-migration-esm-01.md": "node-migration-esm-01.html",
     "src/node-migration-esm-02.md": "node-migration-esm-02.html",
+    "src/nyan-cat-ogg.md": "nyan-cat-ogg.html",
     "src/nyan-cat-ogg-01.md": "nyan-cat-ogg-01.html",
+    "src/nyan-cat-ogg-02.md": "nyan-cat-ogg-02.html",
     "src/ackee-tracker.min.js": "ackee-tracker.min.js",
     "src/ackee.js": "ackee.js",
     "src/node-migration-esm-01.md.backup": "node-migration-esm-01.md.backup",
     "src/node-migration-esm-02.md.backup": "node-migration-esm-02.md.backup",
+    "src/nyan-cat-ogg-02.md.backup": "nyan-cat-ogg-02.md.backup",
     "src/audio/nyan-ogg-decoded.ogg": "audio/nyan-ogg-decoded.ogg",
     "src/audio/nyan.ogg": "audio/nyan.ogg",
+    "src/img/fail-successfully.jpg": "img/fail-successfully.jpg",
     "src/img/header-es-module.png": "img/header-es-module.png",
-    "src/img/header-tap-nyan-module.png": "img/header-tap-nyan-module.png"
+    "src/img/header-tap-nyan-module.png": "img/header-tap-nyan-module.png",
+    "src/video/nyan-cat-1.webm": "video/nyan-cat-1.webm",
+    "src/video/nyan-cat-2.webm": "video/nyan-cat-2.webm"
   }
 }

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/style.css?t=90051322">
+    <script src="assets/script.js?t=93f1a66c"></script>
+    <script src="ackee-tracker.min.js?t=406d2b6f"></script>
+    <script src="ackee.js?t=c064c78c"></script>
+    <title>Part 2: Running tests - About</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="index.html">About</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-node-migration-esm" href="node-migration-esm.html">Migration node.js project to ESM</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-01" href="node-migration-esm-01.html">Part 1: --experimental-specifier-resolution</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-02" href="node-migration-esm-02.html">Part 2: __dirname and __filename</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-nyan-cat-ogg" href="nyan-cat-ogg.html">Tap nyan playing sound</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-01" href="nyan-cat-ogg-01.html">Part 1: Playing OGG file</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title -active link-nyan-cat-ogg-02" href="nyan-cat-ogg-02.html">Part 2: Running tests</a>
+                    <ul class="headings heading-list">
+                      <li class="heading-item -depth-2"><a class="hlink link-the-picture" href="#the-picture">The picture</a>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-to-add-sound-to-the-picture" href="#to-add-sound-to-the-picture">To add sound to the picture</a>
+                        <ul class="heading-list -depth-2">
+                          <li class="heading-item -depth-3"><a class="hlink link-command-improvements" href="#command-improvements">Command improvements</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-result" href="#result">Result</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-nyan-cat-ogg-02">
+        <div class="header-nav">
+          <div class="right">
+          </div>
+        </div>
+        <div class="markdown-body"><p><img src="img/header-tap-nyan-module.png" alt></p>
+<p><em>Written on 2021-08-01 by Marek J&#x119;dryka</em></p>
+<h1 id="part-2:-running-tests">Part 2: Running tests</h1>
+<p>In the <a href="nyan-cat-ogg-01.html">first part</a> of this series, I presented playing audio using streams.
+Today I&apos;m going to show you how to add a picture to the audio and combine all of this with running tests.</p>
+<h2 id="the-picture">The picture</h2>
+<p>If we have OGG file playing the &quot;nyan cat&quot; theme then it&apos;s obvious thing to add an animation of the rainbow kitty.
+I guest you didn&apos;t expect anything else.</p>
+<p>For the rainbow cat animation in tests, <code>tap-nyan</code> package works great.
+I can get it from NPM registry, but it has a issue in showing valid amount of skipped test cases.
+So I recomend you download a fork project from Github repository: <code>github:LKay/tap-nyan</code>
+This fork is including small fixes of skipped test cases count presentation.</p>
+<p>To see <code>tap-nyan</code> in action, we need to run a lot of test cases and produce in that way TAP report.
+TAP (Test Anything Protocol) is a simple text interface used to store and process test result reports.
+So <code>tap-nyan</code> is a TAP consumer in our case, also known as a TAP reporter.
+We still need to a TAP producer to feed us rainbow kitty.
+Let&apos;s use <code>ava</code> NPM package for this purpose.
+It&apos;s a small JavaScript testing library that can produce output in TAP format using <code>--tap</code> CLI switch.</p>
+<pre><code class="lang-JS"><span class="pl-k">import</span> test <span class="pl-k">from</span> <span class="pl-s">&apos;ava&apos;</span>
+
+
+<span class="pl-k">const</span> pass = <span class="hljs-function"><span class="hljs-params">t</span> =&gt;</span> t.pass()
+<span class="pl-k">for</span> (<span class="pl-k">let</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">200</span>; i++) {
+  test(<span class="pl-s">`test No <span class="hljs-subst">${i}</span>`</span>, pass)
+}
+</code></pre>
+<p>In above code you can see 200 test cases pass immediately and unconditionaly.
+It&apos;s sufficient in out scenario becasue we need to just produce test report.
+You can run the code by calling command in your shell:</p>
+<pre><code class="lang-sh">yarn ava test.js --tap | yarn tap-nyan
+</code></pre>
+<p>The command produce output as on below video:</p>
+<h5 id="tap-nyan-runs-200-test-cases">TAP nyan runs 200 test cases</h5>
+<!-- ![TAP nyan runs 200 test cases](video/nyan-cat-1.webm) -->
+<video controls src="video/nyan-cat-1.webm" width="768">
+  Your browser does not support the video tag or WEBM files.
+</video>
+<p>References:</p>
+<ul>
+<li><a href="https://www.npmjs.com/package/tap-nyan">https://www.npmjs.com/package/tap-nyan</a></li>
+<li><a href="https://github.com/LKay/tap-nyan/commit/f27ca5cd8b330dd9b69569ea57389a6aa6292c4e">https://github.com/LKay/tap-nyan/commit/f27ca5cd8b330dd9b69569ea57389a6aa6292c4e</a></li>
+<li><a href="https://github.com/LKay/tap-nyan">https://github.com/LKay/tap-nyan</a></li>
+<li><a href="https://testanything.org">https://testanything.org</a></li>
+<li><a href="https://www.npmjs.com/package/ava">https://www.npmjs.com/package/ava</a></li>
+</ul>
+<h2 id="to-add-sound-to-the-picture">To add sound to the picture</h2>
+<p>We have picture now thanks <code>ava</code> and <code>tap-nyan</code> packages.
+We need to play sound at the same time as our picture from nyan TAP reporter is playing.
+That means we have to run two task concurrently.
+What&apos;s more, we have to stop playing the sound when the cat stops running, to us tests would be done.</p>
+<p>This challenge can be perfectly fulfilled by <code>concurrently</code> package from NPM registry.
+Just see on this command:</p>
+<pre><code class="lang-sh">yarn concurrently -k --raw \
+  <span class="pl-s">&quot;yarn ava test/massive.test.js --tap --timeout=2m | yarn tap-nyan&quot;</span> \
+  <span class="pl-s">&quot;node --experimental-specifier-resolution=node src/ogg.js &amp;&gt; /dev/null&quot;</span>
+</code></pre>
+<p>It will play nyan cat theme and show <code>tap-nyan</code> output to the console at the same time.
+It&apos;s possible because CLI switches of <code>concurrently</code>:</p>
+<ul>
+<li><code>-k</code> (or <code>--kill-others</code>) will kill other processes when the first one would exit, in our case when test would finish (doesn&apos;t matter if pass or fail)</li>
+<li><code>--raw</code> (or short <code>-r</code>) will output raw output from processes, <code>concurrently</code> overhead is excluded</li>
+</ul>
+<h3 id="command-improvements">Command improvements</h3>
+<p>Above way of running <code>concurrently</code> have two small issues:</p>
+<h4 id="1.-wrong-concurrently-exit-code">1. Wrong concurrently exit code</h4>
+<p>When the tests end (and pass) we can see fallowing error message:</p>
+<blockquote>
+<p>error Command failed with exit code 1.</p>
+</blockquote>
+<p>BTW I know a perfect picture to descibe this situation:</p>
+<p><img src="img/fail-successfully.jpg" alt></p>
+<p>It&apos;s caused by non-solved issue in <code>yarn</code>.
+Maybe it will be fixed some day.
+The fastest workaround for that is <code>yarn</code> replacement by <code>npx</code>.
+It&apos;s running without error now.</p>
+<h4 id="2.-it&apos;s-not-easy-to-read">2. It&apos;s not easy to read</h4>
+<p>We can improve readability easily and quicly.
+Just add these <code>scripts</code> section to your <code>package.json</code></p>
+<pre><code>&quot;scripts&quot;: {
+    &quot;ogg&quot;: &quot;node --experimental-specifier-resolution=node src/ogg.js&quot;,
+    &quot;start&quot;: &quot;npx concurrently -k --raw \&quot;yarn test\&quot; \&quot;yarn ogg &amp;&gt; /dev/null\&quot; || exit 0&quot;,
+    &quot;test&quot;: &quot;yarn ava test/massive.test.js --tap --timeout=2m | yarn tap-nyan&quot;
+  }
+</code></pre>
+<p><code>start</code> is the main script that calls the other two <code>test</code> and <code>ogg</code></p>
+<p>References:</p>
+<ul>
+<li><a href="https://www.npmjs.com/package/concurrently">https://www.npmjs.com/package/concurrently</a></li>
+<li><a href="https://github.com/yarnpkg/yarn/issues/4667">https://github.com/yarnpkg/yarn/issues/4667</a></li>
+<li><a href="https://knowyourmeme.com/photos/918810-funny-error-messages">https://knowyourmeme.com/photos/918810-funny-error-messages</a></li>
+</ul>
+<h2 id="result">Result</h2>
+<p>You can call simply <code>yarn start</code> now.
+It plays sound as long as tests are running.</p>
+<p>See you in next part!</p>
+<h5 id="tap-nyan-runs-200-test-cases-and-plays-sound">TAP nyan runs 200 test cases and plays sound</h5>
+<!-- ![TAP nyan runs 200 test cases and plays sound](video/nyan-cat-2.webm) -->
+<video controls src="video/nyan-cat-2.webm" width="768">
+  Your browser does not support the video tag or WEBM files.
+</video>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="nyan-cat-ogg-01.html"><span class="title">Part 1: Playing OGG file</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
