@@ -11,17 +11,17 @@ Today I'm going to show you how to add a picture to the audio and combine all of
 ## The picture
 
 If we have OGG file playing the "nyan cat" theme then it's obvious thing to add an animation of the rainbow kitty.
-I guest you didn't expect anything else.
+I guess you didn't expect anything else.
 
 For the rainbow cat animation in tests, `tap-nyan` package works great.
-I can get it from NPM registry, but it has a issue in showing valid amount of skipped test cases.
-So I recomend you download a fork project from Github repository: `github:LKay/tap-nyan`
+I can get it from NPM registry, but it has an issue in showing a valid amount of skipped test cases.
+So I recommend you download a fork project from Github repository: `github:LKay/tap-nyan`
 This fork is including small fixes of skipped test cases count presentation.
 
 To see `tap-nyan` in action, we need to run a lot of test cases and produce in that way TAP report.
 TAP (Test Anything Protocol) is a simple text interface used to store and process test result reports.
 So `tap-nyan` is a TAP consumer in our case, also known as a TAP reporter.
-We still need to a TAP producer to feed us rainbow kitty.
+We still need a TAP producer to feed us rainbow kitty.
 Let's use `ava` NPM package for this purpose.
 It's a small JavaScript testing library that can produce output in TAP format using `--tap` CLI switch.
 
@@ -35,15 +35,15 @@ for (let i=0; i<200; i++) {
 }
 ```
 
-In above code you can see 200 test cases pass immediately and unconditionaly.
-It's sufficient in out scenario becasue we need to just produce test report.
+In above code, you can see 200 test cases pass immediately and unconditionally.
+It's sufficient in our scenario because we need to just produce test report.
 You can run the code by calling command in your shell:
 
 ```sh
 yarn ava test.js --tap | yarn tap-nyan
 ```
 
-The command produce output as on below video:
+The command produces output as on below video:
 
 ##### TAP nyan runs 200 test cases
 <!-- ![TAP nyan runs 200 test cases](video/nyan-cat-1.webm) -->
@@ -62,13 +62,13 @@ References:
 
 ## To add sound to the picture
 
-We have picture now thanks `ava` and `tap-nyan` packages.
+We have the picture now thanks `ava` and `tap-nyan` packages.
 We need to play sound at the same time as our picture from nyan TAP reporter is playing.
-That means we have to run two task concurrently.
+That means we have to run two tasks concurrently.
 What's more, we have to stop playing the sound when the cat stops running, to us tests would be done.
 
 This challenge can be perfectly fulfilled by `concurrently` package from NPM registry.
-Just see on this command:
+Just see this command:
 
 ```sh
 yarn concurrently -k --raw \
@@ -77,33 +77,33 @@ yarn concurrently -k --raw \
 ```
 
 It will play nyan cat theme and show `tap-nyan` output to the console at the same time.
-It's possible because CLI switches of `concurrently`:
+It's possible because `concurrently`'s CLI switches:
 
 * `-k` (or `--kill-others`) will kill other processes when the first one would exit, in our case when test would finish (doesn't matter if pass or fail)
 * `--raw` (or short `-r`) will output raw output from processes, `concurrently` overhead is excluded
 
 ### Command improvements
 
-Above way of running `concurrently` have two small issues:
+The above way of running `concurrently` have two small issues:
 
 #### 1. Wrong concurrently exit code
 
-When the tests end (and pass) we can see fallowing error message:
+When the tests end (and pass) we can see the following error message:
 
 > error Command failed with exit code 1.
 
-BTW I know a perfect picture to descibe this situation:
+BTW I know a perfect picture to describe this situation:
 
 ![](img/fail-successfully.jpg)
 
-It's caused by non-solved issue in `yarn`.
-Maybe it will be fixed some day.
+It's caused by a non-solved issue in `yarn`.
+Maybe it will be fixed someday.
 The fastest workaround for that is `yarn` replacement by `npx`.
 It's running without error now.
 
 #### 2. It's not easy to read
 
-We can improve readability easily and quicly.
+We can improve readability easily and quickly.
 Just add these `scripts` section to your `package.json`
 
 ```
@@ -128,7 +128,7 @@ References:
 You can call simply `yarn start` now.
 It plays sound as long as tests are running.
 
-See you in next part!
+See you in the next part!
 
 ##### TAP nyan runs 200 test cases and plays sound
 <!-- ![TAP nyan runs 200 test cases and plays sound](video/nyan-cat-2.webm) -->

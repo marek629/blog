@@ -62,15 +62,15 @@
 Today I&apos;m going to show you how to add a picture to the audio and combine all of this with running tests.</p>
 <h2 id="the-picture">The picture</h2>
 <p>If we have OGG file playing the &quot;nyan cat&quot; theme then it&apos;s obvious thing to add an animation of the rainbow kitty.
-I guest you didn&apos;t expect anything else.</p>
+I guess you didn&apos;t expect anything else.</p>
 <p>For the rainbow cat animation in tests, <code>tap-nyan</code> package works great.
-I can get it from NPM registry, but it has a issue in showing valid amount of skipped test cases.
-So I recomend you download a fork project from Github repository: <code>github:LKay/tap-nyan</code>
+I can get it from NPM registry, but it has an issue in showing a valid amount of skipped test cases.
+So I recommend you download a fork project from Github repository: <code>github:LKay/tap-nyan</code>
 This fork is including small fixes of skipped test cases count presentation.</p>
 <p>To see <code>tap-nyan</code> in action, we need to run a lot of test cases and produce in that way TAP report.
 TAP (Test Anything Protocol) is a simple text interface used to store and process test result reports.
 So <code>tap-nyan</code> is a TAP consumer in our case, also known as a TAP reporter.
-We still need to a TAP producer to feed us rainbow kitty.
+We still need a TAP producer to feed us rainbow kitty.
 Let&apos;s use <code>ava</code> NPM package for this purpose.
 It&apos;s a small JavaScript testing library that can produce output in TAP format using <code>--tap</code> CLI switch.</p>
 <pre><code class="lang-JS"><span class="pl-k">import</span> test <span class="pl-k">from</span> <span class="pl-s">&apos;ava&apos;</span>
@@ -81,12 +81,12 @@ It&apos;s a small JavaScript testing library that can produce output in TAP form
   test(<span class="pl-s">`test No <span class="hljs-subst">${i}</span>`</span>, pass)
 }
 </code></pre>
-<p>In above code you can see 200 test cases pass immediately and unconditionaly.
-It&apos;s sufficient in out scenario becasue we need to just produce test report.
+<p>In above code, you can see 200 test cases pass immediately and unconditionally.
+It&apos;s sufficient in our scenario because we need to just produce test report.
 You can run the code by calling command in your shell:</p>
 <pre><code class="lang-sh">yarn ava test.js --tap | yarn tap-nyan
 </code></pre>
-<p>The command produce output as on below video:</p>
+<p>The command produces output as on below video:</p>
 <h5 id="tap-nyan-runs-200-test-cases">TAP nyan runs 200 test cases</h5>
 <!-- ![TAP nyan runs 200 test cases](video/nyan-cat-1.webm) -->
 <video controls src="video/nyan-cat-1.webm" width="768">
@@ -101,37 +101,37 @@ You can run the code by calling command in your shell:</p>
 <li><a href="https://www.npmjs.com/package/ava">https://www.npmjs.com/package/ava</a></li>
 </ul>
 <h2 id="to-add-sound-to-the-picture">To add sound to the picture</h2>
-<p>We have picture now thanks <code>ava</code> and <code>tap-nyan</code> packages.
+<p>We have the picture now thanks <code>ava</code> and <code>tap-nyan</code> packages.
 We need to play sound at the same time as our picture from nyan TAP reporter is playing.
-That means we have to run two task concurrently.
+That means we have to run two tasks concurrently.
 What&apos;s more, we have to stop playing the sound when the cat stops running, to us tests would be done.</p>
 <p>This challenge can be perfectly fulfilled by <code>concurrently</code> package from NPM registry.
-Just see on this command:</p>
+Just see this command:</p>
 <pre><code class="lang-sh">yarn concurrently -k --raw \
   <span class="pl-s">&quot;yarn ava test/massive.test.js --tap --timeout=2m | yarn tap-nyan&quot;</span> \
   <span class="pl-s">&quot;node --experimental-specifier-resolution=node src/ogg.js &amp;&gt; /dev/null&quot;</span>
 </code></pre>
 <p>It will play nyan cat theme and show <code>tap-nyan</code> output to the console at the same time.
-It&apos;s possible because CLI switches of <code>concurrently</code>:</p>
+It&apos;s possible because <code>concurrently</code>&apos;s CLI switches:</p>
 <ul>
 <li><code>-k</code> (or <code>--kill-others</code>) will kill other processes when the first one would exit, in our case when test would finish (doesn&apos;t matter if pass or fail)</li>
 <li><code>--raw</code> (or short <code>-r</code>) will output raw output from processes, <code>concurrently</code> overhead is excluded</li>
 </ul>
 <h3 id="command-improvements">Command improvements</h3>
-<p>Above way of running <code>concurrently</code> have two small issues:</p>
+<p>The above way of running <code>concurrently</code> have two small issues:</p>
 <h4 id="1.-wrong-concurrently-exit-code">1. Wrong concurrently exit code</h4>
-<p>When the tests end (and pass) we can see fallowing error message:</p>
+<p>When the tests end (and pass) we can see the following error message:</p>
 <blockquote>
 <p>error Command failed with exit code 1.</p>
 </blockquote>
-<p>BTW I know a perfect picture to descibe this situation:</p>
+<p>BTW I know a perfect picture to describe this situation:</p>
 <p><img src="img/fail-successfully.jpg" alt></p>
-<p>It&apos;s caused by non-solved issue in <code>yarn</code>.
-Maybe it will be fixed some day.
+<p>It&apos;s caused by a non-solved issue in <code>yarn</code>.
+Maybe it will be fixed someday.
 The fastest workaround for that is <code>yarn</code> replacement by <code>npx</code>.
 It&apos;s running without error now.</p>
 <h4 id="2.-it&apos;s-not-easy-to-read">2. It&apos;s not easy to read</h4>
-<p>We can improve readability easily and quicly.
+<p>We can improve readability easily and quickly.
 Just add these <code>scripts</code> section to your <code>package.json</code></p>
 <pre><code>&quot;scripts&quot;: {
     &quot;ogg&quot;: &quot;node --experimental-specifier-resolution=node src/ogg.js&quot;,
@@ -149,7 +149,7 @@ Just add these <code>scripts</code> section to your <code>package.json</code></p
 <h2 id="result">Result</h2>
 <p>You can call simply <code>yarn start</code> now.
 It plays sound as long as tests are running.</p>
-<p>See you in next part!</p>
+<p>See you in the next part!</p>
 <h5 id="tap-nyan-runs-200-test-cases-and-plays-sound">TAP nyan runs 200 test cases and plays sound</h5>
 <!-- ![TAP nyan runs 200 test cases and plays sound](video/nyan-cat-2.webm) -->
 <video controls src="video/nyan-cat-2.webm" width="768">
