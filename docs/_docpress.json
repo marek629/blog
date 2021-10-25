@@ -133,6 +133,34 @@
         ],
         "sections": [
           {
+            "title": "Part 0: Nyan cat OGG script specification",
+            "source": "src/nyan-cat-ogg-00.md",
+            "url": "nyan-cat-ogg-00.html",
+            "slug": "nyan-cat-ogg-00",
+            "headings": [
+              {
+                "title": "1. Input file format",
+                "depth": 2,
+                "id": "1.-input-file-format"
+              },
+              {
+                "title": "2. Running environment",
+                "depth": 2,
+                "id": "2.-running-environment"
+              },
+              {
+                "title": "3. Fun and learning",
+                "depth": 2,
+                "id": "3.-fun-and-learning"
+              },
+              {
+                "title": "4. For developers happiness",
+                "depth": 2,
+                "id": "4.-for-developers-happiness"
+              }
+            ]
+          },
+          {
             "title": "Part 1: Playing OGG file",
             "source": "src/nyan-cat-ogg-01.md",
             "url": "nyan-cat-ogg-01.html",
@@ -341,6 +369,34 @@
         }
       ]
     },
+    "nyan-cat-ogg-00.html": {
+      "source": "src/nyan-cat-ogg-00.md",
+      "title": "Part 0: Nyan cat OGG script specification - About",
+      "pageTitle": "Part 0: Nyan cat OGG script specification",
+      "slug": "nyan-cat-ogg-00",
+      "headings": [
+        {
+          "title": "1. Input file format",
+          "depth": 2,
+          "id": "1.-input-file-format"
+        },
+        {
+          "title": "2. Running environment",
+          "depth": 2,
+          "id": "2.-running-environment"
+        },
+        {
+          "title": "3. Fun and learning",
+          "depth": 2,
+          "id": "3.-fun-and-learning"
+        },
+        {
+          "title": "4. For developers happiness",
+          "depth": 2,
+          "id": "4.-for-developers-happiness"
+        }
+      ]
+    },
     "nyan-cat-ogg-01.html": {
       "source": "src/nyan-cat-ogg-01.md",
       "title": "Part 1: Playing OGG file - About",
@@ -423,6 +479,7 @@
     "src/node-migration-esm-01.md": "node-migration-esm-01.html",
     "src/node-migration-esm-02.md": "node-migration-esm-02.html",
     "src/nyan-cat-ogg.md": "nyan-cat-ogg.html",
+    "src/nyan-cat-ogg-00.md": "nyan-cat-ogg-00.html",
     "src/nyan-cat-ogg-01.md": "nyan-cat-ogg-01.html",
     "src/nyan-cat-ogg-02.md": "nyan-cat-ogg-02.html",
     "src/ackee-tracker.min.js": "ackee-tracker.min.js",

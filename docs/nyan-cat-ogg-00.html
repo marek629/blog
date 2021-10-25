@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/style.css?t=90051322">
+    <script src="assets/script.js?t=93f1a66c"></script>
+    <script src="ackee-tracker.min.js?t=406d2b6f"></script>
+    <script src="ackee.js?t=c064c78c"></script>
+    <title>Part 0: Nyan cat OGG script specification - About</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="index.html">About</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-node-migration-esm" href="node-migration-esm.html">Migration node.js project to ESM</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-01" href="node-migration-esm-01.html">Part 1: --experimental-specifier-resolution</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-02" href="node-migration-esm-02.html">Part 2: __dirname and __filename</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-nyan-cat-ogg" href="nyan-cat-ogg.html">Tap nyan playing sound</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title -active link-nyan-cat-ogg-00" href="nyan-cat-ogg-00.html">Part 0: Nyan cat OGG script specification</a>
+                    <ul class="headings heading-list">
+                      <li class="heading-item -depth-2"><a class="hlink link-1.-input-file-format" href="#1.-input-file-format">1. Input file format</a>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-2.-running-environment" href="#2.-running-environment">2. Running environment</a>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-3.-fun-and-learning" href="#3.-fun-and-learning">3. Fun and learning</a>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-4.-for-developers-happiness" href="#4.-for-developers-happiness">4. For developers happiness</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-01" href="nyan-cat-ogg-01.html">Part 1: Playing OGG file</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-02" href="nyan-cat-ogg-02.html">Part 2: Running tests</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-nyan-cat-ogg-00">
+        <div class="header-nav">
+          <div class="right">
+          </div>
+        </div>
+        <div class="markdown-body"><p><img src="img/header-tap-nyan-module.png" alt></p>
+<p><em>Written on 2021-10-25 by Marek J&#x119;dryka</em></p>
+<h1 id="part-0:-nyan-cat-ogg-script-specification">Part 0: Nyan cat OGG script specification</h1>
+<p>I&apos;m working on nyan cat TAP reporter modification for a while.
+The mod should display nyan cat animation at CLI and play funny song as long as tests are in progress.
+The song is fixed.
+It is not affected by state of the tests (passing, missing or failing).</p>
+<p>During the implementation of the script, I realized I had made implicitly some assumptions about the software.
+I describe them now explicitly.</p>
+<h2 id="1.-input-file-format">1. Input file format</h2>
+<p>I want to focus on general flow of the whole application, having fun with the implementation without worring about full OGG for all kinds of audio data encoding.
+For this reason, I only support OGG files encoded with Vorbis for this moment.</p>
+<h2 id="2.-running-environment">2. Running environment</h2>
+<p>It should be work on my computer.
+So it must work under Linux.
+But other operating systems are not condemned.
+It just depends on the working of the dependencies there.
+However, this scenario will not be tested.</p>
+<h2 id="3.-fun-and-learning">3. Fun and learning</h2>
+<p>The project was invented for the fun of using it.
+And for the excitement of exploring Node.js while coding.
+I will share my knowlage with you in next parts of this article series.</p>
+<h2 id="4.-for-developers-happiness">4. For developers happiness</h2>
+<p>It&apos;s created for developers/testers usage in external software project using TAP reporter in testing.
+The next time you minimize your terminal window, you could hear sound util the tests run.</p>
+<p>I think that I can share via Github and NPM repositories soon.</p>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="nyan-cat-ogg.html"><span class="title">Tap nyan playing sound</span></a></div>
+          <div class="right"><a href="nyan-cat-ogg-01.html"><span class="label">Next: </span><span class="title">Part 1: Playing OGG file</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

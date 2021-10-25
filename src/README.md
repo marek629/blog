@@ -5,5 +5,6 @@
   * [Part 2: __dirname and __filename](node-migration-esm-02.md)
 
 * [Tap nyan playing sound](nyan-cat-ogg.md)
+  * [Part 0: Nyan cat OGG script specification](nyan-cat-ogg-00.md)
   * [Part 1: Playing OGG file](nyan-cat-ogg-01.md)
   * [Part 2: Running tests](nyan-cat-ogg-02.md)
