@@ -12,12 +12,12 @@ It is not affected by state of the tests (passing, missing or failing).
 During the implementation of the script, I realized I had made implicitly some assumptions about the software.
 I describe them now explicitly.
 
-## 1. Input file format
+## Input file format
 
 I want to focus on general flow of the whole application, having fun with the implementation without worring about full OGG for all kinds of audio data encoding.
 For this reason, I only support OGG files encoded with Vorbis for this moment.
 
-## 2. Running environment
+## Running environment
 
 It should be work on my computer.
 So it must work under Linux.
@@ -25,13 +25,13 @@ But other operating systems are not condemned.
 It just depends on the working of the dependencies there.
 However, this scenario will not be tested.
 
-## 3. Fun and learning
+## Fun and learning
 
 The project was invented for the fun of using it.
 And for the excitement of exploring Node.js while coding.
 I will share my knowlage with you in next parts of this article series.
 
-## 4. For developers happiness
+## For developers happiness
 
 It's created for developers/testers usage in external software project using TAP reporter in testing.
 The next time you minimize your terminal window, you could hear sound util the tests run.
