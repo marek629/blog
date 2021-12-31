@@ -106,7 +106,7 @@ It's running without error now.
 We can improve readability easily and quickly.
 Just add these `scripts` section to your `package.json`
 
-```
+```text
 "scripts": {
     "ogg": "node --experimental-specifier-resolution=node src/ogg.js",
     "start": "npx concurrently -k --raw \"yarn test\" \"yarn ogg &> /dev/null\" || exit 0",

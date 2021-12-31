@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/style.css?t=90051322">
+    <script src="assets/script.js?t=93f1a66c"></script>
+    <script src="ackee-tracker.min.js?t=406d2b6f"></script>
+    <script src="ackee.js?t=c064c78c"></script>
+    <title>Part 3: Nyan cat OGG script implementation - About</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="index.html">About</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-node-migration-esm" href="node-migration-esm.html">Migration node.js project to ESM</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-01" href="node-migration-esm-01.html">Part 1: --experimental-specifier-resolution</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-02" href="node-migration-esm-02.html">Part 2: __dirname and __filename</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-nyan-cat-ogg" href="nyan-cat-ogg.html">Tap nyan playing sound</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-00" href="nyan-cat-ogg-00.html">Part 0: Nyan cat OGG script specification</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-01" href="nyan-cat-ogg-01.html">Part 1: Playing OGG file</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-02" href="nyan-cat-ogg-02.html">Part 2: Running tests</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title -active link-nyan-cat-ogg-03" href="nyan-cat-ogg-03.html">Part 3: Nyan cat OGG script implementation</a>
+                    <ul class="headings heading-list">
+                      <li class="heading-item -depth-2"><a class="hlink link-cli-arguments" href="#cli-arguments">CLI arguments</a>
+                        <ul class="heading-list -depth-2">
+                          <li class="heading-item -depth-3"><a class="hlink link-external-tap-consumer" href="#external-tap-consumer">External TAP consumer</a>
+                          </li>
+                          <li class="heading-item -depth-3"><a class="hlink link-audio-file" href="#audio-file">Audio file</a>
+                          </li>
+                          <li class="heading-item -depth-3"><a class="hlink link-silence" href="#silence">Silence</a>
+                          </li>
+                          <li class="heading-item -depth-3"><a class="hlink link-test-commands" href="#test-commands">Test commands</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-implementation-details" href="#implementation-details">Implementation details</a>
+                        <ul class="heading-list -depth-2">
+                          <li class="heading-item -depth-3"><a class="hlink link-concurrency" href="#concurrency">Concurrency</a>
+                          </li>
+                          <li class="heading-item -depth-3"><a class="hlink link-waiting-for-child-process-to-end" href="#waiting-for-child-process-to-end">Waiting for child process to end</a>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-nyan-cat-ogg-03">
+        <div class="header-nav">
+          <div class="right">
+          </div>
+        </div>
+        <div class="markdown-body"><p><img src="img/header-tap-nyan-module.png" alt></p>
+<p><em>Written on 2021-12-31 by Marek J&#x119;dryka</em></p>
+<h1 id="part-3:-nyan-cat-ogg-script-implementation">Part 3: Nyan cat OGG script implementation</h1>
+<p>As I specified in previous post, I need a CLI tool for running tests and playing sound at the same time.
+The tool should be configurable at runtime, so I need to support a few arguments given during the process start.</p>
+<h5 id="tap-nyan-reporter-with-sound">TAP nyan reporter with sound</h5>
+<!-- ![TAP nyan reporter with sound](video/nyan-cat-4.webm) -->
+<video controls src="video/nyan-cat-4.webm" width="768">
+  Your browser does not support the video tag or WEBM files.
+</video>
+<p>Above is working example video.
+Details are placed below.</p>
+<h2 id="cli-arguments">CLI arguments</h2>
+<p>The first thing that the user interacts with text-mode application is the CLI.
+It should offer nice, easy to read help message.
+To implement that layer of the program let&apos;s use <code>yargs</code> library from NPM public repository.
+It&apos;s powerful tool for parsing <code>argv</code> array of node&apos;s process.</p>
+<h3 id="external-tap-consumer">External TAP consumer</h3>
+<p>I want to let the user the possibility of passing an external TAP consumer binary.
+However, after thinking about that for a while, I realized producing raw TAP output would be the better option.
+Based on this reflection, I introduced <code>--tap</code> boolean argument.
+It&apos;s optional parameter with false as the default value.
+Their alias is <code>-t</code> shortening.</p>
+<h3 id="audio-file">Audio file</h3>
+<p>This is the highlight section.
+Let me introduce <code>--audio</code> (with <code>-a</code> alias) parameter here.
+It&apos;s optional argument with nyan cat song as the default value.
+If you wish for another sound, you can pass relative or global path to OGG file.</p>
+<h3 id="silence">Silence</h3>
+<p>If you wish to use the application in silent mode, you can use <code>--silence</code> (or <code>-s</code> alias) boolean argument.
+It&apos;s optional parameter with false as the default value.</p>
+<h3 id="test-commands">Test commands</h3>
+<p>Last but not least, I introduced a required parameter to pass test commands producing TAP stream.
+The parameter takes 1 string by occurrence.
+It can be used more than once.
+They are named <code>--producer</code> with <code>-p</code> shortening.</p>
+<h2 id="implementation-details">Implementation details</h2>
+<p>I had a few problems during the implementation.</p>
+<h3 id="concurrency">Concurrency</h3>
+<p>The first one was the inability to play audio and produce output on <code>stdout</code> at the same time.
+This was manifested by the sound stamming while printing text output, as you can see below.</p>
+<h5 id="sound-stamming-at-single-threaded-application">Sound stamming at single threaded application</h5>
+<!-- ![Sound stamming at single threaded application](video/nyan-cat-3.webm) -->
+<video controls src="video/nyan-cat-3.webm" width="768">
+  Your browser does not support the video tag or WEBM files.
+</video>
+<p>This is due to node.js working on single thread.
+So I needed to move the audio playback to separated thread.</p>
+<p>The first attempt failed.
+I tried to use <code>worker_threads</code> from node API but I got an error message about unable to use unregistered module for decoding OGG files.
+I don&apos;t remember exactly.
+Anyway, I didn&apos;t understand the reason and I couldn&apos;t solve it, so I made another attempt.</p>
+<p>This time I used the <code>child_process</code> API.
+All I had to do was terminate the child process at right time by using <code>AbortController</code>.</p>
+<pre><code class="lang-JS"><span class="pl-k">import</span> { fork } <span class="pl-k">from</span> <span class="pl-s">&apos;child_process&apos;</span>
+
+<span class="pl-k">import</span> { wait } <span class="pl-k">from</span> <span class="pl-s">&apos;./wait&apos;</span>
+
+
+<span class="pl-k">const</span> controller = <span class="pl-k">new</span> AbortController()
+<span class="pl-k">const</span> audio = fork(<span class="pl-s">&apos;./src/audio.js&apos;</span>, [argv.audio], {
+  <span class="hljs-attr">signal</span>: controller.signal,
+})
+audio.on(<span class="pl-s">&apos;error&apos;</span>, (err) =&gt; {
+  <span class="pl-k">if</span> (err.code !== <span class="pl-s">&apos;ABORT_ERR&apos;</span>) <span class="pl-c1">console</span>.error(err)
+})
+<span class="pl-k">await</span> wait(tasks)
+controller.abort()
+</code></pre>
+<p>This brings us to the next problem.</p>
+<h3 id="waiting-for-child-process-to-end">Waiting for child process to end</h3>
+<p>We had to wait for child process end of working.
+I implemented this by listening on <code>finish</code> event of writable stream as <code>stdout</code> if child process is.
+In this listeners callback I&apos;m counting down to 0, using <code>counter</code> variable in their closure.
+I can resolve returned promise as soon as the countdown is over.</p>
+<pre><code class="lang-JS"><span class="pl-k">export</span> <span class="pl-k">const</span> wait = <span class="hljs-function"><span class="hljs-params">tasks</span> =&gt;</span> <span class="pl-k">new</span> <span class="pl-c1">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> {
+  <span class="pl-k">let</span> counter = tasks.length
+  <span class="pl-k">const</span> listener = <span class="hljs-function">(<span class="hljs-params">...args</span>) =&gt;</span> {
+    <span class="pl-k">if</span> (--counter === <span class="hljs-number">0</span>) {
+      resolve(tasks)
+    }
+  }
+  tasks.forEach(<span class="hljs-function"><span class="hljs-params">t</span> =&gt;</span> {
+    t.once(<span class="pl-s">&apos;finish&apos;</span>, listener)
+  })
+
+  <span class="pl-c">// fallback checking tasks</span>
+  <span class="pl-k">const</span> intervalId = setInterval(<span class="hljs-function"><span class="pl-k">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="pl-k">if</span> (tasks.every(<span class="hljs-function"><span class="hljs-params">t</span> =&gt;</span> t.exitCode !== <span class="pl-c1">null</span>)) {
+      clearInterval(intervalId)
+      resolve(tasks)
+    }
+  }, <span class="hljs-number">500</span>)
+})
+</code></pre>
+<p>Unfortunately, the <code>finish</code> event is not always emitted.
+I don&apos;t know exactly why.
+In such situations, I have to rescue by periodical execution of backup code.
+Let interval be twice a second.
+If every task would be exited with any exit code value then finally promise can be resolved as well.</p>
+<p>References:</p>
+<ul>
+<li><a href="https://nodejs.org/dist/latest-v16.x/docs/api/child_process.html">https://nodejs.org/dist/latest-v16.x/docs/api/child_process.html</a></li>
+<li><a href="https://nodejs.org/dist/latest-v16.x/docs/api/worker_threads.html">https://nodejs.org/dist/latest-v16.x/docs/api/worker_threads.html</a></li>
+<li><a href="https://nodejs.org/dist/latest-v16.x/docs/api/stream.html#event-finish">https://nodejs.org/dist/latest-v16.x/docs/api/stream.html#event-finish</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortController">https://developer.mozilla.org/en-US/docs/Web/API/AbortController</a></li>
+</ul>
+<h2 id="package">Package</h2>
+<p>You can install and try my CLI tool.
+It&apos;s published on NPM registry: <a href="https://www.npmjs.com/package/tap-ogg">tap-ogg</a></p>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="nyan-cat-ogg-02.html"><span class="title">Part 2: Running tests</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -139,24 +139,24 @@
             "slug": "nyan-cat-ogg-00",
             "headings": [
               {
-                "title": "1. Input file format",
+                "title": "Input file format",
                 "depth": 2,
-                "id": "1.-input-file-format"
+                "id": "input-file-format"
               },
               {
-                "title": "2. Running environment",
+                "title": "Running environment",
                 "depth": 2,
-                "id": "2.-running-environment"
+                "id": "running-environment"
               },
               {
-                "title": "3. Fun and learning",
+                "title": "Fun and learning",
                 "depth": 2,
-                "id": "3.-fun-and-learning"
+                "id": "fun-and-learning"
               },
               {
-                "title": "4. For developers happiness",
+                "title": "For developers happiness",
                 "depth": 2,
-                "id": "4.-for-developers-happiness"
+                "id": "for-developers-happiness"
               }
             ]
           },
@@ -232,6 +232,58 @@
                 "title": "Result",
                 "depth": 2,
                 "id": "result"
+              }
+            ]
+          },
+          {
+            "title": "Part 3: Nyan cat OGG script implementation",
+            "source": "src/nyan-cat-ogg-03.md",
+            "url": "nyan-cat-ogg-03.html",
+            "slug": "nyan-cat-ogg-03",
+            "headings": [
+              {
+                "title": "CLI arguments",
+                "depth": 2,
+                "id": "cli-arguments",
+                "headings": [
+                  {
+                    "title": "External TAP consumer",
+                    "depth": 3,
+                    "id": "external-tap-consumer"
+                  },
+                  {
+                    "title": "Audio file",
+                    "depth": 3,
+                    "id": "audio-file"
+                  },
+                  {
+                    "title": "Silence",
+                    "depth": 3,
+                    "id": "silence"
+                  },
+                  {
+                    "title": "Test commands",
+                    "depth": 3,
+                    "id": "test-commands"
+                  }
+                ]
+              },
+              {
+                "title": "Implementation details",
+                "depth": 2,
+                "id": "implementation-details",
+                "headings": [
+                  {
+                    "title": "Concurrency",
+                    "depth": 3,
+                    "id": "concurrency"
+                  },
+                  {
+                    "title": "Waiting for child process to end",
+                    "depth": 3,
+                    "id": "waiting-for-child-process-to-end"
+                  }
+                ]
               }
             ]
           }
@@ -376,24 +428,24 @@
       "slug": "nyan-cat-ogg-00",
       "headings": [
         {
-          "title": "1. Input file format",
+          "title": "Input file format",
           "depth": 2,
-          "id": "1.-input-file-format"
+          "id": "input-file-format"
         },
         {
-          "title": "2. Running environment",
+          "title": "Running environment",
           "depth": 2,
-          "id": "2.-running-environment"
+          "id": "running-environment"
         },
         {
-          "title": "3. Fun and learning",
+          "title": "Fun and learning",
           "depth": 2,
-          "id": "3.-fun-and-learning"
+          "id": "fun-and-learning"
         },
         {
-          "title": "4. For developers happiness",
+          "title": "For developers happiness",
           "depth": 2,
-          "id": "4.-for-developers-happiness"
+          "id": "for-developers-happiness"
         }
       ]
     },
@@ -471,6 +523,58 @@
           "id": "result"
         }
       ]
+    },
+    "nyan-cat-ogg-03.html": {
+      "source": "src/nyan-cat-ogg-03.md",
+      "title": "Part 3: Nyan cat OGG script implementation - About",
+      "pageTitle": "Part 3: Nyan cat OGG script implementation",
+      "slug": "nyan-cat-ogg-03",
+      "headings": [
+        {
+          "title": "CLI arguments",
+          "depth": 2,
+          "id": "cli-arguments",
+          "headings": [
+            {
+              "title": "External TAP consumer",
+              "depth": 3,
+              "id": "external-tap-consumer"
+            },
+            {
+              "title": "Audio file",
+              "depth": 3,
+              "id": "audio-file"
+            },
+            {
+              "title": "Silence",
+              "depth": 3,
+              "id": "silence"
+            },
+            {
+              "title": "Test commands",
+              "depth": 3,
+              "id": "test-commands"
+            }
+          ]
+        },
+        {
+          "title": "Implementation details",
+          "depth": 2,
+          "id": "implementation-details",
+          "headings": [
+            {
+              "title": "Concurrency",
+              "depth": 3,
+              "id": "concurrency"
+            },
+            {
+              "title": "Waiting for child process to end",
+              "depth": 3,
+              "id": "waiting-for-child-process-to-end"
+            }
+          ]
+        }
+      ]
     }
   },
   "sources": {
@@ -482,6 +586,7 @@
     "src/nyan-cat-ogg-00.md": "nyan-cat-ogg-00.html",
     "src/nyan-cat-ogg-01.md": "nyan-cat-ogg-01.html",
     "src/nyan-cat-ogg-02.md": "nyan-cat-ogg-02.html",
+    "src/nyan-cat-ogg-03.md": "nyan-cat-ogg-03.html",
     "src/ackee-tracker.min.js": "ackee-tracker.min.js",
     "src/ackee.js": "ackee.js",
     "src/node-migration-esm-01.md.backup": "node-migration-esm-01.md.backup",
@@ -493,6 +598,8 @@
     "src/img/header-es-module.png": "img/header-es-module.png",
     "src/img/header-tap-nyan-module.png": "img/header-tap-nyan-module.png",
     "src/video/nyan-cat-1.webm": "video/nyan-cat-1.webm",
-    "src/video/nyan-cat-2.webm": "video/nyan-cat-2.webm"
+    "src/video/nyan-cat-2.webm": "video/nyan-cat-2.webm",
+    "src/video/nyan-cat-3.webm": "video/nyan-cat-3.webm",
+    "src/video/nyan-cat-4.webm": "video/nyan-cat-4.webm"
   }
 }

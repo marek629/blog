@@ -46,6 +46,8 @@
                       </li>
                     </ul>
                   </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-03" href="nyan-cat-ogg-03.html">Part 3: Nyan cat OGG script implementation</a>
+                  </li>
                 </ul>
               </li>
             </ul>
@@ -135,7 +137,7 @@ It&apos;s running without error now.</p>
 <h4 id="2.-it&apos;s-not-easy-to-read">2. It&apos;s not easy to read</h4>
 <p>We can improve readability easily and quickly.
 Just add these <code>scripts</code> section to your <code>package.json</code></p>
-<pre><code>&quot;scripts&quot;: {
+<pre><code class="lang-text">&quot;scripts&quot;: {
     &quot;ogg&quot;: &quot;node --experimental-specifier-resolution=node src/ogg.js&quot;,
     &quot;start&quot;: &quot;npx concurrently -k --raw \&quot;yarn test\&quot; \&quot;yarn ogg &amp;&gt; /dev/null\&quot; || exit 0&quot;,
     &quot;test&quot;: &quot;yarn ava test/massive.test.js --tap --timeout=2m | yarn tap-nyan&quot;
@@ -161,6 +163,7 @@ It plays sound as long as tests are running.</p>
         </div>
         <div class="footer-nav">
           <div class="left"><a href="nyan-cat-ogg-01.html"><span class="title">Part 1: Playing OGG file</span></a></div>
+          <div class="right"><a href="nyan-cat-ogg-03.html"><span class="label">Next: </span><span class="title">Part 3: Nyan cat OGG script implementation</span></a></div>
         </div>
       </div>
     </div>
