@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/style.css?t=90051322">
+    <script src="assets/script.js?t=93f1a66c"></script>
+    <script src="ackee-tracker.min.js?t=406d2b6f"></script>
+    <script src="ackee.js?t=c064c78c"></script>
+    <title>Bats Introduction for JavaScript Developers - About</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="index.html">About</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-node-migration-esm" href="node-migration-esm.html">Migration node.js project to ESM</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-01" href="node-migration-esm-01.html">Part 1: --experimental-specifier-resolution</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-02" href="node-migration-esm-02.html">Part 2: __dirname and __filename</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-nyan-cat-ogg" href="nyan-cat-ogg.html">Tap nyan playing sound</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-00" href="nyan-cat-ogg-00.html">Part 0: Nyan cat OGG script specification</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-01" href="nyan-cat-ogg-01.html">Part 1: Playing OGG file</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-02" href="nyan-cat-ogg-02.html">Part 2: Running tests</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-03" href="nyan-cat-ogg-03.html">Part 3: Nyan cat OGG script implementation</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1"><a class="link title -active link-bats-01" href="bats-01.html">Bats Introduction for JavaScript Developers</a>
+                <ul class="headings heading-list">
+                  <li class="heading-item -depth-2"><a class="hlink link-why-do-i-need-it" href="#why-do-i-need-it">Why do I need it?</a>
+                  </li>
+                  <li class="heading-item -depth-2"><a class="hlink link-basic-concepts" href="#basic-concepts">Basic Concepts</a>
+                    <ul class="heading-list -depth-2">
+                      <li class="heading-item -depth-3"><a class="hlink link-bats-assertion-library" href="#bats-assertion-library">Bats Assertion Library</a>
+                      </li>
+                      <li class="heading-item -depth-3"><a class="hlink link-references" href="#references">References</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="heading-item -depth-2"><a class="hlink link-installation" href="#installation">Installation</a>
+                    <ul class="heading-list -depth-2">
+                      <li class="heading-item -depth-3"><a class="hlink link-references" href="#references">References</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="heading-item -depth-2"><a class="hlink link-assertions-tips" href="#assertions-tips">Assertions Tips</a>
+                    <ul class="heading-list -depth-2">
+                      <li class="heading-item -depth-3"><a class="hlink link-output-string-includes" href="#output-string-includes">Output string includes</a>
+                      </li>
+                      <li class="heading-item -depth-3"><a class="hlink link-output-string-ends-with" href="#output-string-ends-with">Output string ends with</a>
+                      </li>
+                      <li class="heading-item -depth-3"><a class="hlink link-output-string-starts-with" href="#output-string-starts-with">Output string starts with</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-bats-01">
+        <div class="header-nav">
+          <div class="right">
+          </div>
+        </div>
+        <div class="markdown-body"><p><img src="img/header-bats-module.png" alt></p>
+<p><em>Written on 2022-02-08 by Marek J&#x119;dryka</em></p>
+<h1 id="bats-introduction-for-javascript-developers">Bats Introduction for JavaScript Developers</h1>
+<p>Bats (Bash Automated Test System) is a tool for testing CLI (Command Line Interface) applications built on the top of the Bash shell.
+It&apos;s a great option for black-box testing.</p>
+<h2 id="why-do-i-need-it">Why do I need it?</h2>
+<p>You can need Bats if you develop CLI application, for example using node.js technology stack.</p>
+<p>During software development that offers a text-mode interface, probably you would need to check your CLI works properly with many different options, arguments, or switches.
+Of course, you can check your application manually when your CLI is small, but the CLI would grow over time.
+As the number of text-mode options increases, the number of test cases increases to a value that is difficult to control manually.
+Plus there is the problem of runtime context, i.e. current working directory, environment variables, etc.</p>
+<p>Therefore you will want to automate your manual CLI tests and incorporate to system tests set.
+It will probably be done faster than you expect.</p>
+<h2 id="basic-concepts">Basic Concepts</h2>
+<p>Bats is a testing framework for Bash that uses its own file extension <code>.bats</code>.
+It provides a convenient way to create, name and execute test cases by running shell commands.
+It&apos;s possible thanks to special <code>@test</code> annotation, so you can figure out an analogy of test runners known from the JS ecosystem.
+And finally, it offers a few report formatters, including TAP output.</p>
+<p>Inside the test case code block you&apos;re able to execute any bash command, especially two things: your application and <code>test</code> command short syntax for output validation and exit status code of the finished process.
+Bats brings you in a <code>run</code> helper command to store the exit status and the output to special global variables: <code>$status</code> and <code>$output</code>.
+Simple example of Bats test case is placed below.</p>
+<pre><code class="lang-bats">@test &quot;execute from root project directory&quot; {
+  run src/cli.js -p &apos;yarn ava test/skipping.test.js --tap&apos; -t
+  result=&quot;$(echo $output | grep ERR_MODULE_NOT_FOUND | wc -l)&quot;
+  [ &quot;$result&quot; -eq 0 ]
+}
+</code></pre>
+<p>Report of this test case in default format looks following:</p>
+<ul>
+<li>on success (font is green in my terminal)<pre><code> &#x2713; execute from root project directory
+</code></pre>
+</li>
+<li>and on failure (font is red in my terminal)<pre><code> &#x2717; execute from root project directory
+   (in test file test/test.bats, line 12)
+     `[ &quot;$result&quot; -eq 0 ]&apos; failed
+</code></pre>
+</li>
+</ul>
+<p>Sadly, I can&apos;t see what is the problem in the output of failed test case.
+I must rerun the tested command by myself for now.
+I will show you a better way in the next section.</p>
+<p>Bats offers a few tools accordant with DRY (Don&apos;t Repeat Yourself) philosophy:</p>
+<ul>
+<li><code>setup_file</code> funtion that is <code>before</code> hook</li>
+<li><code>setup</code> funtion that is <code>beforeEach</code> hook</li>
+<li><code>teardown</code> funtion that is <code>afterEach</code> hook</li>
+<li><code>teardown_file</code> funtion that is <code>after</code> hook</li>
+<li><code>load</code> function loads given Bats library or any <code>*.bash</code> file, similar as bash&apos;s command <code>source</code> loads any <code>*.sh</code> file</li>
+</ul>
+<pre><code class="lang-bats">setup() {
+  load &apos;../node_modules/bats-support/load&apos;
+  load &apos;../node_modules/bats-assert/load&apos;
+}
+</code></pre>
+<p>And last but not least, Bats allows skipping selected test case by <code>skip</code> function.</p>
+<h3 id="bats-assertion-library">Bats Assertion Library</h3>
+<p>As I signaled in the previous section, you can load a Bats library in your <code>.bats</code> file.
+I suppose that the most frequently used library is <code>bats-assert</code>.
+It includes many convenient assertion functions that you can use instead of bash&apos;s <code>test</code> commands, which is often not so clear at all.</p>
+<p>The <code>bats-assert</code> package offers two types of assertions.
+The first one is a positive assertion, i.e. true is expected as parameter or result of assertion.
+All such assertion functions start their name with <code>assert</code>.
+They are <code>assert</code>, <code>assert_equal</code>, <code>assert_not_equal</code>, <code>assert_success</code>, <code>assert_failure</code>, <code>assert_output</code> and <code>assert_line</code>.
+The second kind of assertions is the negative ones.
+Their names start with <code>refute</code> and they are as follows: <code>refute</code>, <code>refute_output</code> and <code>refute_line</code>.</p>
+<p>In my opinion, the most useful functions are focused on the output and exit code of the process under test.
+I believe so because these two things are the main care when I test my applications as black-box.
+I check if the process is finished with <code>0</code> status code (<code>assert_success</code>) or any other (<code>assert_failure</code>).
+Next, I verify if output of my process looks good as entity (<code>assert_output</code>) and it doesn&apos;t contain undesired lines (<code>refute_line</code>) about warnings, errors and so on.
+If I don&apos;t know full expected output or line, or it doesn&apos;t matter in current test case, I can use <code>-p</code> (alias of <code>--partial</code>) switch.
+If I need to, I can also use a regular expression (<code>-e</code> or <code>--regexp</code> switch) in this case.</p>
+<p>In the face of this, the previous test case can be rewritten to:</p>
+<pre><code class="lang-bats">@test &quot;execute from root project directory&quot; {
+  run src/cli.js -p &apos;yarn ava test/skipping.test.js --tap&apos; -t
+  refute_line -p ERR_MODULE_NOT_FOUND
+}
+</code></pre>
+<p>This is much easier to read, isn&apos;t it?
+And it has an additional asset: brilliant, human-readable assertion failure error.
+Let&apos;s say that I did a mistake in the imported module name in my <code>src/cli.js</code> file.
+After the last change, Bats prints a nice test case failure message:</p>
+<pre><code> &#x2717; execute from root project directory
+   (from function `refute_line&apos; in file test/../node_modules/bats-assert/src/assert.bash, line 722,
+    in test file test/test.bats, line 11)
+     `refute_line -p ERR_MODULE_NOT_FOUND&apos; failed
+   
+   -- no line should contain substring --
+   substring : ERR_MODULE_NOT_FOUND
+   index     : 3
+   output (17 lines):
+     node:internal/errors:464
+         ErrorCaptureStackTrace(err);
+         ^
+   &gt; 
+     Error [ERR_MODULE_NOT_FOUND]: Cannot find package &apos;tap-nya&apos; imported from /home/marek/projects/tap-nyan-ogg-master/src/cli.js
+         at new NodeError (node:internal/errors:371:5)
+         at packageResolve (node:internal/modules/esm/resolve:864:9)
+         at moduleResolve (node:internal/modules/esm/resolve:910:18)
+         at defaultResolve (node:internal/modules/esm/resolve:1005:11)
+         at ESMLoader.resolve (node:internal/modules/esm/loader:530:30)
+         at ESMLoader.getModuleJob (node:internal/modules/esm/loader:251:18)
+         at ModuleWrap.&lt;anonymous&gt; (node:internal/modules/esm/module_job:79:40)
+         at link (node:internal/modules/esm/module_job:78:36) {
+       code: &apos;ERR_MODULE_NOT_FOUND&apos;
+     }
+     
+     Node.js v17.3.0
+   --
+</code></pre>
+<p>I got the whole output of failed test case.
+It&apos;s a great power of <code>bats-assert</code>.
+I love it!</p>
+<h3 id="references">References</h3>
+<ul>
+<li><a href="https://bats-core.readthedocs.io/en/stable/tutorial.html">https://bats-core.readthedocs.io/en/stable/tutorial.html</a></li>
+<li><a href="https://bats-core.readthedocs.io/en/stable/installation.html">https://bats-core.readthedocs.io/en/stable/installation.html</a></li>
+<li><a href="https://bats-core.readthedocs.io/en/stable/writing-tests.html">https://bats-core.readthedocs.io/en/stable/writing-tests.html</a></li>
+<li><a href="https://github.com/bats-core/bats-assert#readme">https://github.com/bats-core/bats-assert#readme</a></li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p>Bats ships plenty of options for its installation.
+It could be installed as <code>npm</code> package, cloned by <code>git</code> and then installed from source, or built on the top of prepared image and run as Docker container.
+Moreover, you can install globally using your operating system tools.
+For Linux-based machines, it could be a distro-specific package manager, for example, <code>pacman</code> or <code>apt-get</code> CLI commands.</p>
+<p>In my development environment, I prefer to have <code>bats</code> installed globally by <code>pacman</code> (the package manager at my Linux distribution).
+At the same time, I install Bats libraries locally (by project) using NPM repository.
+It&apos;s caused by loading Bats libraries using relative paths, from <code>node_modules</code> in this case, which is more elastic for use in many different environments.
+No configuration and no environment variables are needed.
+So my Bats setup workflow on fresh system is looking as follows:</p>
+<pre><code class="lang-bash">pacman -S bats
+yarn add -D bats bats-{assert,support}
+</code></pre>
+<p>As you could notice, I installed <code>bats</code> twice - by <code>pacman</code> and <code>yarn</code>.
+I did it because I want to be able to run <code>bats</code> by <code>yarn</code> on another machine event without <code>bats</code> installed globally.
+So it&apos;s redundant but deliberated.
+I can use alternative one of both ways of running <code>bats</code> - just <code>bats</code> or <code>yarn bats</code>.
+However, the first one could be run on machines with installed Bats globally only.</p>
+<h3 id="references">References</h3>
+<ul>
+<li><a href="https://bats-core.readthedocs.io/en/stable/installation.html">https://bats-core.readthedocs.io/en/stable/installation.html</a></li>
+<li><a href="https://www.npmjs.com/package/bats">https://www.npmjs.com/package/bats</a></li>
+<li><a href="https://www.npmjs.com/package/bats-assert">https://www.npmjs.com/package/bats-assert</a></li>
+<li><a href="https://www.npmjs.com/package/bats-support">https://www.npmjs.com/package/bats-support</a></li>
+</ul>
+<h2 id="assertions-tips">Assertions Tips</h2>
+<p>Let me introduce a tiny Rosetta of basic operations on the output string.
+I will show JS pseudo-code first, and then its equivalent in <code>bats-core</code> and <code>bats-assert</code> flavoured syntax test cases.</p>
+<h3 id="output-string-includes">Output string includes</h3>
+<pre><code class="lang-JS"><span class="pl-k">const</span> output = <span class="pl-s">&apos;contra vim mortis non est medicamen in hortis&apos;</span>
+output.includes(<span class="pl-s">&apos;mortis&apos;</span>)
+</code></pre>
+<pre><code class="lang-bats">@test &quot;output includes &apos;mortis&apos; using bats-core only&quot; {
+  run echo &quot;contra vim mortis non est medicamen in hortis&quot;
+  result=&quot;$(echo $output | grep mortis | wc -l)&quot;
+  [ &quot;$result&quot; -ge 0 ]
+}
+
+@test &quot;output includes &apos;mortis&apos; using bats-assert&quot; {
+  run echo &quot;contra vim mortis non est medicamen in hortis&quot;
+  assert_output -p mortis
+}
+</code></pre>
+<h3 id="output-string-ends-with">Output string ends with</h3>
+<pre><code class="lang-JS"><span class="pl-k">const</span> output = <span class="pl-s">&apos;contra vim mortis non est medicamen in hortis&apos;</span>
+output.endsWith(<span class="pl-s">&apos;hortis&apos;</span>)
+</code></pre>
+<pre><code class="lang-bats">@test &quot;output ends with &apos;hortis&apos; using bats-core only&quot; {
+  run echo &quot;contra vim mortis non est medicamen in hortis&quot;
+  result=&quot;$(echo $output | rev | cut -d &apos; &apos; -f 1 | rev )&quot;
+  [ &quot;$result&quot; == &quot;hortis&quot; ]
+}
+
+@test &quot;output ends with &apos;hortis&apos; using bats-assert&quot; {
+  run echo &quot;contra vim mortis non est medicamen in hortis&quot;
+  assert_output -e &apos;hortis$&apos;
+}
+</code></pre>
+<h3 id="output-string-starts-with">Output string starts with</h3>
+<pre><code class="lang-JS"><span class="pl-k">const</span> output = <span class="pl-s">&apos;contra vim mortis non est medicamen in hortis&apos;</span>
+output.startsWith(<span class="pl-s">&apos;contra&apos;</span>)
+</code></pre>
+<pre><code class="lang-bats">@test &quot;output starts with &apos;contra&apos; using bats-core only&quot; {
+  run echo &quot;contra vim mortis non est medicamen in hortis&quot;
+  result=&quot;$(echo $output | cut -d &apos; &apos; -f 1 )&quot;
+  [ &quot;$result&quot; == &quot;contra&quot; ]
+}
+
+@test &quot;output starts with &apos;contra&apos; using bats-assert&quot; {
+  run echo &quot;contra vim mortis non est medicamen in hortis&quot;
+  assert_output -e &apos;^contra&apos;
+}
+</code></pre>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="nyan-cat-ogg-03.html"><span class="title">Part 3: Nyan cat OGG script implementation</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -284,6 +284,75 @@
                     "id": "waiting-for-child-process-to-end"
                   }
                 ]
+              },
+              {
+                "title": "Package",
+                "depth": 2,
+                "id": "package"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Bats Introduction for JavaScript Developers",
+        "source": "src/bats-01.md",
+        "url": "bats-01.html",
+        "slug": "bats-01",
+        "headings": [
+          {
+            "title": "Why do I need it?",
+            "depth": 2,
+            "id": "why-do-i-need-it"
+          },
+          {
+            "title": "Basic Concepts",
+            "depth": 2,
+            "id": "basic-concepts",
+            "headings": [
+              {
+                "title": "Bats Assertion Library",
+                "depth": 3,
+                "id": "bats-assertion-library"
+              },
+              {
+                "title": "References",
+                "depth": 3,
+                "id": "references"
+              }
+            ]
+          },
+          {
+            "title": "Installation",
+            "depth": 2,
+            "id": "installation",
+            "headings": [
+              {
+                "title": "References",
+                "depth": 3,
+                "id": "references"
+              }
+            ]
+          },
+          {
+            "title": "Assertions Tips",
+            "depth": 2,
+            "id": "assertions-tips",
+            "headings": [
+              {
+                "title": "Output string includes",
+                "depth": 3,
+                "id": "output-string-includes"
+              },
+              {
+                "title": "Output string ends with",
+                "depth": 3,
+                "id": "output-string-ends-with"
+              },
+              {
+                "title": "Output string starts with",
+                "depth": 3,
+                "id": "output-string-starts-with"
               }
             ]
           }
@@ -573,6 +642,75 @@
               "id": "waiting-for-child-process-to-end"
             }
           ]
+        },
+        {
+          "title": "Package",
+          "depth": 2,
+          "id": "package"
+        }
+      ]
+    },
+    "bats-01.html": {
+      "source": "src/bats-01.md",
+      "title": "Bats Introduction for JavaScript Developers - About",
+      "pageTitle": "Bats Introduction for JavaScript Developers",
+      "slug": "bats-01",
+      "headings": [
+        {
+          "title": "Why do I need it?",
+          "depth": 2,
+          "id": "why-do-i-need-it"
+        },
+        {
+          "title": "Basic Concepts",
+          "depth": 2,
+          "id": "basic-concepts",
+          "headings": [
+            {
+              "title": "Bats Assertion Library",
+              "depth": 3,
+              "id": "bats-assertion-library"
+            },
+            {
+              "title": "References",
+              "depth": 3,
+              "id": "references"
+            }
+          ]
+        },
+        {
+          "title": "Installation",
+          "depth": 2,
+          "id": "installation",
+          "headings": [
+            {
+              "title": "References",
+              "depth": 3,
+              "id": "references"
+            }
+          ]
+        },
+        {
+          "title": "Assertions Tips",
+          "depth": 2,
+          "id": "assertions-tips",
+          "headings": [
+            {
+              "title": "Output string includes",
+              "depth": 3,
+              "id": "output-string-includes"
+            },
+            {
+              "title": "Output string ends with",
+              "depth": 3,
+              "id": "output-string-ends-with"
+            },
+            {
+              "title": "Output string starts with",
+              "depth": 3,
+              "id": "output-string-starts-with"
+            }
+          ]
         }
       ]
     }
@@ -587,6 +725,7 @@
     "src/nyan-cat-ogg-01.md": "nyan-cat-ogg-01.html",
     "src/nyan-cat-ogg-02.md": "nyan-cat-ogg-02.html",
     "src/nyan-cat-ogg-03.md": "nyan-cat-ogg-03.html",
+    "src/bats-01.md": "bats-01.html",
     "src/ackee-tracker.min.js": "ackee-tracker.min.js",
     "src/ackee.js": "ackee.js",
     "src/node-migration-esm-01.md.backup": "node-migration-esm-01.md.backup",
@@ -595,6 +734,7 @@
     "src/audio/nyan-ogg-decoded.ogg": "audio/nyan-ogg-decoded.ogg",
     "src/audio/nyan.ogg": "audio/nyan.ogg",
     "src/img/fail-successfully.jpg": "img/fail-successfully.jpg",
+    "src/img/header-bats-module.png": "img/header-bats-module.png",
     "src/img/header-es-module.png": "img/header-es-module.png",
     "src/img/header-tap-nyan-module.png": "img/header-tap-nyan-module.png",
     "src/video/nyan-cat-1.webm": "video/nyan-cat-1.webm",
