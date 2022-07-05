@@ -79,7 +79,7 @@ Cons:
 ## Impact of refactoring
 
 Changes that I made let me inject dependencies in tests so I could do unit tests without whole universe interactions.
-Test cases can be fast and fully-controlled and predictable.
+Test cases can be fast, fully-controlled and predictable.
 It's a great plus.
 
 And last but not least the changes did impact on the service function file and just added test.
