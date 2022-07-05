@@ -387,9 +387,9 @@
             ]
           },
           {
-            "title": "Impact of refactor",
+            "title": "Impact of refactoring",
             "depth": 2,
-            "id": "impact-of-refactor"
+            "id": "impact-of-refactoring"
           }
         ]
       }
@@ -778,9 +778,9 @@
           ]
         },
         {
-          "title": "Impact of refactor",
+          "title": "Impact of refactoring",
           "depth": 2,
-          "id": "impact-of-refactor"
+          "id": "impact-of-refactoring"
         }
       ]
     }
@@ -797,8 +797,8 @@
     "src/nyan-cat-ogg-03.md": "nyan-cat-ogg-03.html",
     "src/bats-01.md": "bats-01.html",
     "src/dependency-injection-01.md": "dependency-injection-01.html",
-    "src/ackee-tracker.min.js": "ackee-tracker.min.js",
     "src/ackee.js": "ackee.js",
+    "src/ackee-tracker.min.js": "ackee-tracker.min.js",
     "src/node-migration-esm-01.md.backup": "node-migration-esm-01.md.backup",
     "src/node-migration-esm-02.md.backup": "node-migration-esm-02.md.backup",
     "src/nyan-cat-ogg-02.md.backup": "nyan-cat-ogg-02.md.backup",
@@ -810,8 +810,8 @@
     "src/img/header-es-module.png": "img/header-es-module.png",
     "src/img/header-tap-nyan-module.png": "img/header-tap-nyan-module.png",
     "src/video/nyan-cat-1.webm": "video/nyan-cat-1.webm",
+    "src/video/nyan-cat-4.webm": "video/nyan-cat-4.webm",
     "src/video/nyan-cat-2.webm": "video/nyan-cat-2.webm",
-    "src/video/nyan-cat-3.webm": "video/nyan-cat-3.webm",
-    "src/video/nyan-cat-4.webm": "video/nyan-cat-4.webm"
+    "src/video/nyan-cat-3.webm": "video/nyan-cat-3.webm"
   }
 }
