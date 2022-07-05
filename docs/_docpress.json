@@ -357,6 +357,41 @@
             ]
           }
         ]
+      },
+      {
+        "title": "Pragmatic Dependency Injection",
+        "source": "src/dependency-injection-01.md",
+        "url": "dependency-injection-01.html",
+        "slug": "dependency-injection-01",
+        "headings": [
+          {
+            "title": "Refactor scope minimalization",
+            "depth": 2,
+            "id": "refactor-scope-minimalization",
+            "headings": [
+              {
+                "title": "Closure introduction",
+                "depth": 3,
+                "id": "closure-introduction"
+              },
+              {
+                "title": "Export default object",
+                "depth": 3,
+                "id": "export-default-object"
+              },
+              {
+                "title": "External stuff export",
+                "depth": 3,
+                "id": "external-stuff-export"
+              }
+            ]
+          },
+          {
+            "title": "Impact of refactor",
+            "depth": 2,
+            "id": "impact-of-refactor"
+          }
+        ]
       }
     ]
   },
@@ -713,6 +748,41 @@
           ]
         }
       ]
+    },
+    "dependency-injection-01.html": {
+      "source": "src/dependency-injection-01.md",
+      "title": "Pragmatic Dependency Injection - About",
+      "pageTitle": "Pragmatic Dependency Injection",
+      "slug": "dependency-injection-01",
+      "headings": [
+        {
+          "title": "Refactor scope minimalization",
+          "depth": 2,
+          "id": "refactor-scope-minimalization",
+          "headings": [
+            {
+              "title": "Closure introduction",
+              "depth": 3,
+              "id": "closure-introduction"
+            },
+            {
+              "title": "Export default object",
+              "depth": 3,
+              "id": "export-default-object"
+            },
+            {
+              "title": "External stuff export",
+              "depth": 3,
+              "id": "external-stuff-export"
+            }
+          ]
+        },
+        {
+          "title": "Impact of refactor",
+          "depth": 2,
+          "id": "impact-of-refactor"
+        }
+      ]
     }
   },
   "sources": {
@@ -726,6 +796,7 @@
     "src/nyan-cat-ogg-02.md": "nyan-cat-ogg-02.html",
     "src/nyan-cat-ogg-03.md": "nyan-cat-ogg-03.html",
     "src/bats-01.md": "bats-01.html",
+    "src/dependency-injection-01.md": "dependency-injection-01.html",
     "src/ackee-tracker.min.js": "ackee-tracker.min.js",
     "src/ackee.js": "ackee.js",
     "src/node-migration-esm-01.md.backup": "node-migration-esm-01.md.backup",
@@ -735,6 +806,7 @@
     "src/audio/nyan.ogg": "audio/nyan.ogg",
     "src/img/fail-successfully.jpg": "img/fail-successfully.jpg",
     "src/img/header-bats-module.png": "img/header-bats-module.png",
+    "src/img/header-di-module.png": "img/header-di-module.png",
     "src/img/header-es-module.png": "img/header-es-module.png",
     "src/img/header-tap-nyan-module.png": "img/header-tap-nyan-module.png",
     "src/video/nyan-cat-1.webm": "video/nyan-cat-1.webm",

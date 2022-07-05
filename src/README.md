@@ -11,3 +11,5 @@
   * [Part 3: Nyan cat OGG script implementation](nyan-cat-ogg-03.md)
 
 * [Bats Introduction for JavaScript Developers](bats-01.md)
+
+* [Pragmatic Dependency Injection](dependency-injection-01.md)

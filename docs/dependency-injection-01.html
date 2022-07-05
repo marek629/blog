@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/style.css?t=90051322">
+    <script src="assets/script.js?t=93f1a66c"></script>
+    <script src="ackee-tracker.min.js?t=406d2b6f"></script>
+    <script src="ackee.js?t=c064c78c"></script>
+    <title>Pragmatic Dependency Injection - About</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="index.html">About</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-node-migration-esm" href="node-migration-esm.html">Migration node.js project to ESM</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-01" href="node-migration-esm-01.html">Part 1: --experimental-specifier-resolution</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-02" href="node-migration-esm-02.html">Part 2: __dirname and __filename</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-nyan-cat-ogg" href="nyan-cat-ogg.html">Tap nyan playing sound</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-00" href="nyan-cat-ogg-00.html">Part 0: Nyan cat OGG script specification</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-01" href="nyan-cat-ogg-01.html">Part 1: Playing OGG file</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-02" href="nyan-cat-ogg-02.html">Part 2: Running tests</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-03" href="nyan-cat-ogg-03.html">Part 3: Nyan cat OGG script implementation</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1"><a class="link title  link-bats-01" href="bats-01.html">Bats Introduction for JavaScript Developers</a>
+              </li>
+              <li class="menu-item -level-1"><a class="link title -active link-dependency-injection-01" href="dependency-injection-01.html">Pragmatic Dependency Injection</a>
+                <ul class="headings heading-list">
+                  <li class="heading-item -depth-2"><a class="hlink link-refactor-scope-minimalization" href="#refactor-scope-minimalization">Refactor scope minimalization</a>
+                    <ul class="heading-list -depth-2">
+                      <li class="heading-item -depth-3"><a class="hlink link-closure-introduction" href="#closure-introduction">Closure introduction</a>
+                      </li>
+                      <li class="heading-item -depth-3"><a class="hlink link-export-default-object" href="#export-default-object">Export default object</a>
+                      </li>
+                      <li class="heading-item -depth-3"><a class="hlink link-external-stuff-export" href="#external-stuff-export">External stuff export</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="heading-item -depth-2"><a class="hlink link-impact-of-refactor" href="#impact-of-refactor">Impact of refactor</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-dependency-injection-01">
+        <div class="header-nav">
+          <div class="right">
+          </div>
+        </div>
+        <div class="markdown-body"><p><img src="img/header-di-module.png" alt></p>
+<p><em>Written on 2022-07-05 by Marek J&#x119;dryka</em></p>
+<h1 id="pragmatic-dependency-injection">Pragmatic Dependency Injection</h1>
+<p>Recently, I faced the following problem:
+I needed to test a service function using external resources such as database and REST API actions.
+My project uses ES Modules, function-oriented programming and is written in JavaScript, so I couldn&apos;t make it so easy.
+I couldn&apos;t use mocking tools like proxyquire or sinon.</p>
+<p>The gist of ESM problem:</p>
+<pre><code class="lang-JS"><span class="pl-k">import</span> { db } <span class="pl-k">from</span> <span class="pl-s">&apos;../db&apos;</span>
+<span class="pl-k">import</span> { xmlFrom3rdParty } <span class="pl-k">from</span> <span class="pl-s">&apos;./api/client&apos;</span>
+
+<span class="pl-k">export</span> <span class="pl-k">const</span> serviceFn = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="pl-k">const</span> xml = xmlFrom3rdParty()
+  db.storeXMLResult(xml)
+  <span class="pl-k">return</span> <span class="pl-s">&apos;done&apos;</span>
+}
+</code></pre>
+<p>And that was the moment when I realized my project needed some refactorization.
+Hopefully, a small one.</p>
+<h2 id="refactor-scope-minimalization">Refactor scope minimalization</h2>
+<p>Let me consider a few options...</p>
+<h3 id="closure-introduction">Closure introduction</h3>
+<p>I could introduce a configurable factory function returning the original function just configured by the closure.
+But it implies changes in usage of the function.</p>
+<p>Module interface changes didn&apos;t look good for me, so I thought about it again.</p>
+<h3 id="export-default-object">Export default object</h3>
+<p>I could export the default object from my service function file instead of exporting the function by value.</p>
+<p>I don&apos;t want to do it because I want to keep chosen way of import/export modules.
+So I had to try something else, simpler maybe.</p>
+<h3 id="external-stuff-export">External stuff export</h3>
+<p>I exported brand new object including my dependencies for replacement or injection.</p>
+<pre><code class="lang-JS"><span class="pl-k">import</span> { db } <span class="pl-k">from</span> <span class="pl-s">&apos;../db&apos;</span>
+<span class="pl-k">import</span> { xmlFrom3rdParty } <span class="pl-k">from</span> <span class="pl-s">&apos;./api/client&apos;</span>
+
+<span class="pl-c">// introduced external object</span>
+<span class="pl-k">export</span> <span class="pl-k">const</span> external = {
+  db,
+  xmlFrom3rdParty,
+}
+
+<span class="pl-k">export</span> <span class="pl-k">const</span> serviceFn = <span class="pl-k">async</span> () =&gt; {
+  <span class="pl-c">// destructuring is needed for no changes in function block below</span>
+  <span class="pl-k">const</span> { db, xmlFrom3rdParty } = external
+
+  <span class="pl-k">const</span> xml = <span class="pl-k">await</span> xmlFrom3rdParty()
+  <span class="pl-k">await</span> db.storeXMLResult(xml)
+  <span class="pl-k">return</span> <span class="pl-s">&apos;done&apos;</span>
+}
+</code></pre>
+<p>Pros:</p>
+<ul>
+<li>no impact on production code</li>
+<li>the module has full control over what set or subset of used dependencies could be injected/replaced</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>the necessity of destructuring exported <code>external</code> object, let&apos;s say the simplest dependency container, in each function what uses <code>external</code> things</li>
+</ul>
+<h2 id="impact-of-refactoring">Impact of refactoring</h2>
+<p>Changes that I made let me inject dependencies in tests so I could do unit tests without whole universe interactions.
+Test cases can be fast and fully-controlled and predictable.
+It&apos;s a great plus.</p>
+<p>And last but not least the changes did impact on the service function file and just added a test.
+It doesn&apos;t impact the production code that uses the service function as well.</p>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="bats-01.html"><span class="title">Bats Introduction for JavaScript Developers</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
