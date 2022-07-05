@@ -82,5 +82,5 @@ Changes that I made let me inject dependencies in tests so I could do unit tests
 Test cases can be fast and fully-controlled and predictable.
 It's a great plus.
 
-And last but not least the changes did impact on the service function file and just added a test.
+And last but not least the changes did impact on the service function file and just added test.
 It doesn't impact the production code that uses the service function as well.
