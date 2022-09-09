@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/style.css?t=90051322">
+    <script src="assets/script.js?t=93f1a66c"></script>
+    <script src="ackee-tracker.min.js?t=406d2b6f"></script>
+    <script src="ackee.js?t=c064c78c"></script>
+    <title>Part 4: Audio signal processing first steps - About</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="index.html">About</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-node-migration-esm" href="node-migration-esm.html">Migration node.js project to ESM</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-01" href="node-migration-esm-01.html">Part 1: --experimental-specifier-resolution</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-02" href="node-migration-esm-02.html">Part 2: __dirname and __filename</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-nyan-cat-ogg" href="nyan-cat-ogg.html">Tap nyan playing sound</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-00" href="nyan-cat-ogg-00.html">Part 0: Nyan cat OGG script specification</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-01" href="nyan-cat-ogg-01.html">Part 1: Playing OGG file</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-02" href="nyan-cat-ogg-02.html">Part 2: Running tests</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-03" href="nyan-cat-ogg-03.html">Part 3: Nyan cat OGG script implementation</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title -active link-nyan-cat-ogg-04" href="nyan-cat-ogg-04.html">Part 4: Audio signal processing first steps</a>
+                    <ul class="headings heading-list">
+                      <li class="heading-item -depth-2"><a class="hlink link-iteration-scope" href="#iteration-scope">Iteration scope</a>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-error-detection-in-tap-stream" href="#error-detection-in-tap-stream">Error detection in TAP stream</a>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-audio-stream-processing" href="#audio-stream-processing">Audio stream processing</a>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-testing" href="#testing">Testing</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1"><a class="link title  link-bats-01" href="bats-01.html">Bats Introduction for JavaScript Developers</a>
+              </li>
+              <li class="menu-item -level-1"><a class="link title  link-dependency-injection-01" href="dependency-injection-01.html">Pragmatic Dependency Injection</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-nyan-cat-ogg-04">
+        <div class="header-nav">
+          <div class="right">
+          </div>
+        </div>
+        <div class="markdown-body"><p><img src="img/header-tap-nyan-module.png" alt></p>
+<p><em>Written on 2022-09-09 by Marek J&#x119;dryka</em></p>
+<h1 id="part-4:-audio-signal-processing-first-steps">Part 4: Audio signal processing first steps</h1>
+<p>In this article, I will describe my first steps in audio signal processing.
+It&apos;s not my very first time.
+I used to signal process during my IT studies many years ago.
+It will be interesting and fun to rediscover this area of knowledge.</p>
+<h2 id="iteration-scope">Iteration scope</h2>
+<p>I want to learn signal processing by example.
+Tap-ogg project is a good place for practice, but size of changes shouldn&apos;t be too big.
+The small size of the changes allows faster verification of assumptions and faster observation of effects of the work.</p>
+<p>The simplest scope of the project changes is to modify the output sound stream when there is an error occurs in the input TAP stream produced by running tests.
+Output sound should be modified since the error report is detected in the TAP stream to the end of tests running.</p>
+<p>The requirements mean two problems to solve.
+The first one is error detection in the input stream.
+The second is proper audio processing.</p>
+<h2 id="error-detection-in-tap-stream">Error detection in TAP stream</h2>
+<p>Error detection should be easy to solve.
+Probably it would be detected by a regular expression.
+I will describe this later.</p>
+<h2 id="audio-stream-processing">Audio stream processing</h2>
+<p>To simplify the task, I considered what type of effect I should implement first.
+I knew that it&apos;s much easier to implement to choose an effect based on a single sample value modification the opposite of complex signal processing.
+So it must be not similar to an equalizer or any else spectrum-based effect.
+After a short research, the tremolo effect caught my attention.
+It&apos;s simple effect based on generated sine wave signal combined with the input sound samples.</p>
+<p>To implement the tremolo effect I need the sine wave generator.
+It is called low frequency oscillator (LFO).
+It should be quite easy but please consider that the sine function operates on radian values.
+It means the sine function returns 1 for half of &#x3C0;, 0 for &#x3C0;, and so on.
+However, during audio stream processing in node.js, there are no radian values, only sample number is available.
+The number of the sample I can recalculate to value in seconds.
+It&apos;s still no radian value but it&apos;s possible to transform to value in radians as following.</p>
+<pre><code class="lang-JS"><span class="pl-k">const</span> radianFromSampleNumber = ({
+  sampling,
+  frequency,
+  number,
+}) =&gt; (<span class="hljs-number">2</span> * number * frequency * <span class="pl-c1">Math</span>.PI) / sampling
+</code></pre>
+<p>So I can implement my LFO now.</p>
+<pre><code class="lang-JS">class LowFrequencyOscilator {
+  #sampling = 44_100
+  #frequency = 20
+
+  constructor({ sampling, frequency }) {
+    this.#sampling = sampling
+    this.#frequency = frequency
+  }
+
+  at(n) {
+    return Math.sin(radianFromSampleNumber({
+      sampling: this.#sampling,
+      frequency: this.#frequency,
+      number: n,
+    }))
+  }
+}
+</code></pre>
+<p>It&apos;s possible to build the tremolo effect function now.
+I configured it as 3 Hz in this case.</p>
+<pre><code class="lang-JS"><span class="pl-k">const</span> lfo = <span class="pl-k">new</span> LowFrequencyOscilator({
+  <span class="hljs-attr">sampling</span>: <span class="hljs-number">44</span>_100,
+  <span class="hljs-attr">frequency</span>: <span class="hljs-number">3</span>,
+})
+<span class="pl-k">let</span> n = <span class="hljs-number">0</span>
+<span class="pl-k">const</span> tremolo = ({
+  ChunkBuffer,
+}) =&gt; <span class="pl-k">new</span> Transform({
+  <span class="hljs-attr">transform</span>: <span class="hljs-function">(<span class="hljs-params">chunk, encoding, callback</span>) =&gt;</span> {
+    <span class="pl-k">const</span> array = <span class="pl-k">new</span> ChunkBuffer(chunk.buffer)
+    callback(<span class="pl-c1">null</span>, <span class="pl-k">new</span> <span class="pl-c1">Uint8Array</span>(array.map(<span class="hljs-function"><span class="hljs-params">sample</span> =&gt;</span> sample * lfo.at(n++)).buffer))
+  }
+})
+</code></pre>
+<p>And I can finally use it!</p>
+<pre><code class="lang-JS"><span class="pl-k">const</span> vd = <span class="pl-k">new</span> vorbis.Decoder()
+vd.on(<span class="pl-s">&apos;format&apos;</span>, format =&gt; {
+  <span class="pl-k">const</span> ChunkBuffer = <span class="pl-c1">Float32Array</span>
+  vd
+    .pipe(tremolo({ ChunkBuffer }))
+    .pipe(<span class="pl-k">new</span> Speaker(format))
+})
+</code></pre>
+<p>In reality, the <code>ChunkBuffer</code> value should be set based on decoded <code>format</code> metadata.
+But it&apos;s not a gist, so it was hardcoded to simplify the listing.</p>
+<p>References:</p>
+<ul>
+<li><a href="https://www.fender.com/articles/tech-talk/pedal-board-primer-get-to-know-tremolo">https://www.fender.com/articles/tech-talk/pedal-board-primer-get-to-know-tremolo</a></li>
+<li><a href="https://nodejs.org/dist/latest-v16.x/docs/api/stream.html#class-streamtransform">https://nodejs.org/dist/latest-v16.x/docs/api/stream.html#class-streamtransform</a></li>
+</ul>
+<h2 id="testing">Testing</h2>
+<p>There are two well specified areas.</p>
+<ul>
+<li>LFO</li>
+<li>Getting <code>ChunkBuffer</code> type, the <code>TypedArray</code> child class</li>
+</ul>
+<p>It sounds like good place to do Testing Driven Development (TDD).
+So I did!
+Reports are below.</p>
+<pre><code>  &#x2714; LowFrequencyOscilator &#x203A; radian from sample number | 0
+  &#x2714; LowFrequencyOscilator &#x203A; radian from sample number | &#x3C0; / 6
+  &#x2714; LowFrequencyOscilator &#x203A; radian from sample number | &#x3C0; / 2
+  &#x2714; LowFrequencyOscilator &#x203A; radian from sample number | &#x3C0;
+  &#x2714; LowFrequencyOscilator &#x203A; radian from sample number | 3&#x3C0; / 2
+  &#x2714; LowFrequencyOscilator &#x203A; radian from sample number | 11&#x3C0; / 6
+  &#x2714; LowFrequencyOscilator &#x203A; radian from sample number | 2&#x3C0;
+  &#x2714; LowFrequencyOscilator &#x203A; sinewave value for 0
+  &#x2714; LowFrequencyOscilator &#x203A; sinewave value for &#x3C0; / 6
+  &#x2714; LowFrequencyOscilator &#x203A; sinewave value for &#x3C0; / 2
+  &#x2714; LowFrequencyOscilator &#x203A; sinewave value for &#x3C0;
+  &#x2714; LowFrequencyOscilator &#x203A; sinewave value for 3&#x3C0; / 2
+  &#x2714; LowFrequencyOscilator &#x203A; sinewave value for 11&#x3C0; / 6
+  &#x2714; LowFrequencyOscilator &#x203A; sinewave value for 2&#x3C0;
+  &#x2714; chunkTypedArray &#x203A; TypedArray class for given format should be Float32Array
+  &#x2714; chunkTypedArray &#x203A; TypedArray class for given format should be Float64Array
+  &#x2714; chunkTypedArray &#x203A; TypedArray class for given format should be Int8Array
+  &#x2714; chunkTypedArray &#x203A; TypedArray class for given format should be Int16Array
+  &#x2714; chunkTypedArray &#x203A; TypedArray class for given format should be Int32Array
+  &#x2714; chunkTypedArray &#x203A; TypedArray class for given format should be BigInt64Array
+  &#x2714; chunkTypedArray &#x203A; TypedArray class for given format should be Uint8Array
+  &#x2714; chunkTypedArray &#x203A; TypedArray class for given format should be Uint16Array
+  &#x2714; chunkTypedArray &#x203A; TypedArray class for given format should be Uint32Array
+  &#x2714; chunkTypedArray &#x203A; TypedArray class for given format should be BigUint64Array
+  &#x2714; chunkTypedArray &#x203A; throws Error for given format should be Unsupported float bit depth!
+  &#x2714; chunkTypedArray &#x203A; throws Error for given format should be Unsupported signed integer bit depth!
+  &#x2714; chunkTypedArray &#x203A; throws Error for given format should be Unsupported unsigned integer bit depth!
+  &#x2500;
+
+  27 tests passed
+</code></pre>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="nyan-cat-ogg-03.html"><span class="title">Part 3: Nyan cat OGG script implementation</span></a></div>
+          <div class="right"><a href="bats-01.html"><span class="label">Next: </span><span class="title">Bats Introduction for JavaScript Developers</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

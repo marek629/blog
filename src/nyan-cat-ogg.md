@@ -16,3 +16,5 @@ The following articles are available now:
 * [Part 1: Playing OGG file](nyan-cat-ogg-01.md)
 * [Part 2: Running tests](nyan-cat-ogg-02.md)
 * [Part 3: Nyan cat OGG script implementation](nyan-cat-ogg-03.md)
+* [Part 4: Audio signal processing first steps](nyan-cat-ogg-04.md)
+* 

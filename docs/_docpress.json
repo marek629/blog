@@ -291,6 +291,34 @@
                 "id": "package"
               }
             ]
+          },
+          {
+            "title": "Part 4: Audio signal processing first steps",
+            "source": "src/nyan-cat-ogg-04.md",
+            "url": "nyan-cat-ogg-04.html",
+            "slug": "nyan-cat-ogg-04",
+            "headings": [
+              {
+                "title": "Iteration scope",
+                "depth": 2,
+                "id": "iteration-scope"
+              },
+              {
+                "title": "Error detection in TAP stream",
+                "depth": 2,
+                "id": "error-detection-in-tap-stream"
+              },
+              {
+                "title": "Audio stream processing",
+                "depth": 2,
+                "id": "audio-stream-processing"
+              },
+              {
+                "title": "Testing",
+                "depth": 2,
+                "id": "testing"
+              }
+            ]
           }
         ]
       },
@@ -685,6 +713,34 @@
         }
       ]
     },
+    "nyan-cat-ogg-04.html": {
+      "source": "src/nyan-cat-ogg-04.md",
+      "title": "Part 4: Audio signal processing first steps - About",
+      "pageTitle": "Part 4: Audio signal processing first steps",
+      "slug": "nyan-cat-ogg-04",
+      "headings": [
+        {
+          "title": "Iteration scope",
+          "depth": 2,
+          "id": "iteration-scope"
+        },
+        {
+          "title": "Error detection in TAP stream",
+          "depth": 2,
+          "id": "error-detection-in-tap-stream"
+        },
+        {
+          "title": "Audio stream processing",
+          "depth": 2,
+          "id": "audio-stream-processing"
+        },
+        {
+          "title": "Testing",
+          "depth": 2,
+          "id": "testing"
+        }
+      ]
+    },
     "bats-01.html": {
       "source": "src/bats-01.md",
       "title": "Bats Introduction for JavaScript Developers - About",
@@ -795,6 +851,7 @@
     "src/nyan-cat-ogg-01.md": "nyan-cat-ogg-01.html",
     "src/nyan-cat-ogg-02.md": "nyan-cat-ogg-02.html",
     "src/nyan-cat-ogg-03.md": "nyan-cat-ogg-03.html",
+    "src/nyan-cat-ogg-04.md": "nyan-cat-ogg-04.html",
     "src/bats-01.md": "bats-01.html",
     "src/dependency-injection-01.md": "dependency-injection-01.html",
     "src/ackee-tracker.min.js": "ackee-tracker.min.js",
@@ -811,7 +868,7 @@
     "src/img/header-tap-nyan-module.png": "img/header-tap-nyan-module.png",
     "src/video/nyan-cat-1.webm": "video/nyan-cat-1.webm",
     "src/video/nyan-cat-2.webm": "video/nyan-cat-2.webm",
-    "src/video/nyan-cat-3.webm": "video/nyan-cat-3.webm",
-    "src/video/nyan-cat-4.webm": "video/nyan-cat-4.webm"
+    "src/video/nyan-cat-4.webm": "video/nyan-cat-4.webm",
+    "src/video/nyan-cat-3.webm": "video/nyan-cat-3.webm"
   }
 }
