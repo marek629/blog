@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/style.css?t=90051322">
+    <script src="assets/script.js?t=93f1a66c"></script>
+    <script src="ackee-tracker.min.js?t=406d2b6f"></script>
+    <script src="ackee.js?t=c064c78c"></script>
+    <title>Part 5: Error detection in TAP stream - About</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="index.html">About</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-node-migration-esm" href="node-migration-esm.html">Migration node.js project to ESM</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-01" href="node-migration-esm-01.html">Part 1: --experimental-specifier-resolution</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-02" href="node-migration-esm-02.html">Part 2: __dirname and __filename</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-nyan-cat-ogg" href="nyan-cat-ogg.html">Tap nyan playing sound</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-00" href="nyan-cat-ogg-00.html">Part 0: Nyan cat OGG script specification</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-01" href="nyan-cat-ogg-01.html">Part 1: Playing OGG file</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-02" href="nyan-cat-ogg-02.html">Part 2: Running tests</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-03" href="nyan-cat-ogg-03.html">Part 3: Nyan cat OGG script implementation</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-04" href="nyan-cat-ogg-04.html">Part 4: Audio signal processing first steps</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title -active link-nyan-cat-ogg-05" href="nyan-cat-ogg-05.html">Part 5: Error detection in TAP stream</a>
+                    <ul class="headings heading-list">
+                      <li class="heading-item -depth-2"><a class="hlink link-the-stream" href="#the-stream">The Stream</a>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-requirements" href="#requirements">Requirements</a>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-the-observer" href="#the-observer">The Observer</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1"><a class="link title  link-bats-01" href="bats-01.html">Bats Introduction for JavaScript Developers</a>
+              </li>
+              <li class="menu-item -level-1"><a class="link title  link-dependency-injection-01" href="dependency-injection-01.html">Pragmatic Dependency Injection</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-nyan-cat-ogg-05">
+        <div class="header-nav">
+          <div class="right">
+          </div>
+        </div>
+        <div class="markdown-body"><p><img src="img/header-tap-nyan-module.png" alt></p>
+<p><em>Written on 2022-10-06 by Marek J&#x119;dryka</em></p>
+<h1 id="part-5:-error-detection-in-tap-stream">Part 5: Error detection in TAP stream</h1>
+<p>I have described audio signal processing <a href="nyan-cat-ogg-04.html">recently</a>.
+Let&apos;s focus on error detection in Test Anything Protocol (TAP) stream today.</p>
+<p>I want to detect first test that wouldn&apos;t pass.
+When the first error will be detected I want to change a boolean flag in the reaction to this event.</p>
+<h2 id="the-stream">The Stream</h2>
+<p>Output stream from TAP producer contains text information about test case execution.
+The execution data can be one of types (with example outputs):</p>
+<ol>
+<li>Passing</li>
+</ol>
+<pre><code>TAP version 13
+(node:7719) ExperimentalWarning: The Node.js specifier resolution flag is experimental. It could change or be removed at any time.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ok 1 - testing 0
+ok 2 - testing 1
+ok 3 - testing 2
+
+1..3
+# tests 3
+# pass 3
+# fail 0
+</code></pre>
+<ol start="2">
+<li>Skipping</li>
+</ol>
+<pre><code>TAP version 13
+(node:8144) ExperimentalWarning: The Node.js specifier resolution flag is experimental. It could change or be removed at any time.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ok 1 - massive skipping 0 # SKIP
+ok 2 - massive skipping 1 # SKIP
+
+1..2
+# tests 2
+# pass 0
+# skip 2
+# fail 0
+</code></pre>
+<ol start="3">
+<li>Failing</li>
+</ol>
+<pre><code>TAP version 13
+(node:7862) ExperimentalWarning: The Node.js specifier resolution flag is experimental. It could change or be removed at any time.
+(Use `node --trace-warnings ...` to show where the warning was created)
+not ok 1 - failing 0
+  ---
+    name: AssertionError
+    message: Test failed via `t.fail()`
+    assertion: fail
+    at: &apos;fail (file://test/massive.test.js:5:21)&apos;
+  ...
+not ok 2 - failing 1
+  ---
+    name: AssertionError
+    message: Test failed via `t.fail()`
+    assertion: fail
+    at: &apos;fail (file://test/massive.test.js:5:21)&apos;
+  ...
+not ok 3 - failing 2
+  ---
+    name: AssertionError
+    message: Test failed via `t.fail()`
+    assertion: fail
+    at: &apos;fail (file://test/massive.test.js:5:21)&apos;
+  ...
+
+1..3
+# tests 3
+# pass 0
+# fail 3
+</code></pre>
+<p>As you can see, each kind of test result has something peculiar.
+I will write pseudocode using template string notation from ECMAScript to describe the properties.</p>
+<p>For the first type, there is simple one-line message consistent with pattern <code>ok ${testNumber} - ${testCaseName}</code>.
+Nothing special, to be honest.</p>
+<p>For the second kind, there is nearly the same one-liner.
+The difference is located at the end of the line.
+So our pattern would be written as <code>ok ${testNumber} - ${testCaseName} # SKIP</code> in this case.</p>
+<p>Last but not least our the most complex output type.
+This multi-line message contains a header line and error details in the next lines.
+The header line is the most important in our case.
+Error details could be neglected at the moment.
+So the pattern for the first line would be written as <code>not ok ${testNumber} - ${testCaseName}</code>.</p>
+<h2 id="requirements">Requirements</h2>
+<p>Let me consider the requirements that our error message detector should fulfill.</p>
+<p>First of all, the detector should be able to observe the TAP stream.
+How can I observe a stream?
+I can do it by implementing piped pass-through stream, but I can&apos;t modify the output stream.
+I can just check the input stream and pass them to the output immediately.</p>
+<p>In addition, I need to get information if an error has occurred since the program started.
+How can I get it?
+In one of two ways:</p>
+<ul>
+<li>by adding boolean property able to read</li>
+<li>by emitting an event on the first error message would be detected</li>
+</ul>
+<p>Adding read-only boolean property seems much easier to implement, so let&apos;s choose this way.</p>
+<p>So I can write the requirement as AVA macro:</p>
+<pre><code class="lang-JS"><span class="pl-k">import</span> { scheduler } <span class="pl-k">from</span> <span class="pl-s">&apos;timers/promises&apos;</span>
+<span class="pl-k">import</span> { Readable } <span class="pl-k">from</span> <span class="pl-s">&apos;stream&apos;</span>
+
+<span class="pl-k">import</span> test <span class="pl-k">from</span> <span class="pl-s">&apos;ava&apos;</span>
+
+<span class="pl-k">import</span> { TapObserver } <span class="pl-k">from</span> <span class="pl-s">&apos;../../src/tap&apos;</span>
+<span class="pl-k">import</span> { titleFn } <span class="pl-k">from</span> <span class="pl-s">&apos;../utils&apos;</span>
+
+
+<span class="pl-k">const</span> isValidMacro = test.macro({
+  <span class="hljs-attr">exec</span>: <span class="pl-k">async</span> (t, source, expected) =&gt; {
+    <span class="pl-k">const</span> observer = <span class="pl-k">new</span> TapObserver
+    source.pipe(observer)
+
+    t.plan(<span class="hljs-number">1</span>)
+    source.on(<span class="pl-s">&apos;end&apos;</span>, () =&gt; {
+      t.is(observer.isValid, expected)
+    })
+    <span class="pl-k">await</span> scheduler.wait(<span class="hljs-number">1</span>)
+  },
+  <span class="hljs-attr">title</span>: titleFn(<span class="pl-s">&apos;valid state flag for given input&apos;</span>, <span class="pl-s">&apos;from&apos;</span>),
+})
+</code></pre>
+<p>As you can see, there is a small workaround for <code>end</code> event no fire immediately.
+Simply waiting for one millisecond is enough for the event would be fired.
+It could be caused by the necessity of readable streams ending <em>ensuring</em>.
+I&apos;m not sure at the moment.
+Anyway, it&apos;s enough for me now.</p>
+<p>For the record, an example of how to use the macro is below:</p>
+<pre><code class="lang-JS"><span class="pl-k">for</span> (<span class="pl-k">const</span> [title, ...data] <span class="pl-k">of</span> [
+  [
+    <span class="pl-s">&apos;empty stream&apos;</span>,
+    Readable.from([]),
+    <span class="pl-c1">true</span>,
+  ],
+  [
+    <span class="pl-s">&apos;empty string&apos;</span>,
+    Readable.from([<span class="pl-s">&apos;&apos;</span>]),
+    <span class="pl-c1">true</span>,
+  ],
+  <span class="pl-c">// etc.</span>
+]) test(title, isValidMacro, ...data)
+</code></pre>
+<h2 id="the-observer">The Observer</h2>
+<p>I can follow the above requirement to eventually implement TAP stream observer.
+The class source code is given below.</p>
+<pre><code class="lang-JS">import { PassThrough } from &apos;stream&apos;
+
+
+export class TapObserver extends PassThrough {
+  #errorOccured = false
+  #errorRegex = /^\s*not ok \d+ - /im
+  #buffer = &apos;&apos;
+
+  constructor(options) {
+    super(options)
+  }
+
+  get isValid() {
+    return !this.#errorOccured
+  }
+
+  _transform(chunk, encoding, callback) {
+    if (this.#errorRegex.test(this._string(chunk))) this.#errorOccured = true
+    super._transform(chunk, encoding, callback)
+  }
+
+  _string(chunk) {
+    const str = chunk.toString()
+    const lastBreakLineIndex = str.lastIndexOf(&apos;\n&apos;)
+    const lines = this.#buffer + str.split(0, lastBreakLineIndex)
+    this.#buffer = str.split(lastBreakLineIndex)
+    return lines
+  }
+}
+</code></pre>
+<p>It&apos;s a small extension of <code>PassThrough</code> transformer from nodes <code>stream</code> module.
+It contains one extra method <code>_string</code> for stream-gap in the middle of the text line possibility support.
+The end product is a small, elegant class.</p>
+<p>Moreover, it fulfills the following test cases:</p>
+<pre><code>  &#x2714; TapObserver &#x203A; valid state flag for given input from empty stream
+  &#x2714; TapObserver &#x203A; valid state flag for given input from empty string
+  &#x2714; TapObserver &#x203A; valid state flag for given input from one chunk passing stream
+  &#x2714; TapObserver &#x203A; valid state flag for given input from three chunks passing stream
+  &#x2714; TapObserver &#x203A; valid state flag for given input from two chunks skipping stream
+  &#x2714; TapObserver &#x203A; valid state flag for given input from three chunks skipping stream
+  &#x2714; TapObserver &#x203A; valid state flag for given input from two chunks failing stream
+  &#x2714; TapObserver &#x203A; valid state flag for given input from three chunks failing stream
+  &#x2714; TapObserver &#x203A; valid state flag for given input from six chunks failing stream
+  &#x2714; TapObserver &#x203A; valid state flag for given input from one chunk one-liner passing stream
+  &#x2714; TapObserver &#x203A; valid state flag for given input from one chunk one-liner passing stream with &quot;not ok&quot; in test name
+  &#x2714; TapObserver &#x203A; valid state flag for given input from two chunks one-liner passing stream
+  &#x2714; TapObserver &#x203A; valid state flag for given input from one chunk one-liner skipping stream
+  &#x2714; TapObserver &#x203A; valid state flag for given input from one chunk one-liner skipping stream with &quot;not ok&quot; in test name
+  &#x2714; TapObserver &#x203A; valid state flag for given input from one chunk one-liner failing stream
+  &#x2714; TapObserver &#x203A; valid state flag for given input from two chunks one-liner failing stream
+  &#x2500;
+
+  16 tests passed 
+</code></pre>
+<p>Perfect!</p>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="nyan-cat-ogg-04.html"><span class="title">Part 4: Audio signal processing first steps</span></a></div>
+          <div class="right"><a href="bats-01.html"><span class="label">Next: </span><span class="title">Bats Introduction for JavaScript Developers</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
