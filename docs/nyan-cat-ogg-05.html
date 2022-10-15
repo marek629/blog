@@ -233,9 +233,12 @@ export class TapObserver extends PassThrough {
   _string(chunk) {
     const str = chunk.toString()
     const lastBreakLineIndex = str.lastIndexOf(&apos;\n&apos;)
-    const lines = this.#buffer + str.split(0, lastBreakLineIndex)
-    this.#buffer = str.split(lastBreakLineIndex)
-    return lines
+    if (lastBreakLineIndex &gt;= 0) {
+      const lines = this.#buffer + str.slice(0, lastBreakLineIndex)
+      this.#buffer = str.slice(lastBreakLineIndex)
+      return lines
+    } 
+    return this.#buffer += str.slice(0)
   }
 }
 </code></pre>
