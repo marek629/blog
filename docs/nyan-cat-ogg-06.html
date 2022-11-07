@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/style.css?t=90051322">
+    <script src="assets/script.js?t=93f1a66c"></script>
+    <script src="ackee-tracker.min.js?t=406d2b6f"></script>
+    <script src="ackee.js?t=c064c78c"></script>
+    <title>Part 6: Mutate audio output on error detected in TAP stream - About</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="index.html">About</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-node-migration-esm" href="node-migration-esm.html">Migration node.js project to ESM</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-01" href="node-migration-esm-01.html">Part 1: --experimental-specifier-resolution</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-02" href="node-migration-esm-02.html">Part 2: __dirname and __filename</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-nyan-cat-ogg" href="nyan-cat-ogg.html">Tap nyan playing sound</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-00" href="nyan-cat-ogg-00.html">Part 0: Nyan cat OGG script specification</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-01" href="nyan-cat-ogg-01.html">Part 1: Playing OGG file</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-02" href="nyan-cat-ogg-02.html">Part 2: Running tests</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-03" href="nyan-cat-ogg-03.html">Part 3: Nyan cat OGG script implementation</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-04" href="nyan-cat-ogg-04.html">Part 4: Audio signal processing first steps</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-05" href="nyan-cat-ogg-05.html">Part 5: Error detection in TAP stream</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title -active link-nyan-cat-ogg-06" href="nyan-cat-ogg-06.html">Part 6: Mutate audio output on error detected in TAP stream</a>
+                    <ul class="headings heading-list">
+                      <li class="heading-item -depth-2"><a class="hlink link-inter-process-communication" href="#inter-process-communication">Inter Process Communication</a>
+                        <ul class="heading-list -depth-2">
+                          <li class="heading-item -depth-3"><a class="hlink link-main-process" href="#main-process">Main Process</a>
+                          </li>
+                          <li class="heading-item -depth-3"><a class="hlink link-audio-player-process" href="#audio-player-process">Audio Player Process</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-mutate-your-output-audio-stream" href="#mutate-your-output-audio-stream">Mutate your Output Audio Stream</a>
+                        <ul class="heading-list -depth-2">
+                          <li class="heading-item -depth-3"><a class="hlink link-tremolo-effect" href="#tremolo-effect">Tremolo effect</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-observe-your-input-tap-stream" href="#observe-your-input-tap-stream">Observe your Input TAP Stream</a>
+                        <ul class="heading-list -depth-2">
+                          <li class="heading-item -depth-3"><a class="hlink link-pipe-it!" href="#pipe-it!">Pipe it!</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="heading-item -depth-2"><a class="hlink link-working" href="#working">Working</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1"><a class="link title  link-bats-01" href="bats-01.html">Bats Introduction for JavaScript Developers</a>
+              </li>
+              <li class="menu-item -level-1"><a class="link title  link-dependency-injection-01" href="dependency-injection-01.html">Pragmatic Dependency Injection</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-nyan-cat-ogg-06">
+        <div class="header-nav">
+          <div class="right">
+          </div>
+        </div>
+        <div class="markdown-body"><p><img src="img/header-tap-nyan-module.png" alt></p>
+<p><em>Written on 2022-11-07 by Marek J&#x119;dryka</em></p>
+<h1 id="part-6:-mutate-audio-output-on-error-detected-in-tap-stream">Part 6: Mutate audio output on error detected in TAP stream</h1>
+<p>I have described error detection solution <a href="nyan-cat-ogg-05.html">recently</a>.
+I have done audio signal processing even <a href="nyan-cat-ogg-04.html">earlier</a>.</p>
+<p>Today, I want to use the both of above together.
+Let&apos;s mutate the sound starting when the first error occurred in TAP stream.</p>
+<h2 id="inter-process-communication">Inter Process Communication</h2>
+<p>To be honest, I realized that I need Inter Process Communication (IPC) mechanism not until implementation of <code>TapObserver</code> and <code>tremolo</code> modules, just I forgot I have two separated processes.
+It happens sometimes.
+I think that IPC description as first should be easy to read and understand for you.</p>
+<h3 id="main-process">Main Process</h3>
+<p>The main process is specialized in collecting and printing TAP data.
+And obviously, managing the others processes, befitting the main process.</p>
+<p>In the stream observation area, I have to do the following things:</p>
+<ul>
+<li>listen to the <code>observer</code> object&apos;s <code>change</code> event</li>
+<li>provide a communication channel between the processes (the forked process has created the channel by default)</li>
+<li>send the <code>observer</code> object&apos;s data snapshot using <code>propertiesNamesReplacer</code> function</li>
+</ul>
+<pre><code class="lang-JS"><span class="pl-k">const</span> propertiesNamesReplacer = <span class="hljs-function"><span class="hljs-params">obj</span> =&gt;</span> <span class="pl-c1">Object</span>.entries(
+  <span class="pl-c1">Object</span>.getOwnPropertyDescriptors(obj.__proto__)
+)
+  .filter(<span class="hljs-function">(<span class="hljs-params">[name, item]</span>) =&gt;</span> <span class="pl-k">typeof</span> item.get === <span class="pl-s">&apos;function&apos;</span>)
+  .map(<span class="hljs-function">(<span class="hljs-params">[name]</span>) =&gt;</span> name)
+<span class="pl-k">const</span> sendObserverState = <span class="hljs-function">(<span class="hljs-params">observer, audio</span>) =&gt;</span> audio.send({
+  <span class="hljs-attr">kind</span>: <span class="pl-s">&apos;tap-stream-observer-state&apos;</span>,
+  <span class="hljs-attr">value</span>: <span class="pl-c1">JSON</span>.stringify(observer, propertiesNamesReplacer(observer)),
+})
+<span class="pl-k">export</span> <span class="pl-k">const</span> connectObserverToAudio = <span class="hljs-function">(<span class="hljs-params">observer, audio</span>) =&gt;</span> {
+  sendObserverState(observer, audio)
+  observer.on(<span class="pl-s">&apos;changed&apos;</span>, () =&gt; sendObserverState(observer, audio))
+}
+
+<span class="pl-k">const</span> controller = <span class="pl-k">new</span> AbortController()
+<span class="pl-k">const</span> audio = fork(
+  resolve(dirname(<span class="pl-k">import</span>.meta), <span class="pl-s">&apos;audio/play.js&apos;</span>),
+  [argv.audio], {
+    <span class="hljs-attr">signal</span>: controller.signal,
+  },
+)
+<span class="pl-k">const</span> observer = <span class="pl-k">new</span> TapObserver
+connectObserverToAudio(observer, audio)
+</code></pre>
+<h3 id="audio-player-process">Audio Player Process</h3>
+<p>In the stream observation area, I have to do the following things in the audio player process:</p>
+<ul>
+<li>receive a message from the main process</li>
+<li>initialize dummy object for proper working before the first message would be received</li>
+</ul>
+<pre><code class="lang-JS"><span class="pl-k">const</span> observerDummyState = <span class="pl-c1">Object</span>.freeze({
+  <span class="hljs-attr">isValid</span>: <span class="pl-c1">true</span>,
+})
+<span class="pl-k">const</span> config = {
+  <span class="hljs-attr">observer</span>: observerDummyState,
+}
+process.on(<span class="pl-s">&apos;message&apos;</span>, ({ kind, value }) =&gt; {
+  <span class="pl-k">switch</span> (kind) {
+    <span class="pl-k">case</span> <span class="pl-s">&apos;tap-stream-observer-state&apos;</span>:
+      config.observer = <span class="pl-c1">JSON</span>.parse(value)
+      <span class="pl-k">break</span>
+    <span class="hljs-attr">default</span>:
+      <span class="pl-k">break</span>
+  }
+})
+</code></pre>
+<p>The <code>config</code> object is a container for <code>observer</code> state data snapshots.
+It will be used in audio stream processing in the same process.
+It&apos;s described in the next section.</p>
+<h4 id="references">References</h4>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#the_replacer_parameter">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#the_replacer_parameter</a></li>
+<li><a href="https://nodejs.org/api/child_process.html#child_processforkmodulepath-args-options">https://nodejs.org/api/child_process.html#child_processforkmodulepath-args-options</a></li>
+</ul>
+<h2 id="mutate-your-output-audio-stream">Mutate your Output Audio Stream</h2>
+<p>To do any modification on the audio stream, I need to pipe an object of <code>Transform</code> class.
+In slightly more advanced cases, you could need some setup based on audio format file metadata and pass it to your transformer as configuration.
+That is also the case here.</p>
+<pre><code class="lang-JS"><span class="pl-k">const</span> decoder = <span class="pl-k">new</span> ogg.Decoder()
+decoder.on(<span class="pl-s">&apos;stream&apos;</span>, stream =&gt; {
+  <span class="pl-k">const</span> vd = <span class="pl-k">new</span> vorbis.Decoder()
+  vd.on(<span class="pl-s">&apos;format&apos;</span>, format =&gt; {
+    <span class="pl-k">const</span> ChunkBuffer = chunkTypedArray(format)
+    <span class="pl-k">const</span> lfo = <span class="pl-k">new</span> LowFrequencyOscilator({
+      <span class="hljs-attr">sampling</span>: format.sampleRate,
+      <span class="hljs-attr">frequency</span>: <span class="hljs-number">3</span>,
+    })
+    vd
+      .pipe(tremolo({ ChunkBuffer, lfo }))
+      .pipe(<span class="pl-k">new</span> Speaker(format))
+  })
+  stream.pipe(vd)
+})
+</code></pre>
+<h3 id="tremolo-effect">Tremolo effect</h3>
+<p>Configurable Tremolo effect implementation supporting <code>observer</code> object provided from the closure is passed below.</p>
+<pre><code class="lang-JS"><span class="pl-k">let</span> n = <span class="hljs-number">0</span>
+<span class="pl-k">const</span> tremolo = ({
+  ChunkBuffer,
+  lfo,
+}) =&gt; <span class="pl-k">new</span> Transform({
+  <span class="hljs-attr">transform</span>: <span class="hljs-function">(<span class="hljs-params">chunk, encoding, callback</span>) =&gt;</span> {
+    <span class="pl-k">const</span> { observer } = config
+    <span class="pl-k">if</span> (observer.isValid) {
+      callback(<span class="pl-c1">null</span>, chunk)
+      <span class="pl-k">return</span>
+    }
+    <span class="pl-k">const</span> array = <span class="pl-k">new</span> ChunkBuffer(chunk.buffer)
+    callback(<span class="pl-c1">null</span>, <span class="pl-k">new</span> <span class="pl-c1">Uint8Array</span>(array.map(<span class="hljs-function"><span class="hljs-params">sample</span> =&gt;</span> sample * lfo.at(n++)).buffer))
+  }
+})
+</code></pre>
+<h2 id="observe-your-input-tap-stream">Observe your Input TAP Stream</h2>
+<p>I needed a class that inherits TransformStream but does not transform itself, so it should be a kind of transparent transformation.
+It&apos;s caused by the necessity to <em>observe</em> the stream, not real transformation.
+Fortunately, the needed transformation class implementation exists in node&apos;s <code>stream</code> module and it is called <code>PassThrough</code>.</p>
+<p>My observer class instance should emit an event when error message occurs in observed TAP stream and should emit the event once, the first error occurs.
+I mentioned this requirement as optional in the <a href="nyan-cat-ogg-05.html">previous article</a> and I denied it then.
+But as lazy people say, all is not lost that is delayed.</p>
+<p>So I had to modify <code>_transform</code> method of <code>TapObserver</code> class as you can see below.</p>
+<pre><code class="lang-JS">  _transform(chunk, encoding, callback) {
+    if (this.#errorRegex.test(this._string(chunk))) {
+      const oldFlag = this.#errorOccured
+      this.#errorOccured = true
+      if (this.#errorOccured !== oldFlag) this.emit(&apos;changed&apos;)
+    }
+    super._transform(chunk, encoding, callback)
+  }
+</code></pre>
+<h3 id="pipe-it!">Pipe it!</h3>
+<p>The next thing I have to do is connect the observer object to the stream pipeline.
+I should put it in right order.
+I think that piping it after all TAP input streams are merged is the best option.</p>
+<pre><code class="lang-JS"><span class="pl-k">const</span> sources = [
+  es.merge(tasks.map(<span class="hljs-function"><span class="hljs-params">proc</span> =&gt;</span> proc.stdout)),
+  tapMerge(),
+  observer,
+]
+pipeline(
+  [
+    ...sources,
+    process.stdout
+  ],
+  () =&gt; {},
+)
+</code></pre>
+<h4 id="references">References</h4>
+<ul>
+<li><a href="https://nodejs.org/dist/latest-v16.x/docs/api/stream.html#class-streampassthrough">https://nodejs.org/dist/latest-v16.x/docs/api/stream.html#class-streampassthrough</a></li>
+<li><a href="https://nodejs.org/dist/latest-v16.x/docs/api/stream.html#streampipelinestreams-callback">https://nodejs.org/dist/latest-v16.x/docs/api/stream.html#streampipelinestreams-callback</a></li>
+</ul>
+<h2 id="working">Working</h2>
+<h5 id="mutated-sound-at-tap-error-occurred">Mutated sound at TAP error occurred</h5>
+<!-- ![Mutated sound at TAP error occurred](video/nyan-cat-5.webm) -->
+<video controls src="video/nyan-cat-5.webm" width="768">
+  Your browser does not support the video tag or WEBM files.
+</video>
+<p>As you can see and hear, the sound is mutated by Tremolo effect since the first error occurs in TAP text stream.</p>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="nyan-cat-ogg-05.html"><span class="title">Part 5: Error detection in TAP stream</span></a></div>
+          <div class="right"><a href="bats-01.html"><span class="label">Next: </span><span class="title">Bats Introduction for JavaScript Developers</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

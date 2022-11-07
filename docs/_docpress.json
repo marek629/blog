@@ -342,6 +342,60 @@
                 "id": "the-observer"
               }
             ]
+          },
+          {
+            "title": "Part 6: Mutate audio output on error detected in TAP stream",
+            "source": "src/nyan-cat-ogg-06.md",
+            "url": "nyan-cat-ogg-06.html",
+            "slug": "nyan-cat-ogg-06",
+            "headings": [
+              {
+                "title": "Inter Process Communication",
+                "depth": 2,
+                "id": "inter-process-communication",
+                "headings": [
+                  {
+                    "title": "Main Process",
+                    "depth": 3,
+                    "id": "main-process"
+                  },
+                  {
+                    "title": "Audio Player Process",
+                    "depth": 3,
+                    "id": "audio-player-process"
+                  }
+                ]
+              },
+              {
+                "title": "Mutate your Output Audio Stream",
+                "depth": 2,
+                "id": "mutate-your-output-audio-stream",
+                "headings": [
+                  {
+                    "title": "Tremolo effect",
+                    "depth": 3,
+                    "id": "tremolo-effect"
+                  }
+                ]
+              },
+              {
+                "title": "Observe your Input TAP Stream",
+                "depth": 2,
+                "id": "observe-your-input-tap-stream",
+                "headings": [
+                  {
+                    "title": "Pipe it!",
+                    "depth": 3,
+                    "id": "pipe-it!"
+                  }
+                ]
+              },
+              {
+                "title": "Working",
+                "depth": 2,
+                "id": "working"
+              }
+            ]
           }
         ]
       },
@@ -787,6 +841,60 @@
         }
       ]
     },
+    "nyan-cat-ogg-06.html": {
+      "source": "src/nyan-cat-ogg-06.md",
+      "title": "Part 6: Mutate audio output on error detected in TAP stream - About",
+      "pageTitle": "Part 6: Mutate audio output on error detected in TAP stream",
+      "slug": "nyan-cat-ogg-06",
+      "headings": [
+        {
+          "title": "Inter Process Communication",
+          "depth": 2,
+          "id": "inter-process-communication",
+          "headings": [
+            {
+              "title": "Main Process",
+              "depth": 3,
+              "id": "main-process"
+            },
+            {
+              "title": "Audio Player Process",
+              "depth": 3,
+              "id": "audio-player-process"
+            }
+          ]
+        },
+        {
+          "title": "Mutate your Output Audio Stream",
+          "depth": 2,
+          "id": "mutate-your-output-audio-stream",
+          "headings": [
+            {
+              "title": "Tremolo effect",
+              "depth": 3,
+              "id": "tremolo-effect"
+            }
+          ]
+        },
+        {
+          "title": "Observe your Input TAP Stream",
+          "depth": 2,
+          "id": "observe-your-input-tap-stream",
+          "headings": [
+            {
+              "title": "Pipe it!",
+              "depth": 3,
+              "id": "pipe-it!"
+            }
+          ]
+        },
+        {
+          "title": "Working",
+          "depth": 2,
+          "id": "working"
+        }
+      ]
+    },
     "bats-01.html": {
       "source": "src/bats-01.md",
       "title": "Bats Introduction for JavaScript Developers - About",
@@ -899,6 +1007,7 @@
     "src/nyan-cat-ogg-03.md": "nyan-cat-ogg-03.html",
     "src/nyan-cat-ogg-04.md": "nyan-cat-ogg-04.html",
     "src/nyan-cat-ogg-05.md": "nyan-cat-ogg-05.html",
+    "src/nyan-cat-ogg-06.md": "nyan-cat-ogg-06.html",
     "src/bats-01.md": "bats-01.html",
     "src/dependency-injection-01.md": "dependency-injection-01.html",
     "src/ackee-tracker.min.js": "ackee-tracker.min.js",
@@ -906,16 +1015,18 @@
     "src/node-migration-esm-01.md.backup": "node-migration-esm-01.md.backup",
     "src/node-migration-esm-02.md.backup": "node-migration-esm-02.md.backup",
     "src/nyan-cat-ogg-02.md.backup": "nyan-cat-ogg-02.md.backup",
+    "src/nyan-cat-ogg-06.md.backup": "nyan-cat-ogg-06.md.backup",
+    "src/audio/nyan-ogg-decoded.ogg": "audio/nyan-ogg-decoded.ogg",
+    "src/audio/nyan.ogg": "audio/nyan.ogg",
     "src/img/fail-successfully.jpg": "img/fail-successfully.jpg",
     "src/img/header-bats-module.png": "img/header-bats-module.png",
     "src/img/header-di-module.png": "img/header-di-module.png",
     "src/img/header-es-module.png": "img/header-es-module.png",
     "src/img/header-tap-nyan-module.png": "img/header-tap-nyan-module.png",
-    "src/audio/nyan-ogg-decoded.ogg": "audio/nyan-ogg-decoded.ogg",
-    "src/audio/nyan.ogg": "audio/nyan.ogg",
     "src/video/nyan-cat-1.webm": "video/nyan-cat-1.webm",
     "src/video/nyan-cat-2.webm": "video/nyan-cat-2.webm",
     "src/video/nyan-cat-3.webm": "video/nyan-cat-3.webm",
-    "src/video/nyan-cat-4.webm": "video/nyan-cat-4.webm"
+    "src/video/nyan-cat-4.webm": "video/nyan-cat-4.webm",
+    "src/video/nyan-cat-5.webm": "video/nyan-cat-5.webm"
   }
 }

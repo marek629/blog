@@ -11,6 +11,7 @@
   * [Part 3: Nyan cat OGG script implementation](nyan-cat-ogg-03.md)
   * [Part 4: Audio signal processing first steps](nyan-cat-ogg-04.md)
   * [Part 5: Error detection in TAP stream](nyan-cat-ogg-05.md)
+  * [Part 6: Mutate audio output on error detected in TAP stream](nyan-cat-ogg-06.md)
 
 * [Bats Introduction for JavaScript Developers](bats-01.md)
 
