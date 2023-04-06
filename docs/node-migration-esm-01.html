@@ -64,6 +64,8 @@
               </li>
               <li class="menu-item -level-1"><a class="link title  link-dependency-injection-01" href="dependency-injection-01.html">Pragmatic Dependency Injection</a>
               </li>
+              <li class="menu-item -level-1"><a class="link title  link-quokka-01" href="quokka-01.html">Quokka.js Review and Alternatives</a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -127,7 +129,7 @@ For our case node value is a perfect choice.</p>
 <pre><code class="lang-sh">$ node --experimental-specifier-resolution=node app
 </code></pre>
 <p>In both cases node will print to stdout:</p>
-<pre><code class="lang-sh">{ bar: { name: <span class="pl-s">&apos;bar&apos;</span>, <span class="pl-c1">type</span>: <span class="pl-s">&apos;exported constant&apos;</span> } }
+<pre><code class="lang-JSON">{ bar: { name: &apos;bar&apos;, type: &apos;exported constant&apos; } }
 </code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <p>Described --experimental-specifier-resolution CLI switch works for directories as well as both file extensions (<code>js</code> and <code>mjs</code>).</p>

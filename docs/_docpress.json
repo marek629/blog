@@ -497,6 +497,36 @@
             "id": "impact-of-refactoring"
           }
         ]
+      },
+      {
+        "title": "Quokka.js Review and Alternatives",
+        "source": "src/quokka-01.md",
+        "url": "quokka-01.html",
+        "slug": "quokka-01",
+        "headings": [
+          {
+            "title": "Review",
+            "depth": 2,
+            "id": "review"
+          },
+          {
+            "title": "Alternatives",
+            "depth": 2,
+            "id": "alternatives",
+            "headings": [
+              {
+                "title": "Worst",
+                "depth": 3,
+                "id": "worst"
+              },
+              {
+                "title": "And Even Better",
+                "depth": 3,
+                "id": "and-even-better"
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -993,6 +1023,36 @@
           "id": "impact-of-refactoring"
         }
       ]
+    },
+    "quokka-01.html": {
+      "source": "src/quokka-01.md",
+      "title": "Quokka.js Review and Alternatives - About",
+      "pageTitle": "Quokka.js Review and Alternatives",
+      "slug": "quokka-01",
+      "headings": [
+        {
+          "title": "Review",
+          "depth": 2,
+          "id": "review"
+        },
+        {
+          "title": "Alternatives",
+          "depth": 2,
+          "id": "alternatives",
+          "headings": [
+            {
+              "title": "Worst",
+              "depth": 3,
+              "id": "worst"
+            },
+            {
+              "title": "And Even Better",
+              "depth": 3,
+              "id": "and-even-better"
+            }
+          ]
+        }
+      ]
     }
   },
   "sources": {
@@ -1010,12 +1070,14 @@
     "src/nyan-cat-ogg-06.md": "nyan-cat-ogg-06.html",
     "src/bats-01.md": "bats-01.html",
     "src/dependency-injection-01.md": "dependency-injection-01.html",
+    "src/quokka-01.md": "quokka-01.html",
     "src/ackee-tracker.min.js": "ackee-tracker.min.js",
     "src/ackee.js": "ackee.js",
     "src/node-migration-esm-01.md.backup": "node-migration-esm-01.md.backup",
     "src/node-migration-esm-02.md.backup": "node-migration-esm-02.md.backup",
     "src/nyan-cat-ogg-02.md.backup": "nyan-cat-ogg-02.md.backup",
     "src/nyan-cat-ogg-06.md.backup": "nyan-cat-ogg-06.md.backup",
+    "src/quokka-01.md.backup": "quokka-01.md.backup",
     "src/audio/nyan-ogg-decoded.ogg": "audio/nyan-ogg-decoded.ogg",
     "src/audio/nyan.ogg": "audio/nyan.ogg",
     "src/img/fail-successfully.jpg": "img/fail-successfully.jpg",
@@ -1023,6 +1085,7 @@
     "src/img/header-di-module.png": "img/header-di-module.png",
     "src/img/header-es-module.png": "img/header-es-module.png",
     "src/img/header-tap-nyan-module.png": "img/header-tap-nyan-module.png",
+    "src/img/header-tools-module.png": "img/header-tools-module.png",
     "src/video/nyan-cat-1.webm": "video/nyan-cat-1.webm",
     "src/video/nyan-cat-2.webm": "video/nyan-cat-2.webm",
     "src/video/nyan-cat-3.webm": "video/nyan-cat-3.webm",

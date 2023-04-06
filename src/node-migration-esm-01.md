@@ -82,7 +82,7 @@ $ node --experimental-specifier-resolution=node app
 
 In both cases node will print to stdout:
 
-```sh
+```JSON
 { bar: { name: 'bar', type: 'exported constant' } }
 ```
 
