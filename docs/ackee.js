@@ -1,4 +1,4 @@
-const tracker = ackeeTracker.create('https://maje-ackee.herokuapp.com', {
+const tracker = ackeeTracker.create('https://ackee.maje.usermd.net', {
   detailed: true,
   ignoreLocalhost: false,
   ignoreOwnVisits: true,
@@ -8,9 +8,9 @@ const registerView = () => {
 }
 registerView()
 
-const recordAudioEvent = id => event => {
-  const audio = event.target
-  tracker.action(id, { key: new URL(audio.src).pathname, value: 1 })
+const recordMediaEvent = id => event => {
+  const element = event.target
+  tracker.action(id, { key: new URL(element.src).pathname, value: 1 })
 }
 const audioEvents = Object.entries({
   play: '762c8fa7-55e9-49a2-8eaf-f065f2a4e5dd',
@@ -18,10 +18,20 @@ const audioEvents = Object.entries({
   ended: '29b9ef6c-45db-4051-91d3-4a516988633a',
   // 'seeking', 'seeked', 'staled', 'volumechange'
 })
+const videoEvents = Object.entries({
+  play: '81dcc59b-d296-4a24-8fed-2426e0b8e8d7',
+  pause: '9dd48099-ef2f-4843-bfbd-e348ff736f3a',
+  ended: 'eb36ec73-c1c5-4def-b489-6d419a36d01f',
+})
 const watchEvents = () => {
   document.querySelectorAll('audio').forEach(audio => {
     audioEvents.forEach(([event, actionId]) => {
-      audio.addEventListener(event, recordAudioEvent(actionId))
+      audio.addEventListener(event, recordMediaEvent(actionId))
+    })
+  })
+  document.querySelectorAll('video').forEach(video => {
+    videoEvents.forEach(([event, actionId]) => {
+      video.addEventListener(event, recordMediaEvent(actionId))
     })
   })
 }
