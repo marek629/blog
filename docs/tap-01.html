@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/style.css?t=90051322">
+    <script src="assets/script.js?t=93f1a66c"></script>
+    <script src="ackee-tracker.min.js?t=406d2b6f"></script>
+    <script src="ackee.js?t=edd16d5a"></script>
+    <title>Merging TAP streams - About</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="index.html">About</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-node-migration-esm" href="node-migration-esm.html">Migration node.js project to ESM</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-01" href="node-migration-esm-01.html">Part 1: --experimental-specifier-resolution</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-02" href="node-migration-esm-02.html">Part 2: __dirname and __filename</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-nyan-cat-ogg" href="nyan-cat-ogg.html">Tap nyan playing sound</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-00" href="nyan-cat-ogg-00.html">Part 0: Nyan cat OGG script specification</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-01" href="nyan-cat-ogg-01.html">Part 1: Playing OGG file</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-02" href="nyan-cat-ogg-02.html">Part 2: Running tests</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-03" href="nyan-cat-ogg-03.html">Part 3: Nyan cat OGG script implementation</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-04" href="nyan-cat-ogg-04.html">Part 4: Audio signal processing first steps</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-05" href="nyan-cat-ogg-05.html">Part 5: Error detection in TAP stream</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-06" href="nyan-cat-ogg-06.html">Part 6: Mutate audio output on error detected in TAP stream</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1"><a class="link title -active link-tap-01" href="tap-01.html">Merging TAP streams</a>
+                <ul class="headings heading-list">
+                  <li class="heading-item -depth-2"><a class="hlink link-single-tap-reporter" href="#single-tap-reporter">Single TAP reporter</a>
+                  </li>
+                  <li class="heading-item -depth-2"><a class="hlink link-merging-tap-stream" href="#merging-tap-stream">Merging TAP stream</a>
+                    <ul class="heading-list -depth-2">
+                      <li class="heading-item -depth-3"><a class="hlink link-my-package" href="#my-package">My package</a>
+                      </li>
+                      <li class="heading-item -depth-3"><a class="hlink link-use-an-off-the-shelf-product" href="#use-an-off-the-shelf-product">Use an off-the-shelf product</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="heading-item -depth-2"><a class="hlink link-conclusion" href="#conclusion">Conclusion</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1"><a class="link title  link-bats-01" href="bats-01.html">Bats Introduction for JavaScript Developers</a>
+              </li>
+              <li class="menu-item -level-1"><a class="link title  link-dependency-injection-01" href="dependency-injection-01.html">Pragmatic Dependency Injection</a>
+              </li>
+              <li class="menu-item -level-1"><a class="link title  link-quokka-01" href="quokka-01.html">Quokka.js Review and Alternatives</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-tap-01">
+        <div class="header-nav">
+          <div class="right">
+          </div>
+        </div>
+        <div class="markdown-body"><p><img src="img/header-tap-nyan-module.png" alt></p>
+<p><em>Written on 2023-07-07 by Marek J&#x119;dryka</em></p>
+<h1 id="developer-reflections-about-merging-tap-streams">Developer reflections about merging TAP streams</h1>
+<p>This article is rather my considerations connected to working around merging TAP streams and software project development in that area.
+It&apos;s inspired by my experience in <code>tap-merge</code> package usage.
+I believe it could be valuable for you as well.</p>
+<p>References:</p>
+<ul>
+<li><a href="https://testanything.org">https://testanything.org</a></li>
+<li><a href="https://www.npmjs.com/package/tap-merge">https://www.npmjs.com/package/tap-merge</a></li>
+</ul>
+<h2 id="single-tap-reporter">Single TAP reporter</h2>
+<p>The start point is the use of a single TAP reporter, let&apos;s call producer as well.
+There are plenty of TAP producers delivered by many test runners in different languages.
+The apple of my eye is the JavaScript ecosystem, so I can give you just a few examples in my experience:</p>
+<ul>
+<li>
+<p><code>ava</code> by <code>--tap</code> CLI switch, for example:</p>
+<pre><code class="lang-bash">ava <span class="pl-c1">test</span>/passing.test.js --tap
+</code></pre>
+</li>
+<li>
+<p>node.js built-in test runner produces TAP stream by default outside TTY (text terminal), for example when <code>node</code> works in shell stream</p>
+</li>
+<li>
+<p>even <code>jest</code> can produce a TAP stream by using a specific reporter</p>
+</li>
+</ul>
+<p>For sake of argument, I will also give some examples of other languages:</p>
+<ul>
+<li>C# (<code>taps-testing</code>)</li>
+<li>Fortran (<code>fortran-tap</code> and <code>fortran-testanything</code>)</li>
+<li>Lua (<code>busted</code>, <code>lua-TestMore</code> and <code>luatest</code>)</li>
+<li>OCalm (<code>TestSimple</code>)</li>
+</ul>
+<p>Yes, my choice of examples is a bit weird.
+I know that!
+But I can do that as it&apos;s my blog.
+You can find TAP producers for your language as well.</p>
+<p>References:</p>
+<ul>
+<li><a href="https://www.npmjs.com/package/ava">https://www.npmjs.com/package/ava</a></li>
+<li><a href="https://nodejs.org/dist/latest-v20.x/docs/api/test.html">https://nodejs.org/dist/latest-v20.x/docs/api/test.html</a></li>
+<li><a href="https://www.npmjs.com/package/jest-tap-reporter">https://www.npmjs.com/package/jest-tap-reporter</a></li>
+<li><a href="https://testanything.org/producers.html">https://testanything.org/producers.html</a></li>
+</ul>
+<h2 id="merging-tap-stream">Merging TAP stream</h2>
+<p>Running a single TAP producer is easy.
+But what we can do to run in parallel two or more producers?
+It&apos;s a bit challenging because we need to recount the number of running test cases.
+To solve that issue we can use <code>tap-merge</code> package.</p>
+<p>Following <code>tap-merge</code> README file, we can merge two <code>ava</code> TAP producers to one TAP stream by using the below command:</p>
+<pre><code class="lang-bash">cat &lt;(ava <span class="pl-c1">test</span>/passing.test.js --tap) &lt;(ava <span class="pl-c1">test</span>/skipping.test.js --tap) | tap-merge
+</code></pre>
+<p>So this is our first option of merging TAP stream.
+In this case, creating processes is fully managed by bash or another shell.</p>
+<h3 id="my-package">My package</h3>
+<p>To be honest, the first approach was really strange and uncomfortable for me.
+I didn&apos;t like the way of typing in shell-styled redirection of the process output.
+Today it&apos;s not so strange notation for me but in the meantime I invented an interesting alternative.</p>
+<p>So I wanted to write a CLI program in node.js, that would be able to execute given commands as parameters, catch their output stream, merge it in TAP meaning and finally send merged TAP stream to the output.
+As I wished, I did.
+And I use original <code>tap-merge</code> package mechanics under the hood.
+Afterwards, I realised it had led me to implement my own TAP producer.</p>
+<p>I created <code>tap-ogg</code> package to have fun with sound manipulations and visualize that in nyan-cat meme style.
+One of its CLI arguments was <code>--producer</code> or <code>-p</code> as short alias.
+I moved this functionality to separate package <code>@tap-ogg/tap-merge</code> over time.
+It supplies <code>tmerge</code> binary to avoid name collision with <code>tap-merge</code> from the original <code>tap-merge</code> package.
+I can write the same two <code>ava</code> TAP producers as following:</p>
+<pre><code class="lang-bash">tmerge -p <span class="pl-s">&quot;ava test/passing.test.js --tap&quot;</span> -p <span class="pl-s">&quot;ava test/skipping.test.js --tap&quot;</span>
+</code></pre>
+<p>As you can see, producers were given as strings to execute by <code>tmerge</code> internally.
+The second difference is no shell piping as piping is performed in <code>tmerge</code> node process.</p>
+<p>Now I consider if name <code>@tap-ogg/multitap</code> will be more relevant.
+This is supported by:</p>
+<ul>
+<li>no name collision in <code>node_modules/.bin</code> binaries directory with original <code>tap-merge</code></li>
+<li>funnier name, I associate it with the type of pubs with multiple beer taps</li>
+</ul>
+<p>But on the other hand, it&apos;s connected to extra effort and mess connected to changing the name of already published package.
+Adding binary alias <code>multitap</code> looks like a good trade-off.
+I can plan package rename for the far future.</p>
+<h4 id="background">Background</h4>
+<p>I invented <code>tap-ogg</code> idea as one CLI tool for running tests, presenting their execution as nyan cat animation in colorful ASCII art, and playing sound from OGG file in the same time.
+I remember the moment of the idea&apos;s origin.
+It was when I worked on tests in my job a few companies ago and I figured out nyan reporter for <code>mocha</code>.
+In one minute I fell in love with that reporter and I knew that I need to implement the idea someday.</p>
+<p>A few years later, I started to implement my great idea.
+I didn&apos;t concider yet that the scope is too big for one project and in fact there is 3 separated functionalities.
+So I implemented <code>tap-ogg</code> 0.x series as multifunctional combo package.
+Afterwards, I realised that my approach should be changed to closer to UNIX philosophy.
+I understood that I need to split to 3 separated packages that do only one thing but pretty good and their can work together in common job.
+And it&apos;s my current approach in working on <code>tap-ogg</code> 1.x series.
+I believe it&apos;s better way.
+Time will tell if I am right.</p>
+<p>I&apos;m glad because I don&apos;t feel bad about my journey to the 0.x series.
+I consider <code>tap-ogg</code> 0.x series as proof of concept.
+When I saw it works I could start the next step of project evolution.
+It&apos;s great opportunity to learn something new, for example <code>yarn workspaces</code> and CLI refactorings with working integration tests and trying to keep it green, I mean passing.
+It&apos;s huge progress, personally.</p>
+<h3 id="use-an-off-the-shelf-product">Use an off-the-shelf product</h3>
+<p>As you can see, own-implemented <code>tap-merge</code> variation is useful in a basic scenario.
+But it has limitations, especially in control of a number of commands run in parallel.
+Fortunately, there is ready to use package at npm registry: <code>concurrently</code>.</p>
+<p>So we can rewrite our core case with 2 TAP producers to:</p>
+<pre><code class="lang-bash">concurrently --raw <span class="pl-s">&quot;ava test/passing.test.js --tap&quot;</span> <span class="pl-s">&quot;ava test/skipping.test.js --tap&quot;</span> | ../node_modules/tap-merge/cli.js
+</code></pre>
+<p>The second stage of shell stream is written in a bit strange way, i.e. <code>../node_modules/tap-merge/cli.js</code> bacause of binary naming collision with <code>@tap-ogg/tap-merge</code>.
+Here, I need to use origiral <code>tap-merge</code> package.
+I see that I need change binary name in my package to solve this issue.</p>
+<p>Back to the point, we can also control the number of commands running at the same time.
+Example of serial execution given below.</p>
+<pre><code class="lang-bash">concurrently --max-processes 1 --raw <span class="pl-s">&quot;ava test/passing.test.js --tap&quot;</span> <span class="pl-s">&quot;ava test/skipping.test.js --tap&quot;</span> | ../node_modules/tap-merge/cli.js
+</code></pre>
+<p>References:</p>
+<ul>
+<li><a href="https://www.npmjs.com/package/concurrently">https://www.npmjs.com/package/concurrently</a></li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>It&apos;s realy hard and complex thing to implement own solution.
+On one hand, it&apos;s a good opportunity to learn many things through experience, plenty of experiments, and making mistakes.
+I enjoyed it and I feel many great experiences are before me as transforming from POC to more stable software is still in progress.
+On the other hand, the darker one, it&apos;s pretty hard to deal with thinking that I did a big piece of work that nobody needs.
+But what I learned and experienced that&apos;s mine.</p>
+<p>I think the future of my variation of <code>tap-merge</code> would be rather a maintenance of the current state of code than trying to compete <code>concurrently</code> in their options diversity.
+To be honest, I would use <code>concurrently</code> instead of my code when I feel the need for more power.
+Why should I not do it?</p>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="nyan-cat-ogg-06.html"><span class="title">Part 6: Mutate audio output on error detected in TAP stream</span></a></div>
+          <div class="right"><a href="bats-01.html"><span class="label">Next: </span><span class="title">Bats Introduction for JavaScript Developers</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

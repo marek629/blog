@@ -400,6 +400,41 @@
         ]
       },
       {
+        "title": "Merging TAP streams",
+        "source": "src/tap-01.md",
+        "url": "tap-01.html",
+        "slug": "tap-01",
+        "headings": [
+          {
+            "title": "Single TAP reporter",
+            "depth": 2,
+            "id": "single-tap-reporter"
+          },
+          {
+            "title": "Merging TAP stream",
+            "depth": 2,
+            "id": "merging-tap-stream",
+            "headings": [
+              {
+                "title": "My package",
+                "depth": 3,
+                "id": "my-package"
+              },
+              {
+                "title": "Use an off-the-shelf product",
+                "depth": 3,
+                "id": "use-an-off-the-shelf-product"
+              }
+            ]
+          },
+          {
+            "title": "Conclusion",
+            "depth": 2,
+            "id": "conclusion"
+          }
+        ]
+      },
+      {
         "title": "Bats Introduction for JavaScript Developers",
         "source": "src/bats-01.md",
         "url": "bats-01.html",
@@ -925,6 +960,41 @@
         }
       ]
     },
+    "tap-01.html": {
+      "source": "src/tap-01.md",
+      "title": "Merging TAP streams - About",
+      "pageTitle": "Merging TAP streams",
+      "slug": "tap-01",
+      "headings": [
+        {
+          "title": "Single TAP reporter",
+          "depth": 2,
+          "id": "single-tap-reporter"
+        },
+        {
+          "title": "Merging TAP stream",
+          "depth": 2,
+          "id": "merging-tap-stream",
+          "headings": [
+            {
+              "title": "My package",
+              "depth": 3,
+              "id": "my-package"
+            },
+            {
+              "title": "Use an off-the-shelf product",
+              "depth": 3,
+              "id": "use-an-off-the-shelf-product"
+            }
+          ]
+        },
+        {
+          "title": "Conclusion",
+          "depth": 2,
+          "id": "conclusion"
+        }
+      ]
+    },
     "bats-01.html": {
       "source": "src/bats-01.md",
       "title": "Bats Introduction for JavaScript Developers - About",
@@ -1068,6 +1138,7 @@
     "src/nyan-cat-ogg-04.md": "nyan-cat-ogg-04.html",
     "src/nyan-cat-ogg-05.md": "nyan-cat-ogg-05.html",
     "src/nyan-cat-ogg-06.md": "nyan-cat-ogg-06.html",
+    "src/tap-01.md": "tap-01.html",
     "src/bats-01.md": "bats-01.html",
     "src/dependency-injection-01.md": "dependency-injection-01.html",
     "src/quokka-01.md": "quokka-01.html",
