@@ -12,5 +12,15 @@
       "ackee-tracker.min.js",
       "ackee.js"
     ]
+  },
+  "scripts": {
+    "build": "docpress build && node frontmatter.js"
+  },
+  "type": "module",
+  "devDependencies": {
+    "cheerio": "0.22",
+    "markdown-it-front-matter": "^0.2.4",
+    "p-event": "^6.0.1",
+    "yaml": "^2.4.1"
   }
 }

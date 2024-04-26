@@ -1,3 +1,7 @@
+---
+description: Effortlessly migrate Node.js projects to modern ESM with this guide. Learn how to skip file extensions and simplify imports using the --experimental-specifier-resolution flag.
+---
+
 ![](img/header-es-module.png)
 
 *Written on 2021-05-22 by Marek Jędryka*

@@ -1,3 +1,7 @@
+---
+description: Migrating Node.js to ESM? Part 2 tackles __dirname & __filename. Discover solutions (build-your-own & 3rd party) to keep your project running smoothly in ESM!
+---
+
 ![](img/header-es-module.png)
 
 *Written on 2021-06-05 by Marek Jędryka*

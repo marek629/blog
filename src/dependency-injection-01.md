@@ -1,3 +1,7 @@
+---
+description: Test services with external dependencies in your ES Module project. Easy dependency injection for JavaScript functions!
+---
+
 ![](img/header-di-module.png)
 
 *Written on 2022-07-05 by Marek Jędryka*

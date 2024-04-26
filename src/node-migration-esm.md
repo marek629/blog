@@ -1,3 +1,7 @@
+---
+description: Migrate your Node.js project to modern ESM modules. Learn step-by-step with this guide!
+---
+
 ![](img/header-es-module.png)
 
 *Written on 2021-06-13 by Marek Jędryka*
