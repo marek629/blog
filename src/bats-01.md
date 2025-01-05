@@ -1,5 +1,8 @@
 ---
-description: Test Node.js CLI apps with Bats! Automate black-box testing & write cleaner assertions with Bats & bats-assert library. Easy setup & guides included. 
+description: |
+  Test Node.js CLI apps with Bats!
+  Automate black-box testing & write cleaner assertions with Bats & bats-assert library.
+  Easy setup & guides included.
 ---
 
 ![](img/header-bats-module.png)

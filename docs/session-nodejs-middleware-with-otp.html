@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/style.css?t=90051322">
+    <script src="assets/script.js?t=93f1a66c"></script>
+    <script src="ackee-tracker.min.js?t=406d2b6f"></script>
+    <script src="ackee.js?t=edd16d5a"></script>
+    <title>Core Node.js Session Middleware with OTP - About</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="index.html">About</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-node-migration-esm" href="node-migration-esm.html">Migration node.js project to ESM</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-01" href="node-migration-esm-01.html">Part 1: --experimental-specifier-resolution</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-node-migration-esm-02" href="node-migration-esm-02.html">Part 2: __dirname and __filename</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1 -parent"><a class="link title  link-nyan-cat-ogg" href="nyan-cat-ogg.html">Tap nyan playing sound</a>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-00" href="nyan-cat-ogg-00.html">Part 0: Nyan cat OGG script specification</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-01" href="nyan-cat-ogg-01.html">Part 1: Playing OGG file</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-02" href="nyan-cat-ogg-02.html">Part 2: Running tests</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-03" href="nyan-cat-ogg-03.html">Part 3: Nyan cat OGG script implementation</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-04" href="nyan-cat-ogg-04.html">Part 4: Audio signal processing first steps</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-05" href="nyan-cat-ogg-05.html">Part 5: Error detection in TAP stream</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-nyan-cat-ogg-06" href="nyan-cat-ogg-06.html">Part 6: Mutate audio output on error detected in TAP stream</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item -level-1"><a class="link title  link-tap-01" href="tap-01.html">Merging TAP streams</a>
+              </li>
+              <li class="menu-item -level-1"><a class="link title  link-bats-01" href="bats-01.html">Bats Introduction for JavaScript Developers</a>
+              </li>
+              <li class="menu-item -level-1"><a class="link title  link-dependency-injection-01" href="dependency-injection-01.html">Pragmatic Dependency Injection</a>
+              </li>
+              <li class="menu-item -level-1"><a class="link title  link-quokka-01" href="quokka-01.html">Quokka.js Review and Alternatives</a>
+              </li>
+              <li class="menu-item -level-1"><a class="link title -active link-session-nodejs-middleware-with-otp" href="session-nodejs-middleware-with-otp.html">Core Node.js Session Middleware with OTP</a>
+                <ul class="headings heading-list">
+                  <li class="heading-item -depth-2"><a class="hlink link-motivation" href="#motivation">Motivation</a>
+                  </li>
+                  <li class="heading-item -depth-2"><a class="hlink link-implementation" href="#implementation">Implementation</a>
+                    <ul class="heading-list -depth-2">
+                      <li class="heading-item -depth-3"><a class="hlink link-middleware" href="#middleware">Middleware</a>
+                      </li>
+                      <li class="heading-item -depth-3"><a class="hlink link-otp" href="#otp">OTP</a>
+                      </li>
+                      <li class="heading-item -depth-3"><a class="hlink link-authentication" href="#authentication">Authentication</a>
+                      </li>
+                      <li class="heading-item -depth-3"><a class="hlink link-login" href="#login">Login</a>
+                      </li>
+                      <li class="heading-item -depth-3"><a class="hlink link-guard" href="#guard">Guard</a>
+                      </li>
+                      <li class="heading-item -depth-3"><a class="hlink link-server" href="#server">Server</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="heading-item -depth-2"><a class="hlink link-tests" href="#tests">Tests</a>
+                    <ul class="heading-list -depth-2">
+                      <li class="heading-item -depth-3"><a class="hlink link-otp" href="#otp">OTP</a>
+                      </li>
+                      <li class="heading-item -depth-3"><a class="hlink link-server" href="#server">Server</a>
+                      </li>
+                      <li class="heading-item -depth-3"><a class="hlink link-execution" href="#execution">Execution</a>
+                      </li>
+                      <li class="heading-item -depth-3"><a class="hlink link-coverage" href="#coverage">Coverage</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="heading-item -depth-2"><a class="hlink link-demo" href="#demo">Demo</a>
+                  </li>
+                  <li class="heading-item -depth-2"><a class="hlink link-conclusion" href="#conclusion">Conclusion</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-session-nodejs-middleware-with-otp">
+        <div class="header-nav">
+          <div class="right">
+          </div>
+        </div>
+        <div class="markdown-body"><p><img src="img/header-es-module.png" alt></p>
+<p><em>Written on 2025-01-05 by Marek J&#x119;dryka</em></p>
+<h1 id="core-node.js-session-middleware-with-otp">Core Node.js Session Middleware with OTP</h1>
+<p>Implementing session management is a crucial aspect of building robust web applications.
+While frameworks like Express provide built-in session handling, understanding how to create basic session middleware from scratch can be incredibly valuable.
+In this article, we&apos;ll explore how to create a simple session middleware for the core Node.js <code>http</code> module.</p>
+<p>After completing this basic implementation, I wanted to tackle a more challenging task.
+I decided to create a simple login guard for specific URL paths using serve-handler for a nice UI for directory views, generate a simple HTML login form using Pug at the server-side, and implement a login guard using OTP (specifically HOTP) from the <code>otpauth</code> npm package, persisted in MongoDB using the basic Node.js driver for database connection.</p>
+<p>References:</p>
+<ul>
+<li><a href="https://nodejs.org/docs/latest/api/http.htm">https://nodejs.org/docs/latest/api/http.htm</a></li>
+<li><a href="https://www.npmjs.com/package/otpauth">https://www.npmjs.com/package/otpauth</a></li>
+<li><a href="https://www.npmjs.com/package/serve-handler">https://www.npmjs.com/package/serve-handler</a></li>
+<li><a href="https://www.npmjs.com/package/pug">https://www.npmjs.com/package/pug</a></li>
+<li><a href="https://www.npmjs.com/package/mongodb">https://www.npmjs.com/package/mongodb</a></li>
+</ul>
+<h2 id="motivation">Motivation</h2>
+<p>I would like share non-public files in convenient way.
+I have a web server witch can run Node and Deno runtimes, but let&apos;s focus on Node.js this time.
+As the files is confidential, I can&apos;t just serve them publicly, without any access control.
+I think a while about it, and the most convenient approach is no-password authorization for me.</p>
+<p>So all we need to login are user name/identity/email (no matter what as long as it&apos;s unique) and one-time-password (OTP) generated by special app.
+I use FreeOTP application on my Android phone for many years and I&apos;m satisfied about them.</p>
+<p>And additional, my personal motivation is that my dream to try do it myself, from the basics, almost from scratch.</p>
+<h2 id="implementation">Implementation</h2>
+<p>Let&apos;s start quickly by writting middlewares code!</p>
+<h3 id="middleware">Middleware</h3>
+<p>Basically, we need to implement parsing request body middleware.
+It&apos;s needed to be able to process data sent in the body of POST HTTP request during login process.
+The <code>parseJSONBody</code> function was created to do it.
+It parses JSON string as default behaviour, and parses query string in <code>parseKeyValueString</code> function as fallback.</p>
+<p>After succesfull login, we need to parse cookies from the request.
+We do it in <code>parseCookies</code> function, and set <code>cookie</code> field to <code>request</code> object.</p>
+<p>Finally, we have to verify our cookie.
+We perform it in <code>setSession</code> function by checking if session from cookie is passing to our database contents.
+The <code>session</code> field will be set to <code>request</code> object in case of possitive verification only.</p>
+<p>See the code below.
+The <code>external</code> constant export is <a href="dependency-injection-01.html">dependency injection approach</a> described in separated article.</p>
+<pre><code class="lang-js"><span class="pl-k">import</span> { scheduler } <span class="pl-k">from</span> <span class="pl-s">&apos;timers/promises&apos;</span>
+
+<span class="pl-k">import</span> { ObjectId } <span class="pl-k">from</span> <span class="pl-s">&apos;mongodb&apos;</span>
+
+<span class="pl-k">export</span> <span class="pl-k">const</span> external = {
+  <span class="hljs-attr">abortController</span>: <span class="pl-k">new</span> AbortController,
+  scheduler,
+  <span class="hljs-attr">session</span>: <span class="pl-k">new</span> <span class="pl-c1">Map</span>,
+}
+
+<span class="pl-k">const</span> parseKeyValueString = <span class="hljs-function">(<span class="hljs-params">str, separator = <span class="pl-s">&apos;;&apos;</span></span>) =&gt;</span> {
+  <span class="pl-k">const</span> result = {}
+  <span class="pl-k">for</span> (<span class="pl-k">const</span> kv <span class="pl-k">of</span> str?.split(separator) ?? []) {
+    <span class="pl-k">let</span> [name, ...rest] = kv.split(<span class="pl-s">`=`</span>)
+    name = name?.trim()
+    <span class="pl-k">if</span> (!name) <span class="pl-k">continue</span>
+    <span class="pl-k">const</span> value = rest.join(<span class="pl-s">`=`</span>).trim()
+    <span class="pl-k">if</span> (!value) <span class="pl-k">continue</span>
+    result[name] = <span class="pl-c1">decodeURIComponent</span>(value)
+  }
+  <span class="pl-k">return</span> result
+}
+
+<span class="pl-k">export</span> <span class="pl-k">const</span> parseCookies = <span class="pl-k">async</span> (request) =&gt; {
+  request.cookies = parseKeyValueString(request.headers?.cookie, <span class="pl-s">&apos;;&apos;</span>)
+}
+
+<span class="pl-k">export</span> <span class="pl-k">const</span> parseJSONBody = <span class="hljs-function">(<span class="hljs-params">request</span>) =&gt;</span> {
+  <span class="pl-k">const</span> { scheduler } = external
+  <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-c1">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+    <span class="pl-k">const</span> data = [];
+    request.on(<span class="pl-s">&apos;data&apos;</span>, (chunk) =&gt; {
+      data.push(chunk.toString(<span class="pl-s">&apos;utf8&apos;</span>))
+    })
+    request.on(<span class="pl-s">&apos;end&apos;</span>, () =&gt; {
+      <span class="pl-k">const</span> str = data.join(<span class="pl-s">&apos;&apos;</span>)
+      <span class="pl-k">try</span> {
+        request.body = <span class="pl-c1">JSON</span>.parse(str)
+      } <span class="pl-k">catch</span> {
+        request.body = parseKeyValueString(str, <span class="pl-s">&apos;&amp;&apos;</span>)
+      } <span class="pl-k">finally</span> {
+        resolve()
+      }
+    })
+    scheduler.wait(<span class="hljs-number">1000</span>).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      reject()
+    })
+  })
+}
+
+<span class="pl-k">export</span> <span class="pl-k">const</span> setSession = <span class="pl-k">async</span> request =&gt; {
+  <span class="pl-k">const</span> { collection } = <span class="pl-k">await</span> <span class="pl-k">import</span>(<span class="pl-s">&apos;./otp.js&apos;</span>)
+  <span class="pl-k">const</span> { cookies } = request
+  <span class="pl-k">if</span> (<span class="pl-k">await</span> collection.findOne({ <span class="hljs-attr">_id</span>: <span class="pl-k">new</span> ObjectId(cookies.session) })) {
+    request.session = {
+      <span class="hljs-attr">id</span>: cookies.session,
+    }
+  }
+}
+</code></pre>
+<p>As you can see, we import <code>otp.js</code> file in <code>setSession</code> middleware function.
+Let&apos;s go to that file now.</p>
+<h3 id="otp">OTP</h3>
+<p>Before implementation details description, I would like to introduce OTP basics.
+OTP is a time-synchronous password generator that provides a shared secret key for generating passwords.
+It&apos;s widely used in multi-factor authentication systems for enhancing security.</p>
+<p>Key features of OTP:</p>
+<p>Single-use
+: Each password is used only once.</p>
+<p>Time-based
+: Passwords change periodically (usually every 30 seconds).</p>
+<p>Shared secret
+: Both parties share a secret key.</p>
+<p>No synchronization required
+: The time difference between devices doesn&apos;t affect functionality.</p>
+<h4 id="types-of-otp">Types of OTP</h4>
+<p>There are two types of OTP:</p>
+<p>HOTP (HMAC-based One-Time Password)
+: HOTP is a type of OTP that uses a hash function to generate passwords.</p>
+<p>TOTP (Time-based One-Time Password)
+: TOTP is a type of OTP that uses a time-based counter to generate passwords.</p>
+<p>Comparison of HOTP and TOTP:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Feature</th>
+<th style="text-align:left">HOTP</th>
+<th style="text-align:left">TOTP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Time-based</td>
+<td style="text-align:left">No</td>
+<td style="text-align:left">Yes</td>
+</tr>
+<tr>
+<td style="text-align:left">Counter management</td>
+<td style="text-align:left">Yes</td>
+<td style="text-align:left">No</td>
+</tr>
+<tr>
+<td style="text-align:left">Implementation complexity</td>
+<td style="text-align:left">Simpler</td>
+<td style="text-align:left">More complex</td>
+</tr>
+</tbody>
+</table>
+<p>HOTP uses a counter to generate passwords, while TOTP uses a time-based counter.</p>
+<p>HOTP is simpler to implement than TOTP because it doesn&apos;t require a time-based counter.
+However, TOTP is more trustworthy because it&apos;s time-based, but time difference between devices can affect functionality.
+That&apos;s why TOTP is more complex to implement than HOTP.</p>
+<h4 id="hotp">HOTP</h4>
+<p>HOTP is a type of OTP that uses a hash function to generate passwords.
+It&apos;s a simpler implementation than TOTP because it doesn&apos;t require a time-based counter.</p>
+<p>The HOTP algorithm is based on the HMAC algorithm.</p>
+<p>HMAC:</p>
+<ul>
+<li>stands for Hash-based Message Authentication Code</li>
+<li>a type of keyed-hash function that can be used to verify both the authenticity and the integrity of a message</li>
+<li>commonly used in cryptography for message authentication and is a component of various authentication protocols</li>
+<li>often used in conjunction with other cryptographic primitives to provide security services like authentication and integrity checking</li>
+</ul>
+<p>Key Characteristics:</p>
+<ul>
+<li>Uses HMAC (Hashed Message Authentication Code) algorithm</li>
+<li>No time synchronization needed</li>
+<li>Passwords are generated based on a counter</li>
+</ul>
+<p>How it works:</p>
+<ul>
+<li>A counter is stored securely on both ends.</li>
+<li>When generating a new password, the current counter value is hashed with the shared secret.</li>
+<li>The resulting hash is truncated to create the password.</li>
+</ul>
+<p>Advantages:</p>
+<ul>
+<li>Simple implementation</li>
+<li>Works without network connectivity</li>
+<li>Resistant to replay attacks</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>Requires manual counter synchronization in case of stored value loss</li>
+</ul>
+<h4 id="totp">TOTP</h4>
+<p>TOTP is a type of OTP that uses a time-based counter to generate passwords.
+It&apos;s more complex to implement than HOTP because it requires a time-based counter.</p>
+<p>Key Characteristics:</p>
+<ul>
+<li>Based on RFC 6238 standard</li>
+<li>Uses UTC timestamp as input</li>
+<li>Passwords change automatically based on time intervals</li>
+</ul>
+<p>How it works:</p>
+<ul>
+<li>A timestamp is extracted from the current system time.</li>
+<li>This timestamp is combined with the shared secret using a cryptographic hash function.</li>
+<li>The resulting hash is truncated to create the password.</li>
+</ul>
+<p>Advantages:</p>
+<ul>
+<li>Automatic password rotation</li>
+<li>Synchronization issues are resolved by time</li>
+<li>Suitable for high-frequency authentication</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>Requires accurate time synchronization</li>
+</ul>
+<h4 id="code">Code</h4>
+<p>That&apos;s theory basics of OTP.
+Now, let&apos;s implement it in Node.js!</p>
+<pre><code class="lang-ts"><span class="pl-k">import</span> { createHash } <span class="pl-k">from</span> <span class="pl-s">&apos;crypto&apos;</span>
+<span class="pl-k">import</span> { readFile, rm } <span class="pl-k">from</span> <span class="pl-s">&apos;fs/promises&apos;</span>
+<span class="pl-k">import</span> { env } <span class="pl-k">from</span> <span class="pl-s">&apos;process&apos;</span>
+
+<span class="pl-k">import</span> { MongoClient } <span class="pl-k">from</span> <span class="pl-s">&apos;mongodb&apos;</span>
+<span class="pl-k">import</span> { HOTP, Secret } <span class="pl-k">from</span> <span class="pl-s">&apos;otpauth&apos;</span>
+<span class="pl-k">import</span> QRCode <span class="pl-k">from</span> <span class="pl-s">&apos;qrcode&apos;</span>
+
+<span class="pl-k">import</span> { DummyOTP } <span class="pl-k">from</span> <span class="pl-s">&apos;./DummyOTP.js&apos;</span>
+
+<span class="pl-k">const</span> updateCounter = <span class="pl-k">async</span> (issuer, counter) =&gt; {
+  <span class="pl-k">const</span> { acknowledged, matchedCount } = <span class="pl-k">await</span> collection.updateOne({ issuer }, { $<span class="pl-k">set</span>: { counter } })
+  <span class="pl-k">if</span> (acknowledged &amp;&amp; matchedCount === <span class="hljs-number">1</span>) <span class="pl-k">return</span>
+  <span class="pl-k">throw</span> <span class="pl-c1">Error</span>(<span class="pl-s">&apos;OTP: update counter failure&apos;</span>)
+}
+
+<span class="pl-k">class</span> HashBasedOneTimePassword <span class="pl-k">extends</span> HOTP {
+  #id
+
+  <span class="pl-k">constructor</span> (<span class="hljs-params">id, data</span>) {
+    <span class="pl-k">super</span>(data)
+    <span class="pl-k">this</span>.#id = id
+  }
+
+  <span class="pl-k">get</span> session () {
+    <span class="pl-k">return</span> <span class="pl-k">this</span>.#id
+  }
+
+  <span class="pl-k">async</span> qrCode () {
+    <span class="pl-k">const</span> file = <span class="pl-s">`/tmp/<span class="hljs-subst">${<span class="pl-k">this</span>.issuer}</span>.svg`</span>
+    <span class="pl-k">await</span> QRCode.toFile(file, <span class="pl-k">this</span>.toString())
+    <span class="pl-k">const</span> promise = readFile(file, <span class="pl-s">&apos;utf8&apos;</span>)
+    promise.then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> rm(file))
+    <span class="pl-k">return</span> promise
+  }
+
+  <span class="pl-k">async</span> setCounter (value) {
+    <span class="pl-k">await</span> updateCounter(<span class="pl-k">this</span>.issuer, value)
+    <span class="pl-k">this</span>.counter = value
+  }
+
+  <span class="pl-k">async</span> validate (token) {
+    <span class="pl-k">const</span> delta = <span class="pl-k">super</span>.validate({ token, <span class="pl-c1">window</span>: <span class="hljs-number">4</span> })
+    <span class="pl-k">const</span> success = delta !== <span class="pl-c1">null</span>
+    <span class="pl-k">if</span> (success) <span class="pl-k">await</span> updateCounter(<span class="pl-k">this</span>.issuer, <span class="pl-k">this</span>.counter)
+    <span class="pl-k">return</span> success
+  }
+}
+
+<span class="pl-k">export</span> <span class="pl-k">const</span> client = <span class="pl-k">new</span> MongoClient(env.MONGO_URI || <span class="pl-s">&apos;&apos;</span>)
+<span class="pl-k">export</span> <span class="pl-k">const</span> collection = client.db().collection(<span class="pl-s">&apos;otp&apos;</span>)
+
+<span class="pl-k">export</span> <span class="pl-k">const</span> findOTP = <span class="pl-k">async</span> issuer =&gt; {
+  <span class="pl-k">if</span> (!issuer || <span class="pl-k">typeof</span> issuer !== <span class="pl-s">&apos;string&apos;</span>) <span class="pl-k">return</span> <span class="pl-k">new</span> DummyOTP
+  <span class="pl-k">if</span> (issuer.trim().length === <span class="hljs-number">0</span>) <span class="pl-k">return</span> <span class="pl-k">new</span> DummyOTP
+  <span class="pl-k">let</span> {_id, ...data} = <span class="pl-k">await</span> collection.findOne({ issuer }) ?? {}
+  <span class="pl-k">if</span> (!_id) {
+    data = {
+      issuer,
+      secret: Secret.fromHex(
+        createHash(<span class="pl-s">&apos;sha256&apos;</span>)
+          .update(<span class="pl-s">`<span class="hljs-subst">${issuer}</span>@<span class="hljs-subst">${<span class="pl-c1">Date</span>.now()}</span>`</span>, <span class="pl-s">&apos;utf-8&apos;</span>)
+          .digest(<span class="pl-s">&apos;hex&apos;</span>)
+      ),
+      algorithm: <span class="pl-s">&apos;SHA512&apos;</span>,
+      digits: <span class="hljs-number">6</span>,
+      counter: <span class="hljs-number">0</span>,
+    }
+    <span class="pl-k">const</span> { acknowledged, insertedId } = <span class="pl-k">await</span> collection.insertOne({
+      ...data,
+      secret: data.secret.hex,
+    })
+    <span class="pl-k">if</span> (acknowledged) _id = insertedId
+  } <span class="pl-k">else</span> {
+    data.secret = Secret.fromHex(data.secret)
+  }
+  <span class="pl-k">return</span> <span class="pl-k">new</span> HashBasedOneTimePassword(_id, data)
+}
+</code></pre>
+<p>The <code>HashBasedOneTimePassword</code> class is a simple wrapper around the <code>otpauth</code> library.
+It&apos;s a simple class that extends the <code>HOTP</code> class from the <code>otpauth</code> library.
+It provides a <code>qrCode</code> method that generates a QR code image from the OTP secret as an extension of the <code>HOTP</code> class.
+It also provides a <code>setCounter</code> method that updates the counter value in the database.
+Finally, it provides a <code>validate</code> method that validates the OTP token.</p>
+<p>The <code>findOTP</code> function is a simple wrapper around the <code>collection</code> database.
+It&apos;s a simple function that returns a new <code>HashBasedOneTimePassword</code> instance.
+For invalid input, it returns a new <code>DummyOTP</code> instance.
+The <code>DummyOTP</code> class is extremely simple and it&apos;s just a placeholder for the <code>HashBasedOneTimePassword</code> class.</p>
+<pre><code class="lang-js"><span class="pl-k">import</span> { HOTP } <span class="pl-k">from</span> <span class="pl-s">&apos;otpauth&apos;</span>
+
+<span class="pl-k">export</span> <span class="hljs-class"><span class="pl-k">class</span> <span class="pl-ent">DummyOTP</span> <span class="pl-k">extends</span> <span class="pl-ent">HOTP</span> </span>{
+  <span class="pl-k">get</span> session () {
+    <span class="pl-k">return</span> <span class="pl-s">&apos;&apos;</span>
+  }
+
+  <span class="pl-k">async</span> qrCode () {
+    <span class="pl-k">return</span> <span class="pl-s">&apos;&apos;</span>
+  }
+
+  <span class="pl-k">async</span> setCounter (value) {
+    <span class="pl-k">this</span>.counter = value
+  }
+
+  <span class="pl-k">async</span> validate () {
+    <span class="pl-k">return</span> <span class="pl-c1">false</span>
+  }
+}
+</code></pre>
+<h3 id="authentication">Authentication</h3>
+<p>Let&apos;s implement the authentication middleware now.
+It will be a simple middleware that checks if the OTP token is valid.
+If it&apos;s valid, it will set the session cookie and return the next middleware.
+Otherwise, it will return a 301 redirection to the login page.</p>
+<p>See <code>auth.js</code> file implementation:</p>
+<pre><code class="lang-ts"><span class="pl-k">import</span> { join } <span class="pl-k">from</span> <span class="pl-s">&apos;path&apos;</span>
+
+<span class="pl-k">import</span> { dirname } <span class="pl-k">from</span> <span class="pl-s">&apos;dirname-filename-esm&apos;</span>
+<span class="pl-k">import</span> { minimatch } <span class="pl-k">from</span> <span class="pl-s">&apos;minimatch&apos;</span>
+<span class="pl-k">import</span> pug <span class="pl-k">from</span> <span class="pl-s">&apos;pug&apos;</span>
+
+<span class="pl-k">import</span> { findOTP } <span class="pl-k">from</span> <span class="pl-s">&apos;./otp.js&apos;</span>
+
+<span class="pl-k">export</span> <span class="pl-k">const</span> external = {
+  findOTP,
+}
+
+<span class="pl-k">export</span> <span class="pl-k">class</span> AuthConfig {
+  #opening = <span class="pl-s">&apos;/otp&apos;</span>
+  #patterns = []
+
+  <span class="pl-k">constructor</span> (<span class="hljs-params">patterns, opening = &apos;&apos;</span>) {
+    <span class="pl-k">if</span> (opening) <span class="pl-k">this</span>.#opening = opening
+    <span class="pl-k">const</span> openingPage = <span class="pl-k">this</span>.#opening
+      .replace(<span class="hljs-regexp">/\/$/</span>, <span class="pl-s">&apos;&apos;</span>)
+      .replace(<span class="hljs-regexp">/^\//</span>, <span class="pl-s">&apos;&apos;</span>)
+    <span class="pl-k">this</span>.#opening = <span class="pl-k">new</span> <span class="pl-c1">RegExp</span>(<span class="pl-s">`^/<span class="hljs-subst">${openingPage}</span>(\/qr)?\/?$`</span>)
+    <span class="pl-k">this</span>.#patterns = patterns.map(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> {
+      <span class="pl-k">if</span> (p <span class="pl-k">instanceof</span> <span class="pl-c1">RegExp</span>) <span class="pl-k">return</span> p
+      <span class="pl-k">return</span> minimatch.makeRe(p)
+    }).filter(<span class="pl-c1">Boolean</span>)
+  }
+
+  isGuarded (path) {
+    <span class="pl-k">return</span> <span class="pl-k">this</span>.#patterns.some(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p.test(path))
+  }
+
+  isOpening (path) {
+    <span class="pl-k">return</span> <span class="pl-k">this</span>.#opening.test(path)
+  }
+}
+
+<span class="pl-k">const</span> sendQrCode = <span class="pl-k">async</span> (request, response) =&gt; {
+  <span class="pl-k">const</span> { issuer = <span class="pl-s">&apos;&apos;</span> } = request.body ?? {}
+  <span class="pl-k">const</span> { findOTP } = external
+  <span class="pl-k">const</span> otp = <span class="pl-k">await</span> findOTP(issuer)
+  <span class="pl-k">return</span> response
+    .setHeader(<span class="pl-s">&apos;Content-Type&apos;</span>, <span class="pl-s">&apos;image/svg+xml&apos;</span>)
+    .end(<span class="pl-k">await</span> otp.qrCode())
+}
+
+<span class="pl-k">const</span> redirectLocation = <span class="hljs-function">(<span class="hljs-params">request, path</span>) =&gt;</span> {
+  <span class="pl-k">const</span> { socket, headers } = request
+  <span class="pl-k">return</span> <span class="pl-s">`http<span class="hljs-subst">${socket.encrypted ? <span class="pl-s">&apos;s&apos;</span> : <span class="pl-s">&apos;&apos;</span>}</span>://<span class="hljs-subst">${headers.host}</span>/<span class="hljs-subst">${path}</span>`</span>
+}
+
+<span class="pl-k">const</span> validate = <span class="pl-k">async</span> (request, response) =&gt; {
+  <span class="pl-k">const</span> { issuer = <span class="pl-s">&apos;&apos;</span>, token = <span class="pl-s">&apos;&apos;</span> } = request.body ?? {}
+  <span class="pl-k">const</span> { findOTP } = external
+  <span class="pl-k">const</span> otp = <span class="pl-k">await</span> findOTP(issuer)
+  <span class="pl-k">if</span> (<span class="pl-k">await</span> otp.validate(token)) <span class="pl-k">return</span> response
+    .writeHead(<span class="hljs-number">303</span>, {
+      <span class="pl-s">&apos;Set-Cookie&apos;</span>: [
+        <span class="pl-s">`session=<span class="hljs-subst">${otp.session}</span>; Secure; HttpOnly`</span>,
+        <span class="pl-s">&apos;guarded=;  expires=Thu, 01 Jan 1970 00:00:00 GMT&apos;</span>,
+      ],
+      Location: redirectLocation(request, request.cookies?.guarded ?? <span class="pl-s">&apos;&apos;</span>),
+    })
+    .end()
+  <span class="pl-k">return</span> response.writeHead(<span class="hljs-number">403</span>).end()
+}
+
+<span class="pl-k">const</span> form = pug.compileFile(join(dirname(<span class="pl-k">import</span>.meta), <span class="pl-s">&apos;ui/login.pug&apos;</span>))
+<span class="pl-k">const</span> sendLoginForm = <span class="hljs-function">(<span class="hljs-params">_, response</span>) =&gt;</span> response
+  .setHeader(<span class="pl-s">&apos;Content-Type&apos;</span>, <span class="pl-s">&apos;text/html&apos;</span>)
+  .end(form())
+
+<span class="pl-k">const</span> open = <span class="pl-k">async</span> (request, response) =&gt; {
+  <span class="pl-k">const</span> { method, url } = request
+  <span class="pl-k">switch</span> (method) {
+    <span class="pl-k">case</span> <span class="pl-s">&apos;PUT&apos;</span>:
+      <span class="pl-k">if</span> (url.endsWith(<span class="pl-s">&apos;/qr&apos;</span>)) <span class="pl-k">return</span> sendQrCode(request, response)
+      <span class="pl-k">break</span>
+    <span class="pl-k">case</span> <span class="pl-s">&apos;POST&apos;</span>:
+      <span class="pl-k">return</span> validate(request, response)
+    <span class="pl-k">case</span> <span class="pl-s">&apos;GET&apos;</span>:
+      <span class="pl-k">return</span> sendLoginForm(request, response)
+  }
+}
+
+<span class="pl-k">export</span> <span class="pl-k">const</span> authenticate = <span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span> <span class="pl-k">async</span> (request, response) =&gt; {
+  <span class="pl-k">const</span> { session, url, path } = request
+  <span class="pl-k">if</span> (config.isOpening(url)) <span class="pl-k">return</span> open(request, response)
+  
+  <span class="pl-k">if</span> (!config.isGuarded(url)) <span class="pl-k">return</span>
+  <span class="pl-k">if</span> (session?.id) <span class="pl-k">return</span>
+
+  response
+    .writeHead(<span class="hljs-number">301</span>, {
+      Location: redirectLocation(request, <span class="pl-s">&apos;otp&apos;</span>),
+      <span class="pl-s">&apos;Set-Cookie&apos;</span>: <span class="pl-s">`guarded=<span class="hljs-subst">${path}</span>`</span>, 
+    })
+    .end()
+}
+</code></pre>
+<p>It exposes two statements:</p>
+<ul>
+<li><code>authenticate</code> function that is a middleware that checks if the request is guarded by the authentication middleware</li>
+<li><code>AuthConfig</code> class that is a configuration class for the authentication middleware</li>
+</ul>
+<h3 id="login">Login</h3>
+<p>Let&apos;s implement the login page now.
+It will be a simple page that allows the user to enter the OTP issuer and the OTP token.</p>
+<pre><code class="lang-pug">doctype html
+html(lang=&quot;en&quot;)
+    head
+        meta(charset=&quot;UTF-8&quot;)
+        meta(name=&quot;viewport&quot;, content=&quot;width=device-width, initial-scale=1.0&quot;)
+        title Login Form
+    body
+        form(action=&quot;&quot;, method=&quot;post&quot;)
+            input(type=&quot;text&quot;, name=&quot;issuer&quot;)
+            input(type=&quot;text&quot;, name=&quot;token&quot;)
+            input(type=&quot;submit&quot;, value=&quot;Login&quot;)
+</code></pre>
+<p>The <code>login.pug</code> file is a simple Pug template that renders a login form.</p>
+<h3 id="guard">Guard</h3>
+<p>Let&apos;s implement the guard middleware now.
+It will be a simple middleware that checks if the request is guarded by the authentication middleware.</p>
+<p>See <code>guard.js</code> file implementation:</p>
+<pre><code class="lang-js"><span class="pl-k">import</span> { AuthConfig, authenticate } <span class="pl-k">from</span> <span class="pl-s">&apos;./auth.js&apos;</span>
+
+<span class="pl-k">export</span> <span class="pl-k">const</span> guard = <span class="hljs-function"><span class="hljs-params">patterns</span> =&gt;</span> authenticate(<span class="pl-k">new</span> AuthConfig(patterns))
+</code></pre>
+<p>The <code>guard</code> middleware is a simple wrapper around the <code>authenticate</code> middleware.
+It takes an array of <code>patterns</code> as an argument and creates an <code>AuthConfig</code> instance with the patterns.
+Then, it passes the <code>AuthConfig</code> instance to the <code>authenticate</code> middleware.</p>
+<h3 id="server">Server</h3>
+<p>We have all the pieces now, so let&apos;s put them together.
+We are going to create a simple HTTP server that will handle the middlewares described above.
+See <code>app.js</code> file implementation:</p>
+<pre><code class="lang-js"><span class="pl-k">import</span> { createServer } <span class="pl-k">from</span> <span class="pl-s">&apos;http&apos;</span>
+
+<span class="pl-k">import</span> <span class="pl-s">&apos;dotenv/config&apos;</span>
+<span class="pl-k">import</span> serve <span class="pl-k">from</span> <span class="pl-s">&apos;serve-handler&apos;</span>
+
+<span class="pl-k">import</span> { guard } <span class="pl-k">from</span> <span class="pl-s">&apos;./guard.js&apos;</span>
+<span class="pl-k">import</span> { parseCookies, parseJSONBody, setSession } <span class="pl-k">from</span> <span class="pl-s">&apos;./middleware.js&apos;</span>
+
+<span class="pl-k">const</span> app = <span class="hljs-function">(<span class="hljs-params">{ auth }</span>) =&gt;</span> <span class="pl-k">async</span> (request, response) =&gt; {
+  <span class="pl-k">await</span> <span class="pl-c1">Promise</span>.all([
+    parseCookies(request),
+    parseJSONBody(request),
+  ])
+  <span class="pl-k">await</span> setSession(request, response)
+  <span class="pl-k">await</span> auth(request, response)
+  <span class="pl-k">if</span> (response.finished) <span class="pl-k">return</span>
+  <span class="pl-k">return</span> serve(request, response, {
+    <span class="hljs-attr">public</span>: <span class="pl-s">&apos;src&apos;</span>,
+  })
+}
+
+<span class="pl-k">const</span> server = createServer(app({
+  <span class="hljs-attr">auth</span>: guard([
+    <span class="pl-s">&apos;/ui/&apos;</span>,
+    <span class="pl-s">&apos;/ui/*&apos;</span>,
+  ]),
+})).listen(<span class="hljs-number">5200</span>)
+<span class="pl-c1">console</span>.log(<span class="pl-s">&apos;Listening HTTP on 5200 port&apos;</span>)
+<span class="pl-c1">console</span>.log(server.address())
+</code></pre>
+<p>The <code>app</code> function takes an object with the <code>auth</code> property.
+The <code>auth</code> property is a middleware that is a guard for the authentication middleware in our case.
+First, it parses the cookies from the request and JSON body from the request.
+It can be happened concurrently as the <code>parseCookies</code> and <code>parseJSONBody</code> middlewares are independent.
+Then, it sets the session cookie and calls the authentication middleware.
+It checks if the response has been finished by given authentication middleware next.
+If it&apos;s not finished, it serves requested files from the <code>src</code> directory finally, so it serves own sources as static files.</p>
+<p>The server can be started by running the <code>app.js</code> file.</p>
+<pre><code class="lang-sh">$ node src/app.js
+Listening HTTP on 5200 port
+{ address: <span class="pl-s">&apos;::&apos;</span>, family: <span class="pl-s">&apos;IPv6&apos;</span>, port: 5200 }
+</code></pre>
+<h2 id="tests">Tests</h2>
+<p>Tests are important part of the development process.
+I could say that it&apos;s at least as important as the implementation itself.
+I&apos;m big fan of unit testing especially using <a href="https://github.com/avajs/ava">ava</a> runner.
+I&apos;m not sure if it&apos;s good idea to show all the tests in this article because of test cases amount, so I&apos;ll just show the most important ones.</p>
+<p>By the way, it&apos;s really good example of how to use <a href="https://github.com/sindresorhus/test-listen">test-listen</a> library to create a test server and how to write tests in ava in general.</p>
+<h3 id="otp">OTP</h3>
+<p>See <code>otp.test.js</code> file implementation with a tests set for the <code>otp.js</code> file.</p>
+<pre><code class="lang-js"><span class="pl-k">import</span> { access, constants } <span class="pl-k">from</span> <span class="pl-s">&apos;fs/promises&apos;</span>
+<span class="pl-k">import</span> { env } <span class="pl-k">from</span> <span class="pl-s">&apos;process&apos;</span>
+<span class="pl-k">import</span> { scheduler } <span class="pl-k">from</span> <span class="pl-s">&apos;timers/promises&apos;</span>
+
+<span class="pl-k">import</span> test <span class="pl-k">from</span> <span class="pl-s">&apos;ava&apos;</span>
+<span class="pl-k">import</span> { MongoMemoryServer } <span class="pl-k">from</span> <span class="pl-s">&apos;mongodb-memory-server&apos;</span>
+<span class="pl-k">import</span> { Secret } <span class="pl-k">from</span> <span class="pl-s">&apos;otpauth&apos;</span>
+<span class="pl-k">import</span> { stub, restore } <span class="pl-k">from</span> <span class="pl-s">&apos;sinon&apos;</span>
+
+test.before(<span class="pl-s">&apos;start database server&apos;</span>, <span class="pl-k">async</span> t =&gt; {
+  <span class="pl-k">const</span> mongodb = <span class="pl-k">await</span> MongoMemoryServer.create()
+  env.MONGO_URI = mongodb.getUri()
+  t.context = {
+    <span class="hljs-attr">module</span>: <span class="pl-k">await</span> <span class="pl-k">import</span>(<span class="pl-s">&apos;../src/otp.js&apos;</span>),
+    mongodb,
+  }
+  t.timeout(<span class="hljs-number">1</span>_000)
+})
+
+test.afterEach.always(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  restore()
+})
+
+test.after.always(<span class="pl-s">&apos;stop database server&apos;</span>, <span class="pl-k">async</span> t =&gt; {
+  <span class="pl-k">const</span> { <span class="hljs-attr">module</span>: { client }, mongodb } = t.context
+  <span class="pl-k">await</span> client.close(<span class="pl-c1">true</span>)
+  <span class="pl-k">await</span> mongodb.stop()
+})
+
+test.serial(<span class="pl-s">&apos;object should be restored properly from database&apos;</span>, <span class="pl-k">async</span> t =&gt; {
+  <span class="pl-k">const</span> { collection, findOTP } = t.context.module
+  <span class="pl-k">const</span> issuer = <span class="pl-s">&apos;test&apos;</span>
+  <span class="pl-k">const</span> otp = <span class="pl-k">await</span> findOTP(issuer)
+  <span class="pl-k">const</span> data = <span class="pl-k">await</span> collection.findOne({ issuer })
+  data.secret = Secret.fromHex(data.secret)
+  data.secret.hex <span class="pl-c">// call getter to set hex property</span>
+  t.like(data, {
+    issuer,
+    <span class="hljs-attr">secret</span>: otp.secret,
+    <span class="hljs-attr">algorithm</span>: <span class="pl-s">&apos;SHA512&apos;</span>,
+    <span class="hljs-attr">digits</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-attr">counter</span>: <span class="hljs-number">0</span>,
+  })
+})
+
+test.serial(<span class="pl-s">&apos;update counter method success&apos;</span>, <span class="pl-k">async</span> t =&gt; {
+  <span class="pl-k">const</span> { collection, findOTP } = t.context.module
+  <span class="pl-k">const</span> issuer = <span class="pl-s">&apos;Andr&#xE9;&apos;</span>
+  <span class="pl-k">const</span> counter = <span class="hljs-number">1</span>
+  <span class="pl-k">const</span> otp = <span class="pl-k">await</span> findOTP(issuer)
+  <span class="pl-k">await</span> otp.setCounter(counter)
+  <span class="pl-k">const</span> data = <span class="pl-k">await</span> collection.findOne({ issuer })
+  <span class="pl-k">const</span> values = {
+    issuer,
+    counter,
+  }
+  t.like(data, values)
+  t.like(otp, values)
+})
+
+test.serial(<span class="pl-s">&apos;update counter method failure&apos;</span>, <span class="pl-k">async</span> t =&gt; {
+  <span class="pl-k">const</span> { collection, findOTP } = t.context.module
+  <span class="pl-k">const</span> issuer = <span class="pl-s">&apos;Gennadius Thrasyboulos&apos;</span>
+  <span class="pl-k">const</span> otp = <span class="pl-k">await</span> findOTP(issuer)
+  stub(collection, <span class="pl-s">&apos;updateOne&apos;</span>).resolves({
+    <span class="hljs-attr">acknowledged</span>: <span class="pl-c1">true</span>,
+    <span class="hljs-attr">matchedCount</span>: <span class="hljs-number">0</span>,
+  })
+  <span class="pl-k">await</span> t.throwsAsync(otp.setCounter(<span class="hljs-number">500</span>))
+  <span class="pl-k">const</span> data = <span class="pl-k">await</span> collection.findOne({ issuer })
+  t.like(data, {
+    issuer,
+    <span class="hljs-attr">counter</span>: <span class="hljs-number">0</span>,
+  })
+})
+
+test.serial(<span class="pl-s">&apos;validate method should pass window option&apos;</span>, <span class="pl-k">async</span> t =&gt; {
+  <span class="pl-k">const</span> { findOTP } = t.context.module
+  <span class="pl-k">const</span> otp = <span class="pl-k">await</span> findOTP(<span class="pl-s">&apos;Dionysius Hilarion&apos;</span>)
+  <span class="pl-k">const</span> token = otp.generate()
+  <span class="pl-k">await</span> otp.setCounter(otp.counter + <span class="hljs-number">3</span>)
+  t.true(<span class="pl-k">await</span> otp.validate(token))
+  <span class="pl-k">await</span> otp.setCounter(otp.counter + <span class="hljs-number">5</span>)
+  t.false(<span class="pl-k">await</span> otp.validate(token))
+})
+
+test.serial(<span class="pl-s">&apos;validate method should update counter if succeed&apos;</span>, <span class="pl-k">async</span> t =&gt; {
+  <span class="pl-k">const</span> { collection, findOTP } = t.context.module
+  <span class="pl-k">const</span> issuer = <span class="pl-s">&apos;Andr&#xE9;&apos;</span>
+  <span class="pl-k">const</span> otp = <span class="pl-k">await</span> findOTP(issuer)
+  <span class="pl-k">const</span> { counter } = otp
+  <span class="pl-k">const</span> token = otp.generate()
+  <span class="pl-k">await</span> otp.validate(token)
+  <span class="pl-k">const</span> data = <span class="pl-k">await</span> collection.findOne({ issuer })
+  t.is(otp.counter, counter + <span class="hljs-number">1</span>)
+  t.is(data.counter, otp.counter)
+})
+
+test.serial(<span class="pl-s">&apos;validate method should not update counter if failed&apos;</span>, <span class="pl-k">async</span> t =&gt; {
+  <span class="pl-k">const</span> { collection, findOTP } = t.context.module
+  <span class="pl-k">const</span> issuer = <span class="pl-s">&apos;Hesiodos Anastasia&apos;</span>
+  <span class="pl-k">const</span> otp = <span class="pl-k">await</span> findOTP(issuer)
+  <span class="pl-k">const</span> token = otp.generate()
+  <span class="pl-k">const</span> expected = otp.counter + <span class="hljs-number">5</span>
+  <span class="pl-k">await</span> otp.setCounter(expected)
+  <span class="pl-k">await</span> otp.validate(token)
+  <span class="pl-k">const</span> data = <span class="pl-k">await</span> collection.findOne({ issuer })
+  t.is(otp.counter, expected)
+  t.is(data.counter, expected)
+})
+
+<span class="pl-k">const</span> dummyMacro = test.macro({
+  <span class="hljs-attr">exec</span>: <span class="pl-k">async</span> (t, issuer) =&gt; {
+    <span class="pl-k">const</span> { findOTP } = t.context.module
+    <span class="pl-k">const</span> otp = <span class="pl-k">await</span> findOTP(issuer)
+    t.is(otp.constructor.name, <span class="pl-s">&apos;DummyOTP&apos;</span>)
+
+    <span class="pl-k">await</span> otp.setCounter(<span class="hljs-number">2</span>)
+    t.false(<span class="pl-k">await</span> otp.validate())
+    t.is(otp.counter, <span class="hljs-number">2</span>)
+    t.is(<span class="pl-k">await</span> otp.qrCode(), <span class="pl-s">&apos;&apos;</span>)
+  },
+  <span class="hljs-attr">title</span>: <span class="hljs-function">(<span class="hljs-params">t, issuer</span>) =&gt;</span> <span class="pl-s">`<span class="hljs-subst">${<span class="pl-c1">JSON</span>.stringify(issuer)}</span> issuer should find DummyOTP object`</span>,
+})
+<span class="pl-k">for</span> (<span class="pl-k">const</span> issuer <span class="pl-k">of</span> [<span class="pl-c1">null</span>, <span class="pl-s">&apos;&apos;</span>, <span class="hljs-number">-1</span>, <span class="pl-s">&apos;   &apos;</span>]) test(dummyMacro, issuer)
+
+test.serial(<span class="pl-s">&apos;QR code&apos;</span>, <span class="pl-k">async</span> t =&gt; {
+  <span class="pl-k">const</span> { findOTP } = t.context.module
+  <span class="pl-k">const</span> issuer = <span class="pl-s">&apos;Gennadius Thrasyboulos&apos;</span>
+  <span class="pl-k">const</span> otp = <span class="pl-k">await</span> findOTP(issuer)
+  <span class="pl-k">const</span> svg = <span class="pl-k">await</span> otp.qrCode()
+  t.true(svg.length &gt; <span class="hljs-number">100</span>)
+  <span class="pl-k">await</span> scheduler.wait(<span class="hljs-number">5</span>)
+  <span class="pl-k">await</span> t.throwsAsync(access(<span class="pl-s">`/tmp/<span class="hljs-subst">${issuer}</span>.svg`</span>, constants.F_OK))
+})
+</code></pre>
+<p>Before running the tests, we need to start the database server.
+We can do it by create <code>MongoMemoryServer</code> instance and start it.
+Only when the database server is running can we import our module, because internally it establishes a connection with the database.
+That&apos;s why we need to start the database server before module import.</p>
+<p>As we use <code>sinon</code> library for mocking, we need to restore it&apos;s stubs after each test.
+No matter if the test is successful or not, we need to restore the stubs.</p>
+<p>After all the tests are finished, we need to stop the database server.</p>
+<p>Our setup is ready, so let&apos;s run the tests.
+I skip a few first tests they are just for checking basic functionalities.
+The first interesting test is in <code>dummyMacro</code> macro.
+It&apos;s a macro that is used to test the <code>DummyOTP</code> class in specific circumstances.
+It&apos;s executed with some falsy values as an argument.</p>
+<p>The last one is the most interesting test.
+We are checking if the QR code is generated properly and if temporary file will be removed eventually.
+The SVG contents couldn&apos;t be checked strictly as secret of OTP is genereted as different every time.
+So I can&apos;t use snapshot testing in that case, and checking SVG contents length is only thing we can do to ensure that the generated SVG is not empty.</p>
+<h3 id="server">Server</h3>
+<p>Let&apos;s analyze some server tests now.</p>
+<h4 id="serve">Serve</h4>
+<p>See <code>serve.test.js</code> file implementation with a tests set for the <code>middleware.js</code> file and <code>serve-handler</code> 3rd party library.</p>
+<pre><code class="lang-js"><span class="pl-k">import</span> { readFile } <span class="pl-k">from</span> <span class="pl-s">&apos;fs/promises&apos;</span>
+
+<span class="pl-k">import</span> test <span class="pl-k">from</span> <span class="pl-s">&apos;ava&apos;</span>
+<span class="pl-k">import</span> got <span class="pl-k">from</span> <span class="pl-s">&apos;got&apos;</span>
+<span class="pl-k">import</span> serve <span class="pl-k">from</span> <span class="pl-s">&apos;serve-handler&apos;</span>
+<span class="pl-k">import</span> { restore, stub } <span class="pl-k">from</span> <span class="pl-s">&apos;sinon&apos;</span>
+<span class="pl-k">import</span> { CookieJar } <span class="pl-k">from</span> <span class="pl-s">&apos;tough-cookie&apos;</span>
+
+<span class="pl-k">import</span> { setup } <span class="pl-k">from</span> <span class="pl-s">&apos;./common.js&apos;</span>
+<span class="pl-k">import</span> { parseCookies, parseJSONBody, setSession } <span class="pl-k">from</span> <span class="pl-s">&apos;../../src/middleware.js&apos;</span>
+
+<span class="pl-k">const</span> app = <span class="hljs-function">(<span class="hljs-params">{ auth }</span>) =&gt;</span> <span class="pl-k">async</span> (request, response) =&gt; {
+  <span class="pl-k">await</span> <span class="pl-c1">Promise</span>.all([
+    parseCookies(request),
+    parseJSONBody(request),
+  ])
+  <span class="pl-k">await</span> setSession(request, response)
+  <span class="pl-k">await</span> auth(request, response)
+  <span class="pl-k">if</span> (response.finished) <span class="pl-k">return</span>
+  <span class="pl-k">return</span> serve(request, response, {
+    <span class="hljs-attr">rewrites</span>: [
+      { <span class="hljs-attr">source</span>: <span class="pl-s">&apos;protected/:sub/:file&apos;</span>, <span class="hljs-attr">destination</span>: <span class="pl-s">&apos;test/:sub/:file&apos;</span> }
+    ]
+  })
+}
+
+setup(test, app)
+test.afterEach.always(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  restore()
+})
+
+<span class="pl-k">const</span> serveMacro = test.macro({
+  <span class="hljs-attr">exec</span>: <span class="pl-k">async</span> (t, path) =&gt; {
+    <span class="pl-k">const</span> target = path.replace(<span class="hljs-regexp">/^\//g</span>, <span class="pl-s">&apos;&apos;</span>)
+    <span class="pl-k">const</span> cookieJar = <span class="pl-k">new</span> CookieJar()
+    <span class="pl-k">const</span> options = {
+      cookieJar,
+      <span class="hljs-attr">prefixUrl</span>: t.context.url
+    }
+
+    <span class="pl-k">await</span> cookieJar.setCookie(<span class="pl-s">&apos;session=670979dc6997812b94b9a594&apos;</span>, t.context.url)
+    <span class="pl-k">const</span> { collection } = <span class="pl-k">await</span> <span class="pl-k">import</span>(<span class="pl-s">&apos;../../src/otp.js&apos;</span>)
+    stub(collection, <span class="pl-s">&apos;findOne&apos;</span>).resolves(<span class="pl-c1">true</span>)
+
+    <span class="pl-k">const</span> response = <span class="pl-k">await</span> got(target, options)
+    t.is(response.body, <span class="pl-k">await</span> readFile(path.replace(<span class="pl-s">&apos;protected/&apos;</span>, <span class="pl-s">&apos;test/&apos;</span>), <span class="pl-s">&apos;utf8&apos;</span>))
+  },
+  <span class="hljs-attr">title</span>: <span class="hljs-function">(<span class="hljs-params">_, path</span>) =&gt;</span> <span class="pl-s">`serve scenario at &quot;<span class="hljs-subst">${path}</span>&quot; for valid OTP`</span>
+})
+
+<span class="pl-k">for</span> (<span class="pl-k">const</span> path <span class="pl-k">of</span> [
+  <span class="pl-s">&apos;protected/auth/common.js&apos;</span>,
+]) test.serial(serveMacro, path)
+</code></pre>
+<p>We have an simple server <code>app</code> function that is a wrapper around the <code>serve-handler</code> library.
+The function has been set up to be used by the <code>setup</code> function call described in the <a href="#common">next section</a>.</p>
+<p>In the test file, we have a <code>serveMacro</code> macro that is used to test the <code>serve</code> function.
+First, we create a <code>CookieJar</code> instance and set a session cookie to it and then we call the <code>got</code> function to simulate a request to the server.
+In validation, we check if the response body is equal to the file contents.</p>
+<h4 id="common">Common</h4>
+<p>The <code>common.js</code> file is a helper file that is used to set up the common test environment.</p>
+<pre><code class="lang-js"><span class="pl-k">import</span> { createServer } <span class="pl-k">from</span> <span class="pl-s">&apos;http&apos;</span>
+<span class="pl-k">import</span> { env } <span class="pl-k">from</span> <span class="pl-s">&apos;process&apos;</span>
+
+<span class="pl-k">import</span> listen <span class="pl-k">from</span> <span class="pl-s">&apos;test-listen&apos;</span>
+
+<span class="pl-k">import</span> { external } <span class="pl-k">from</span> <span class="pl-s">&apos;../../src/middleware.js&apos;</span>
+
+<span class="pl-k">export</span> <span class="pl-k">const</span> urls ={
+  <span class="hljs-attr">public</span>: [
+    <span class="pl-s">&apos;/&apos;</span>,
+    <span class="pl-s">&apos;/favicon.png&apos;</span>,
+    <span class="pl-s">&apos;/style.css&apos;</span>,
+    <span class="pl-s">&apos;/catalog/123/read.pdf&apos;</span>,
+  ],
+  <span class="hljs-attr">protected</span>: [
+    <span class="pl-s">&apos;/protected/list/1&apos;</span>,
+    <span class="pl-s">&apos;/private/photos/1.jpg&apos;</span>,
+    <span class="pl-s">&apos;/confidential/data/document.odt&apos;</span>,
+  ],
+}
+
+<span class="pl-k">export</span> <span class="pl-k">const</span> setup = <span class="hljs-function">(<span class="hljs-params">test, app</span>) =&gt;</span> {
+  test.serial.before(<span class="pl-s">&apos;common setup before hook&apos;</span>, <span class="pl-k">async</span> t =&gt; {
+    <span class="pl-k">if</span> (!env.MONGO_URI) env.MONGO_URI = <span class="pl-s">&apos;mongodb://localhost/nodb&apos;</span>
+    <span class="pl-k">const</span> [{ guard }, { external }] = <span class="pl-k">await</span> <span class="pl-c1">Promise</span>.all([
+      <span class="pl-k">import</span>(<span class="pl-s">&apos;../../src/guard.js&apos;</span>),
+      <span class="pl-k">import</span>(<span class="pl-s">&apos;../../src/auth.js&apos;</span>),
+    ])
+
+    <span class="pl-k">const</span> auth = guard([
+      <span class="pl-s">&apos;/protected/**/*&apos;</span>,
+      <span class="pl-s">&apos;/private/**/*&apos;</span>,
+      <span class="pl-s">&apos;/confidential/**/*&apos;</span>,
+    ])
+    <span class="pl-k">const</span> server = createServer(app({
+      auth,
+    }))
+    t.context = {
+      ...t.context,
+      auth,
+      external,
+      server,
+      <span class="hljs-attr">url</span>: <span class="pl-k">await</span> listen(server),
+    }
+  })
+  test.after.always(<span class="pl-s">&apos;common setup after.always hook&apos;</span>, <span class="pl-k">async</span> t =&gt; {
+    t.context.server.close()
+    external.abortController.abort()
+    <span class="pl-k">const</span> { client } = <span class="pl-k">await</span> <span class="pl-k">import</span>(<span class="pl-s">&apos;../../src/otp.js&apos;</span>)
+    <span class="pl-k">await</span> client.close()
+  })
+}
+</code></pre>
+<p>It exports a <code>setup</code> function that is used to set up test server environment and a <code>urls</code> object that contains the list of paths that are used in the tests.</p>
+<h4 id="get">Get</h4>
+<p>See <code>get.test.js</code> file implementation with a tests set for checking unauthenticated access to the protected resources.</p>
+<pre><code class="lang-js"><span class="pl-k">import</span> test <span class="pl-k">from</span> <span class="pl-s">&apos;ava&apos;</span>
+<span class="pl-k">import</span> got <span class="pl-k">from</span> <span class="pl-s">&apos;got&apos;</span>
+
+<span class="pl-k">import</span> { setup, urls } <span class="pl-k">from</span> <span class="pl-s">&apos;./common.js&apos;</span>
+
+<span class="pl-k">const</span> app = <span class="hljs-function">(<span class="hljs-params">{ auth }</span>) =&gt;</span> <span class="hljs-function">(<span class="hljs-params">request, response</span>) =&gt;</span> {
+  auth(request, response).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="pl-k">if</span> (response.finished) <span class="pl-k">return</span>
+    response.end(<span class="pl-s">&apos;OK&apos;</span>)
+  })
+}
+
+setup(test, app)
+
+<span class="pl-k">const</span> getMacro = test.macro({
+  <span class="hljs-attr">exec</span>: <span class="pl-k">async</span> (t, path, statusCode) =&gt; {
+    <span class="pl-k">const</span> request = got(path.replace(<span class="hljs-regexp">/^\//g</span>, <span class="pl-s">&apos;&apos;</span>), {
+      <span class="hljs-attr">prefixUrl</span>: t.context.url
+    })
+    <span class="pl-k">if</span> (statusCode === <span class="hljs-number">200</span>) <span class="pl-k">return</span> t.notThrowsAsync(request)
+    <span class="pl-k">const</span> { headers, url } = <span class="pl-k">await</span> request
+    t.is(headers[<span class="pl-s">&apos;content-type&apos;</span>], <span class="pl-s">&apos;text/html&apos;</span>)
+    t.is(url, <span class="pl-s">`<span class="hljs-subst">${t.context.url}</span>/otp`</span>)
+  },
+  <span class="hljs-attr">title</span>: <span class="hljs-function">(<span class="hljs-params">_, path, statusCode</span>) =&gt;</span> <span class="pl-s">`GET at &quot;<span class="hljs-subst">${path}</span>&quot; should result <span class="hljs-subst">${statusCode}</span> status code`</span>
+})
+
+<span class="pl-k">for</span> (<span class="pl-k">const</span> path <span class="pl-k">of</span> urls.public) test(getMacro, path, <span class="hljs-number">200</span>)
+<span class="pl-k">for</span> (<span class="pl-k">const</span> path <span class="pl-k">of</span> urls.protected) test(getMacro, path, <span class="hljs-number">301</span>)
+</code></pre>
+<p>The <code>getMacro</code> uses extremely simple <code>app</code> server function.
+It checks status code returned as response to GET request.
+It should be 200 for public resources and 301 for protected resources as we have guards for them and unauthenticated requests should be redirected to the login page.</p>
+<h3 id="execution">Execution</h3>
+<p>Let&apos;s run described tests.</p>
+<pre><code class="lang-sh">$ yarn ava <span class="pl-c1">test</span>/otp.test.js <span class="pl-c1">test</span>/server/{serve,get}.test.js
+
+  &#x2714; server &#x203A; get &#x203A; GET at <span class="pl-s">&quot;/&quot;</span> should result 200 status code
+  &#x2714; server &#x203A; get &#x203A; GET at <span class="pl-s">&quot;/favicon.png&quot;</span> should result 200 status code
+  &#x2714; server &#x203A; get &#x203A; GET at <span class="pl-s">&quot;/style.css&quot;</span> should result 200 status code
+  &#x2714; server &#x203A; get &#x203A; GET at <span class="pl-s">&quot;/catalog/123/read.pdf&quot;</span> should result 200 status code
+  &#x2714; server &#x203A; get &#x203A; GET at <span class="pl-s">&quot;/protected/list/1&quot;</span> should result 301 status code
+  &#x2714; server &#x203A; get &#x203A; GET at <span class="pl-s">&quot;/private/photos/1.jpg&quot;</span> should result 301 status code
+  &#x2714; server &#x203A; get &#x203A; GET at <span class="pl-s">&quot;/confidential/data/document.odt&quot;</span> should result 301 status code
+  &#x2714; server &#x203A; serve &#x203A; serve scenario at <span class="pl-s">&quot;protected/auth/common.js&quot;</span> <span class="pl-k">for</span> valid OTP
+  &#x2714; otp &#x203A; object should be restored properly from database
+  &#x2714; otp &#x203A; update counter method success
+  &#x2714; otp &#x203A; update counter method failure
+  &#x2714; otp &#x203A; validate method should pass window option
+  &#x2714; otp &#x203A; validate method should update counter <span class="pl-k">if</span> succeed
+  &#x2714; otp &#x203A; validate method should not update counter <span class="pl-k">if</span> failed
+  &#x2714; otp &#x203A; QR code
+  &#x2714; otp &#x203A; null issuer should find DummyOTP object
+  &#x2714; otp &#x203A; <span class="pl-s">&quot;&quot;</span> issuer should find DummyOTP object
+  &#x2714; otp &#x203A; -1 issuer should find DummyOTP object
+  &#x2714; otp &#x203A; <span class="pl-s">&quot; &quot;</span> issuer should find DummyOTP object
+  &#x2500;
+
+  19 tests passed
+</code></pre>
+<p>Nice, we have all the tests passed.
+I love avas output, it&apos;s very clean and readable.
+It&apos;s also very easy to understand what is going on.</p>
+<p>There is a lot of tests, much more than has been described in this article.</p>
+<pre><code class="lang-sh">$ yarn ava --tap | yarn tap-dot
+
+  .............................................................................  
+
+  48 tests
+  77 passed
+  
+  Pass!
+</code></pre>
+<h3 id="coverage">Coverage</h3>
+<p>It&apos;s good idea to share coverage report of all the tests as well.
+It&apos;s really good coverage result.</p>
+<pre><code class="lang-sh">$ yarn coverage
+
+<span class="pl-c"># skipped tests output...</span>
+
+---------------|---------|----------|---------|---------|-------------------
+File           | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line <span class="pl-c">#s </span>
+---------------|---------|----------|---------|---------|-------------------
+All files      |   98.85 |     95.4 |   96.29 |   98.85 |                   
+ DummyOTP.js   |   89.47 |      100 |      75 |   89.47 | 5-6               
+ auth.js       |   98.98 |     92.1 |     100 |   98.98 | 78                
+ guard.js      |     100 |      100 |     100 |     100 |                   
+ middleware.js |     100 |    94.73 |     100 |     100 | 19                
+ otp.js        |     100 |      100 |     100 |     100 |                   
+---------------|---------|----------|---------|---------|-------------------
+</code></pre>
+<p>We have above 95% coverage for all the files.
+But keep in mind that it&apos;s no guarantee that all situations are covered even if coverage would be 100%.</p>
+<p>Note that <code>src/app.js</code> is not included in the coverage report as all tests have implemented own server application.
+I could cover it with tests by perform E2E tests, but I don&apos;t want to do it as I consider it&apos;s not necessary.</p>
+<h2 id="demo">Demo</h2>
+<p>I&apos;ve created a live demo of the implementation as video screencast.</p>
+<h5 id="otp-authentication-demo">OTP authentication demo</h5>
+<!-- ![OTP authentication demo](video/otp-auth-1.webm) -->
+<video controls src="video/otp-auth-1.webm" width="768">
+  Your browser does not support the video tag or WEBM files.
+</video>
+<h2 id="conclusion">Conclusion</h2>
+<p>I&apos;ve described how to implement session management in Node.js with basic OTP authentication using core Node.js <code>http</code> module.
+I&apos;ve also described how to implement a simple login guard using <code>otpauth</code> npm package. I
+I&apos;ve described how to implement a simple login page using Pug template engine.
+I also showed hot to use MongoDB for storing OTP secrets.</p>
+<p>The implementation is very simple and it&apos;s not a production ready code.
+It&apos;s just a proof of concept.
+But it&apos;s a good starting point for implementing more complex authentication system.</p>
+<p>However, it&apos;s crucial to remember that this implementation is primarily intended for educational purposes.
+Due to potential security vulnerabilities and scalability limitations, it should never be deployed in production environments.
+Instead, prioritize the use of well-vetted, community-supported solutions for critical components of your real, production-ready web application.</p>
+<p>You can consider mature solutions like <a href="https://www.passportjs.org/">Passport</a> or <a href="https://www.keycloak.org/">Keycloak</a> as a good starting point for implementing authentication in Node.js.
+You can use good established and well-vetted libraries like <a href="https://www.npmjs.com/package/express-session">express-session</a> for session management if you want to use express framework.</p>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="quokka-01.html"><span class="title">Quokka.js Review and Alternatives</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -562,6 +562,93 @@
             ]
           }
         ]
+      },
+      {
+        "title": "Core Node.js Session Middleware with OTP",
+        "source": "src/session-nodejs-middleware-with-otp.md",
+        "url": "session-nodejs-middleware-with-otp.html",
+        "slug": "session-nodejs-middleware-with-otp",
+        "headings": [
+          {
+            "title": "Motivation",
+            "depth": 2,
+            "id": "motivation"
+          },
+          {
+            "title": "Implementation",
+            "depth": 2,
+            "id": "implementation",
+            "headings": [
+              {
+                "title": "Middleware",
+                "depth": 3,
+                "id": "middleware"
+              },
+              {
+                "title": "OTP",
+                "depth": 3,
+                "id": "otp"
+              },
+              {
+                "title": "Authentication",
+                "depth": 3,
+                "id": "authentication"
+              },
+              {
+                "title": "Login",
+                "depth": 3,
+                "id": "login"
+              },
+              {
+                "title": "Guard",
+                "depth": 3,
+                "id": "guard"
+              },
+              {
+                "title": "Server",
+                "depth": 3,
+                "id": "server"
+              }
+            ]
+          },
+          {
+            "title": "Tests",
+            "depth": 2,
+            "id": "tests",
+            "headings": [
+              {
+                "title": "OTP",
+                "depth": 3,
+                "id": "otp"
+              },
+              {
+                "title": "Server",
+                "depth": 3,
+                "id": "server"
+              },
+              {
+                "title": "Execution",
+                "depth": 3,
+                "id": "execution"
+              },
+              {
+                "title": "Coverage",
+                "depth": 3,
+                "id": "coverage"
+              }
+            ]
+          },
+          {
+            "title": "Demo",
+            "depth": 2,
+            "id": "demo"
+          },
+          {
+            "title": "Conclusion",
+            "depth": 2,
+            "id": "conclusion"
+          }
+        ]
       }
     ]
   },
@@ -1123,6 +1210,93 @@
           ]
         }
       ]
+    },
+    "session-nodejs-middleware-with-otp.html": {
+      "source": "src/session-nodejs-middleware-with-otp.md",
+      "title": "Core Node.js Session Middleware with OTP - About",
+      "pageTitle": "Core Node.js Session Middleware with OTP",
+      "slug": "session-nodejs-middleware-with-otp",
+      "headings": [
+        {
+          "title": "Motivation",
+          "depth": 2,
+          "id": "motivation"
+        },
+        {
+          "title": "Implementation",
+          "depth": 2,
+          "id": "implementation",
+          "headings": [
+            {
+              "title": "Middleware",
+              "depth": 3,
+              "id": "middleware"
+            },
+            {
+              "title": "OTP",
+              "depth": 3,
+              "id": "otp"
+            },
+            {
+              "title": "Authentication",
+              "depth": 3,
+              "id": "authentication"
+            },
+            {
+              "title": "Login",
+              "depth": 3,
+              "id": "login"
+            },
+            {
+              "title": "Guard",
+              "depth": 3,
+              "id": "guard"
+            },
+            {
+              "title": "Server",
+              "depth": 3,
+              "id": "server"
+            }
+          ]
+        },
+        {
+          "title": "Tests",
+          "depth": 2,
+          "id": "tests",
+          "headings": [
+            {
+              "title": "OTP",
+              "depth": 3,
+              "id": "otp"
+            },
+            {
+              "title": "Server",
+              "depth": 3,
+              "id": "server"
+            },
+            {
+              "title": "Execution",
+              "depth": 3,
+              "id": "execution"
+            },
+            {
+              "title": "Coverage",
+              "depth": 3,
+              "id": "coverage"
+            }
+          ]
+        },
+        {
+          "title": "Demo",
+          "depth": 2,
+          "id": "demo"
+        },
+        {
+          "title": "Conclusion",
+          "depth": 2,
+          "id": "conclusion"
+        }
+      ]
     }
   },
   "sources": {
@@ -1142,9 +1316,10 @@
     "src/bats-01.md": "bats-01.html",
     "src/dependency-injection-01.md": "dependency-injection-01.html",
     "src/quokka-01.md": "quokka-01.html",
+    "src/session-nodejs-middleware-with-otp.md": "session-nodejs-middleware-with-otp.html",
     "src/BingSiteAuth.xml": "BingSiteAuth.xml",
-    "src/ackee.js": "ackee.js",
     "src/ackee-tracker.min.js": "ackee-tracker.min.js",
+    "src/ackee.js": "ackee.js",
     "src/audio/nyan-ogg-decoded.ogg": "audio/nyan-ogg-decoded.ogg",
     "src/audio/nyan.ogg": "audio/nyan.ogg",
     "src/img/fail-successfully.jpg": "img/fail-successfully.jpg",
@@ -1153,10 +1328,11 @@
     "src/img/header-es-module.png": "img/header-es-module.png",
     "src/img/header-tap-nyan-module.png": "img/header-tap-nyan-module.png",
     "src/img/header-tools-module.png": "img/header-tools-module.png",
-    "src/video/nyan-cat-2.webm": "video/nyan-cat-2.webm",
     "src/video/nyan-cat-1.webm": "video/nyan-cat-1.webm",
-    "src/video/nyan-cat-4.webm": "video/nyan-cat-4.webm",
+    "src/video/nyan-cat-2.webm": "video/nyan-cat-2.webm",
     "src/video/nyan-cat-3.webm": "video/nyan-cat-3.webm",
-    "src/video/nyan-cat-5.webm": "video/nyan-cat-5.webm"
+    "src/video/nyan-cat-4.webm": "video/nyan-cat-4.webm",
+    "src/video/nyan-cat-5.webm": "video/nyan-cat-5.webm",
+    "src/video/otp-auth-1.webm": "video/otp-auth-1.webm"
   }
 }

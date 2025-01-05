@@ -20,3 +20,5 @@
 * [Pragmatic Dependency Injection](dependency-injection-01.md)
 
 * [Quokka.js Review and Alternatives](quokka-01.md)
+
+* [Core Node.js Session Middleware with OTP](session-nodejs-middleware-with-otp.md)
