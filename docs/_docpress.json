@@ -1320,19 +1320,19 @@
     "src/BingSiteAuth.xml": "BingSiteAuth.xml",
     "src/ackee-tracker.min.js": "ackee-tracker.min.js",
     "src/ackee.js": "ackee.js",
+    "src/audio/nyan-ogg-decoded.ogg": "audio/nyan-ogg-decoded.ogg",
+    "src/audio/nyan.ogg": "audio/nyan.ogg",
     "src/img/fail-successfully.jpg": "img/fail-successfully.jpg",
-    "src/img/header-di-module.png": "img/header-di-module.png",
     "src/img/header-bats-module.png": "img/header-bats-module.png",
+    "src/img/header-di-module.png": "img/header-di-module.png",
     "src/img/header-es-module.png": "img/header-es-module.png",
     "src/img/header-tap-nyan-module.png": "img/header-tap-nyan-module.png",
     "src/img/header-tools-module.png": "img/header-tools-module.png",
-    "src/audio/nyan-ogg-decoded.ogg": "audio/nyan-ogg-decoded.ogg",
-    "src/audio/nyan.ogg": "audio/nyan.ogg",
     "src/video/nyan-cat-1.webm": "video/nyan-cat-1.webm",
     "src/video/nyan-cat-2.webm": "video/nyan-cat-2.webm",
     "src/video/nyan-cat-3.webm": "video/nyan-cat-3.webm",
     "src/video/nyan-cat-4.webm": "video/nyan-cat-4.webm",
-    "src/video/otp-auth-1.webm": "video/otp-auth-1.webm",
-    "src/video/nyan-cat-5.webm": "video/nyan-cat-5.webm"
+    "src/video/nyan-cat-5.webm": "video/nyan-cat-5.webm",
+    "src/video/otp-auth-1.webm": "video/otp-auth-1.webm"
   }
 }

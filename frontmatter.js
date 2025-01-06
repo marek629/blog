@@ -8,7 +8,7 @@ import frontMatter from 'markdown-it-front-matter'
 import { pEvent } from 'p-event'
 import YAML from 'yaml'
 
-import pkg from './package.json' assert { type: 'json' }
+import pkg from './package.json' with { type: 'json' }
 
 const mutex = new EventEmitter
 
